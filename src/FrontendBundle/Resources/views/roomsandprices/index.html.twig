@@ -1,0 +1,154 @@
+{% extends '@Frontend/base.html.twig' %}
+
+
+{% block bodyclass %} class="page" {% endblock %}
+
+ {% block seo %}
+     {% if locale == 'de' %}
+         <meta name="description" content={{ seo.descriptionTrans }}>
+         <meta name="keywords" content={{ seo.keywordsTrans }}>
+         <title>{{ seo.titleTrans }}</title>
+     {% else %}
+         <meta name="description" content={{ seo.description }}>
+         <meta name="keywords" content={{ seo.keywords }}>
+         <title>{{ seo.title }}</title>
+     {% endif %}
+ {% endblock %}
+
+{% block header %}
+    {{ render(controller('FrontendBundle:Default:headerLight')) }}
+{% endblock %}
+
+{% block special %}
+    <div class="hero hero--size--medium hero--with-overlay lazyload lazyload-container"
+         data-bgset="{{ asset('/uploads/images/background/rooms/' ~ m.backgroundImage) | imagine_filter('bg_desktop_thumb') }} [(min-width: 992px)] | {{ asset('/uploads/images/background/rooms/' ~ m.backgroundImage) | imagine_filter('bg_mobile_thumb') }}">
+        <div class="hero__inner">
+            <div class="hero__content container">
+                <div class="breadcrumbs">
+                    <ul class="breadcrumbs__list">
+                        <li class="breadcrumbs__item"><a class="breadcrumbs__link" href="{{ path('homepage') }}">Home</a>
+                            <svg class="svg-icon breadcrumbs__icon" aria-hidden="true">
+                                <use xlink:href="{{ asset('/bundles/frontend/img/icons/svg/sprite.symbol.svg') }}#chevron-right"></use>
+                            </svg>
+                        </li>
+                        <li class="breadcrumbs__item"><span class="breadcrumbs__text">{% if locale == 'de' %}{{ seo.h1Trans }}{% else %}{{ seo.h1 }}{% endif %}</span></li>
+                    </ul>
+                </div>
+                <h1 class="hero__title Mb(0)">{% if locale == 'de' %}{{ seo.h1Trans }}{% else %}{{ seo.h1 }}{% endif %}</h1></div>
+            <div class="hero__clouds"></div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    {#{% set file = thumb('G:/OSPanel/domains/hotel/src/FrontendBundle/Resources/public/img/temp/img.jpg', 1, 770) %}#}
+    {#<img src="{{ asset('/bundles/thumbnails/' ~ 1 ~ '/' ~ file) }}">#}
+
+    <section class="section">
+        <div class="container section__inner">
+            <h2 class="h2 C(eden)">{% if locale == 'de' %}{{ m.titleTrans }}{% else %}{{ m.title }}{% endif %}</h2>
+            <div class="row Mb(8rem)">
+                <div class="col-lg-7">
+                    <div class="static-content C(eden)">
+                        {% if locale == 'de' %}{{ m.descriptionTrans|raw }}{% else %}{{ m.description|raw }}{% endif %}
+                    </div>
+                </div>
+                <div class="col-lg-5 Mt(2.5rem) Mt(0)--lg">
+                    <div class="d-flex Ai(c)">
+
+                        <button class="btn btn--theme--default js-widget-init">Book now</button>
+                        <span class="mark Mstart(0.5rem)">
+                            {% if locale == 'de' %}3 gründe
+                                <svg class="svg-icon mark__icon"><use
+                                            xlink:href="{{ asset('/bundles/frontend/img/icons/svg/sprite.symbol.svg') }}#arrow-left"></use></svg>
+                                <br>buchen<br>direkte
+                            {% else %}
+                                3 reasons
+                                <svg class="svg-icon mark__icon"><use
+                                            xlink:href="{{ asset('/bundles/frontend/img/icons/svg/sprite.symbol.svg') }}#arrow-left"></use></svg>
+                                <br>to book<br>direct
+                            {% endif %}
+                    </span>
+                    </div>
+                    <div class="js-widget"
+                         data-src="https://res-online.ch/wbePlus/incubator.js.php?hotelID=2872&amp;username=WBEPlus&amp;password=zSUyPbYu&amp;type=step"
+                         style="display: none;">
+                        <div id="wbe_container"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="cards">
+                <div class="cards__inner">
+                    {% for i in m.item %}
+                        {% set file = app.request.schemeAndHttpHost ~ asset('/uploads/images/room-class/' ~ i.image) %}
+                        <div class="card cards__item">
+                            <div class="card__inner">
+                                <figure class="card__figure lazyload-container lazyload-container--transitioned lazyload-container--spacer-needed-square">
+                                    <img class="card__img lazyload" data-sizes="auto"
+                                         data-srcset="{{ asset('/bundles/frontend/thumbnails/room-class/' ~ loop.index ~ '/' ~ thumb(file, loop.index, 'room-class', 304)) }} 304w,
+                                                      {{ asset('/bundles/frontend/thumbnails/room-class/' ~ loop.index ~ '/' ~ thumb(file, loop.index, 'room-class', 608)) }} 608w"
+                                         data-src="{{ asset('/uploads/images/room-class-item/' ~ i.image) }}" alt=""/>
+                                </figure>
+                                <div class="card__info">
+                                    <h3 class="h2 C(eden)">{% if locale == 'de' %}{{ i.titleTrans }}{% else %}{{ i.title }}{% endif %}</h3>
+                                    <p class="h3 C(eden)">Price €{{ i.price }}</p>
+                                    <div class="static-content Mb(2rem) C(eden)">
+                                        {% if locale == 'de' %}{{ i.descriptionTrans|raw }}{% else %}{{ i.description|raw }}{% endif %}
+                                    </div>
+                                    <a class="btn btn--theme--default" href='{{ path('room-class', {'slug': i.slug}) }}'>More info</a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    {#<div class="card cards__item">#}
+                        {#<div class="card__inner">#}
+                            {#<figure class="card__figure lazyload-container lazyload-container--transitioned lazyload-container--spacer-needed-square">#}
+                                {#<img class="card__img lazyload" data-sizes="auto"#}
+                                     {#data-srcset="img/temp/card-2_304.jpg 304w, img/temp/card-2_608.jpg 608w"#}
+                                     {#data-src="img/temp/card-2_608.jpg" alt=""/></figure>#}
+                            {#<div class="card__info"><h3 class="h2 C(eden)">Superior</h3>#}
+                                {#<p class="h3 C(eden)">Price €350-1000</p>#}
+                                {#<div class="static-content Mb(2rem) C(eden)"><p>Experience well-being in over XXX#}
+                                        {#sqm of space and the astonishing view of the surrounding mountains</p></div>#}
+                                {#<a class="btn btn--theme--default" href="#">More info</a></div>#}
+                        {#</div>#}
+                    {#</div>#}
+                    {#<div class="card cards__item">#}
+                        {#<div class="card__inner">#}
+                            {#<figure class="card__figure lazyload-container lazyload-container--transitioned lazyload-container--spacer-needed-square">#}
+                                {#<img class="card__img lazyload" data-sizes="auto"#}
+                                     {#data-srcset="img/temp/card-3_304.jpg 304w, img/temp/card-3_608.jpg 608w"#}
+                                     {#data-src="img/temp/card-3_608.jpg" alt=""/></figure>#}
+                            {#<div class="card__info"><h3 class="h2 C(eden)">Classic</h3>#}
+                                {#<p class="h3 C(eden)">Price €660-2000</p>#}
+                                {#<div class="static-content Mb(2rem) C(eden)"><p>Enjoy marvelous mountain views from#}
+                                        {#balcony in this XXX sqm room featuring</p></div>#}
+                                {#<a class="btn btn--theme--default" href="#">More info</a></div>#}
+                        {#</div>#}
+                    {#</div>#}
+                    {#<div class="card cards__item">#}
+                        {#<div class="card__inner">#}
+                            {#<figure class="card__figure lazyload-container lazyload-container--transitioned lazyload-container--spacer-needed-square">#}
+                                {#<img class="card__img lazyload" data-sizes="auto"#}
+                                     {#data-srcset="img/temp/card-4_304.jpg 304w, img/temp/card-4_608.jpg 608w"#}
+                                     {#data-src="img/temp/card-4_608.jpg" alt=""/></figure>#}
+                            {#<div class="card__info"><h3 class="h2 C(eden)">Comfort</h3>#}
+                                {#<p class="h3 C(eden)">Price Price €660-11000</p>#}
+                                {#<div class="static-content Mb(2rem) C(eden)"><p>The rooms offer at least XY sqm of#}
+                                        {#space featuring</p></div>#}
+                                {#<a class="btn btn--theme--default" href="#">More info</a></div>#}
+                        {#</div>#}
+                    {#</div>#}
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section Bgc(secondary)">
+        <div class="container section__inner">
+            <div class="static-content C(primary)">
+                <p>{% if locale == 'de' %}{{ m.specialTrans }}{% else %}{{ m.special }}{% endif %}</p>
+            </div>
+        </div>
+    </section>
+    {% include '@Frontend/parts/_map.html.twig' %}
+{% endblock %}

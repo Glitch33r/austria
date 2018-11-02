@@ -1,0 +1,98 @@
+{% extends '@Frontend/base.html.twig' %}
+
+
+{% block bodyclass %} class="page" {% endblock %}
+
+{% block seo %}
+     <style>.dialog-backdrop{ display: none; }</style>
+     {% if locale == 'de' %}
+         <meta name="description" content={{ seo.descriptionTrans }}>
+         <meta name="keywords" content={{ seo.keywordsTrans }}>
+         <title>{{ seo.titleTrans }}</title>
+     {% else %}
+         <meta name="description" content={{ seo.description }}>
+         <meta name="keywords" content={{ seo.keywords }}>
+         <title>{{ seo.title }}</title>
+     {% endif %}
+{% endblock %}
+
+{% block header %}
+    {{ render(controller('FrontendBundle:Default:headerLight')) }}
+{% endblock %}
+
+{% block special %}
+    <div class="hero hero--size--medium hero--with-overlay lazyload lazyload-container"
+         data-bgset="{{ asset('/uploads/images/background/contacts/' ~ contact.backgroundImage) | imagine_filter('bg_desktop_thumb') }} [(min-width: 992px)] | {{ asset('/uploads/images/background/contacts/' ~ contact.backgroundImage) | imagine_filter('bg_mobile_thumb') }}">
+        <div class="hero__inner">
+            <div class="hero__content container">
+                <div class="breadcrumbs">
+                    <ul class="breadcrumbs__list">
+                        <li class="breadcrumbs__item">
+                            <a class="breadcrumbs__link" href="{{ path('homepage') }}">Home</a>
+                            <svg class="svg-icon breadcrumbs__icon" aria-hidden="true">
+                                <use xlink:href="{{ asset('/bundles/frontend/img/icons/svg/sprite.symbol.svg') }}#chevron-right"></use>
+                            </svg>
+                        </li>
+                        <li class="breadcrumbs__item">
+                            <span class="breadcrumbs__text">{% if locale == 'de' %}{{ seo.h1Trans }}{% else %}{{ seo.h1 }}{% endif %}</span>
+                        </li>
+                    </ul>
+                </div>
+                <h1 class="hero__title Mb(0)">{% if locale == 'de' %}{{ seo.h1Trans }}{% else %}{{ seo.h1 }}{% endif %}</h1>
+            </div>
+            <img class="hero__people lazyload js-parallax B(-208px) W(500px)"
+                 data-srcset="{{ asset('/bundles/frontend/img/people-desktop-2_500.png') }} 500w,
+                               {{ asset('/bundles/frontend/img/people-desktop-2_1000.png') }} 1000w"
+                 data-src="{{ asset('/bundles/frontend/img/people-desktop-2_1000.png') }}" data-sizes="auto" alt=""
+                 data-speed="36">
+            <div class="hero__clouds"></div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block content %}
+    {#{% set file = thumb('G:/OSPanel/domains/hotel/src/FrontendBundle/Resources/public/img/temp/img.jpg', 1, 770) %}#}
+    {#<img src="{{ asset('/bundles/thumbnails/' ~ 1 ~ '/' ~ file) }}">#}
+
+    <section class="section">
+        <div class="container section__inner">
+            <div class="row">
+                <div class="col-lg-6">
+                    <h2 class="h2 C(eden)">{% if locale == 'de' %}Unsere Kontakte{% else %}Our contacts{% endif %}</h2>
+                    <div class="contacts contacts--theme--dark contacts--size--big contacts--vertical Mb(2rem)">
+                        <ul class="contacts__list">
+                            <li class="contacts__item"><a class="contacts__link" href="tel:{{ contact.telephone }}">
+                                    <svg class="svg-icon contacts__icon" aria-hidden="true">
+                                        <use xlink:href="{{ asset('/bundles/frontend/img/icons/svg/sprite.symbol.svg') }}#phone"></use>
+                                    </svg>
+                                    <span class="contacts__text">{{ contact.telephone }}</span></a></li>
+                            <li class="contacts__item">
+                                <svg class="svg-icon contacts__icon" aria-hidden="true">
+                                    <use xlink:href="{{ asset('/bundles/frontend/img/icons/svg/sprite.symbol.svg') }}#location"></use>
+                                </svg>
+                                <span class="contacts__text">{{ contact.address }}</span>
+                            </li>
+                            <li class="contacts__item"><a class="contacts__link" href="mailto:{{ contact.email }}">
+                                    <svg class="svg-icon contacts__icon" aria-hidden="true">
+                                        <use xlink:href="{{ asset('/bundles/frontend/img/icons/svg/sprite.symbol.svg') }}#envelope"></use>
+                                    </svg>
+                                    <span class="contacts__text">{{ contact.email }}</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <h2 class="h2 C(eden)">{% if locale == 'de' %}Sag Hallo{% else %}Say hello{% endif %}</h2>
+            {{ render(controller('FrontendBundle:Default:contactForm')) }}
+        </div>
+    </section>
+    {% include '@Frontend/parts/_map.html.twig' %}
+{% endblock %}
+
+{% block jscripts %}
+    <script type="text/javascript" src="{{ asset('/bundles/frontend/js/contacts.js') }}"></script>
+{% endblock %}
+
+{% block modal %}
+    {% include '@Frontend/parts/_modal.html.twig' %}
+{% endblock %}

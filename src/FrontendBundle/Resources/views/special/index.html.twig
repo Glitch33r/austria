@@ -1,0 +1,143 @@
+{% extends '@Frontend/base.html.twig' %}
+
+
+{% block bodyclass %} class="page" {% endblock %}
+
+{% block seo %}
+     {% if locale == 'de' %}
+         <meta name="description" content={% if seo.descriptionTrans %}{{ seo.descriptionTrans }}{% endif %}>
+         <meta name="keywords" content={% if seo.keywordsTrans %}{{ seo.keywordsTrans }}{% endif %}>
+         <title>{{ seo.titleTrans }}</title>
+     {% else %}
+         <meta name="description" content={% if seo.description %}{{ seo.description }}{% endif %}>
+         <meta name="keywords" content={% if seo.keywords %}{{ seo.keywords }}{% endif %}>
+         <title>{{ seo.title }}</title>
+     {% endif %}
+{% endblock %}
+
+{% block header %}
+    {{ render(controller('FrontendBundle:Default:headerLight')) }}
+{% endblock %}
+
+{% block special %}
+    <div class="hero hero--size--medium hero--with-overlay lazyload lazyload-container"
+         data-bgset="{{ asset('/uploads/images/background/offers/' ~ data.backgroundImage) | imagine_filter('bg_desktop_thumb') }} [(min-width: 992px)] | {{ asset('/uploads/images/background/offers/' ~ data.backgroundImage) | imagine_filter('bg_mobile_thumb') }}">
+        <div class="hero__inner">
+            <div class="hero__content container">
+                <div class="breadcrumbs">
+                    <ul class="breadcrumbs__list">
+                        <li class="breadcrumbs__item"><a class="breadcrumbs__link" href="{{ path('homepage') }}">Home</a>
+                            <svg class="svg-icon breadcrumbs__icon" aria-hidden="true">
+                                <use xlink:href="{{ asset('/bundles/frontend/img/icons/svg/sprite.symbol.svg') }}#chevron-right"></use>
+                            </svg>
+                        </li>
+                        <li class="breadcrumbs__item"><span class="breadcrumbs__text">{% if locale == 'de' %}{{ seo.h1Trans }}{% else %}{{ seo.h1 }}{% endif %}</span></li>
+                    </ul>
+                </div>
+                <h1 class="hero__title">{% if locale == 'de' %}{{ seo.h1Trans }}{% else %}{{ seo.h1 }}{% endif %}</h1>
+            </div>
+            <div class="hero__clouds"></div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <section class="section">
+        <div class="container section__inner">
+            <div class="row">
+                <div class="col-lg-8">
+                    <h2 class="h2 C(primary)">{% if locale == 'de' %}{{ data.titleTrans }}{% else %}{{ data.title }}{% endif %}</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-7">
+                    <div class="static-content C(primary)">
+                        {% if locale == 'de' %}{{ data.descriptionTrans|raw }}{% else %}{{ data.description|raw }}{% endif %}
+                    </div>
+                </div>
+                <div class="col-lg-5 Mt(2.5rem) Mt(0)--lg">
+                    <div class="d-flex Ai(c)">
+                        <a class="btn btn--theme--invert" href="#">Book now</a>
+                        <span class="mark Mstart(0.5rem)">
+                            {% if locale == 'de' %}3 gründe
+                                <svg class="svg-icon mark__icon"><use xlink:href="{{ asset('/bundles/frontend/img/icons/svg/sprite.symbol.svg') }}#arrow-left"></use></svg>
+                                <br>buchen<br>direkte
+                            {% else %}
+                                3 reasons
+                                <svg class="svg-icon mark__icon"><use xlink:href="{{ asset('/bundles/frontend/img/icons/svg/sprite.symbol.svg') }}#arrow-left"></use></svg>
+                                <br>to book<br>direct
+                            {% endif %}
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section section--theme--semi-dark section--img--left section--with-padding section--img-fixed section--img-fixed--img-left">
+        <div class="section__inner">
+            <div class="section__content">
+                {% set file = app.request.schemeAndHttpHost ~ asset('/uploads/images/offer-main/' ~ data.image) %}
+                <figure class="section__img-wrap lazyload-container lazyload-container--spacer-needed-rectangle">
+                    <img class="section__img lazyload"
+                         data-srcset="{{ asset('/bundles/frontend/thumbnails/offer-main/' ~ 1 ~ '/' ~ thumb(file, 1, 'offer-main', 385)) }} 385w,
+                                      {{ asset('/bundles/frontend/thumbnails/offer-main/' ~ 1 ~ '/' ~ thumb(file, 1, 'offer-main', 522)) }} 522w,
+                                      {{ asset('/bundles/frontend/thumbnails/offer-main/' ~ 1 ~ '/' ~ thumb(file, 1, 'offer-main', 770)) }} 770w,
+                                      {{ asset('/bundles/frontend/thumbnails/offer-main/' ~ 1 ~ '/' ~ thumb(file, 1, 'offer-main', 1044)) }} 1044w"
+                         data-src="{{ asset('/uploads/images/offer-main/' ~ data.image) }}" data-sizes="auto" alt="">
+                </figure>
+                <div class="section__text">
+                    <div class="section__text-inner">
+                        <h3 class="h2">
+                            {% if locale == 'de' %}{{ data.firstBlcTitleTrans }}{% else %}{{ data.firstBlcTitle }}{% endif %}
+                        </h3>
+                        <div class="static-content">
+                            {% if locale == 'de' %}{{ data.firstBlcDescriptionTrans|raw }}{% else %}{{ data.firstBlcDescription|raw }}{% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="Bgi(gallery-gradient-light)">
+        <div class="container section__inner">
+            <div class="gallery gallery--theme--primary">
+                <div class="glide gallery__slider">
+                    <div class="glide__track" data-glide-el="track">
+                        <ul class="glide__slides gallery__items">
+                            {% for item in data.item %}
+
+                                {#{% set file = app.request.schemeAndHttpHost ~ asset('/uploads/images/offer-item/' ~ item.image) %}#}
+                                <li class="gallery__item glide__slide H(a)--lg D(f)--lg Fld(c)--lg">
+                                    <figure class="gallery__img-wrap lazyload-container lazyload-container--spacer-needed-square">
+                                        <img class="gallery__img lazyload" data-sizes="auto"
+                                             data-srcset="{{ asset('/uploads/images/offer-item/' ~ item.image) |imagine_filter('thumb_250') }} 250w,
+                                                          {{ asset('/uploads/images/offer-item/' ~ item.image) |imagine_filter('thumb_500') }} 500w"
+                                             data-src="{{ asset('/uploads/images/offer-item/' ~ item.image) }}" alt="">
+                                        <figcaption class="gallery__caption">
+                                            <h4 class="h3 gallery__title">{% if locale == 'de' %}{{ item.titleTrans }}{% else %}{{ item.title }}{% endif %}</h4>
+                                        </figcaption>
+                                    </figure>
+                                    <div class="static-content Mb(2rem)">
+                                        {% if locale == 'de' %}{{ item.descriptionTrans|raw }}{% else %}{{ item.description|raw }}{% endif %}
+                                    </div>
+                                    <span class="h3 D(b) Mb(1.5rem) Mt(a)--lg">Price €{{ item.price }}</span>
+                                    <a class="btn btn--theme--invert" href="#"><span class="btn__inner">Book now</span></a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div class="glide__bullets" data-glide-el="controls[nav]">
+                        {% for item in data.item %}
+                            <button class="glide__bullet" data-glide-dir="={{ loop.index-1 }}"></button>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% include '@Frontend/parts/_map.html.twig' %}
+{% endblock %}
+
+{% block jscripts %}
+    <script type="text/javascript" src="{{ asset('/bundles/frontend/js/special-offers.js') }}"></script>
+{% endblock %}

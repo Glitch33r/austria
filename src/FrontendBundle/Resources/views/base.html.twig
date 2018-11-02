@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">{% block seo %}{% endblock %}
+    <link rel="stylesheet" href="{{ asset('/bundles/frontend/css/main.css') }}">{% block stylesheets %}{% endblock %}
+    <script>function loadScript(src) {
+            var scriptElement = document.createElement("script");
+            scriptElement.async = false;
+            scriptElement.src = src;
+            document.head.appendChild(scriptElement);
+        }
+
+        if (!Element.prototype.closest) loadScript("{{ asset('/bundles/frontend/js/polyfills.js') }}");
+        if (!window.HTMLPictureElement || document.msElementsFromPoint) loadScript("{{ asset('/bundles/frontend/js/responsive-images-polyfill.js') }}");
+        if ("objectFit" in document.documentElement.style === false) loadScript("{{ asset('/bundles/frontend/js/object-fit-polyfill.js') }}"); </script>
+</head>
+<body{% block bodyclass %}{% endblock %}>
+<div class="page__wrapper">{% block header %}{{ render(controller('FrontendBundle:Default:headerDark')) }}{% endblock %}
+    <main class="page__content">{% block special %}{% endblock %}{% block content %}{% endblock %}{% include'FrontendBundle:parts:_sub.html.twig' %}</main>{% block footer %}{{ render(controller('FrontendBundle:Default:footer')) }}{% endblock %}
+</div>{% block cookies %}{% include '@Frontend/parts/_cookies.html.twig' %}{% endblock %}
+<script type="text/javascript"
+        src="{{ asset('/bundles/frontend/js/common.js') }}"></script>
+{% block jscripts %}{% endblock %}
+
+{% block modal %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,44 @@
+<div class="Py(2rem) Bgc(lunar-green)">
+    <div class="container" id="subscription">
+        <form class="subscription" method="post">
+            <div class="subscription__inner">
+                <p class="subscription__text">{% if app.request.session.get('_locale') == 'de' %}Newsletter abonnieren{% else %}Subscribe for newsletter{% endif %}</p>
+                <div class="subscription__inputs">
+                    <input class="subscription__input" type="email" name="email-subscription" placeholder="EMAIL">
+                    <button type="submit" class="subscription__btn btn btn--theme--light">{% if app.request.session.get('_locale') == 'de' %}Einreichen{% else %}Submit{% endif %}</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script
+        src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+<script type="text/javascript">
+    $('.subscription').submit(function (e) {
+
+        console.log($(this).serialize());
+        e.preventDefault();
+        // var formData = new FormData(this);
+        var url = "{{ path('submit-subscription') }}";
+        var formSerialize = $(this).serialize();
+
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: formSerialize, // serializes the form's elements.
+            success: function(data)
+            {
+                if (JSON.parse(data).status === true){
+                    $('#subscription').html('<div class="subscription__inner"><p class="subscription__text">{% if app.request.session.get('_locale') == 'de' %}Danke fürs Abonnieren!{% else %}Thank you for subscribing!{% endif %}</p></div>');
+                }
+                else{
+                    $('#subscription').html('<div class="subscription__inner"><p class="subscription__text">{% if app.request.session.get('_locale') == 'de' %}Ihre Daten sind falsch! Bitte versuche es erneut!{% else %}Your data are wrong! Please, try again!{% endif %}</p></div>');
+                }
+            }
+        });
+
+    });
+</script>

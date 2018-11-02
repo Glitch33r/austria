@@ -1,0 +1,299 @@
+imports:
+    - { resource: parameters.yml }
+    - { resource: security.yml }
+    - { resource: services.yml }
+    - { resource: admin.yml }
+
+    - { resource: "@FrontendBundle/Resources/config/services.yml" }
+    - { resource: "@BackendBundle/Resources/config/services.yml" }
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
+parameters:
+    locale: en
+    app.path.activities: /uploads/images/activities
+    app.path.amenitie_part: /uploads/images/amenitiepart
+    app.path.charlets: /uploads/images/charlets
+    app.path.adventures: /uploads/images/adventures
+    app.path.spa: /uploads/images/spa
+    app.path.room_class: /uploads/images/room-class
+    app.path.room_class_item: /uploads/images/room-class-item
+    app.path.room_class_gallery: /uploads/images/room-class-gallery
+    app.path.about_first: /uploads/images/about-first
+    app.path.about_third: /uploads/images/about-third
+    app.path.about_fourth: /uploads/images/about-fourth
+    app.path.about_us_item: /uploads/images/about-us-item
+    app.path.chalet_gallery: /uploads/images/chalet-gallery
+    app.path.chalet_item: /uploads/images/chalet-item
+    app.path.offer_item: /uploads/images/offer-item
+    app.path.offer_main: /uploads/images/offer-main
+    app.path.chalet_gallery_thumb: /uploads/images/chalet-gallery/thumb
+    app.path.spa_gallery_thumb: /uploads/images/spa-gallery/thumb
+    app.path.spa_gallery: /uploads/images/spa-gallery
+    app.path.spa_page: /uploads/images/spa-page
+    app.path.background_home: /uploads/images/background/home
+    app.path.background_about: /uploads/images/background/about
+    app.path.background_rooms: /uploads/images/background/rooms
+    app.path.background_chalet: /uploads/images/background/chalets
+    app.path.background_offers: /uploads/images/background/offers
+    app.path.background_activities: /uploads/images/background/activities
+    app.path.background_contacts: /uploads/images/background/contacts
+    app.path.background_spa: /uploads/images/background/spa
+    app.path.background_restaurant: /uploads/images/background/restaurant
+    app.path.rest_gallery: /uploads/images/rest-gallery
+    app.path.rest_page: /uploads/images/rest
+
+
+liip_imagine:
+  resolvers:
+    default:
+      web_path: ~
+
+  loaders:
+    profile_photos:
+      filesystem: ~
+
+  filter_sets:
+    cache: ~
+
+    bg_desktop_thumb:
+      quality: 80
+      filters:
+        thumbnail: { size: [1920, 576] }
+#        background: { size: [1920, 576] }
+    bg_mobile_thumb:
+      quality: 80
+      filters:
+        thumbnail: { size: [425, 576] }
+    thumb_104:
+      quality: 80
+      filters:
+        thumbnail: { size: [104, 104] }
+    thumb_208:
+      quality: 80
+      filters:
+        thumbnail: { size: [208, 208] }
+    thumb_250:
+      quality: 80
+      filters:
+        thumbnail: { size: [250, 250] }
+    thumb_500:
+      quality: 80
+      filters:
+        thumbnail: { size: [500, 500] }
+#        background: { size: [425, 576]}
+
+
+
+vich_uploader:
+    db_driver: orm
+    mappings:
+          spa_page:
+              uri_prefix:         '%app.path.spa_page%'
+              upload_destination: '%kernel.root_dir%/../web/uploads/images/spa-page'
+          rest_page:
+              uri_prefix:         '%app.path.rest_page%'
+              upload_destination: '%kernel.root_dir%/../web/uploads/images/rest'
+          background_restaurant:
+              uri_prefix:         '%app.path.background_restaurant%'
+              upload_destination: '%kernel.root_dir%/../web/uploads/images/background/restaurant'
+          rest_gallery:
+              uri_prefix:         '%app.path.rest_gallery%'
+              upload_destination: '%kernel.root_dir%/../web/uploads/images/rest-gallery'
+          background_spa:
+              uri_prefix:         '%app.path.background_spa%'
+              upload_destination: '%kernel.root_dir%/../web/uploads/images/background/spa'
+          background_contacts:
+              uri_prefix:         '%app.path.background_contacts%'
+              upload_destination: '%kernel.root_dir%/../web/uploads/images/background/contacts'
+          background_activities:
+              uri_prefix:         '%app.path.background_activities%'
+              upload_destination: '%kernel.root_dir%/../web/uploads/images/background/activities'
+          background_offers:
+              uri_prefix:         '%app.path.background_offers%'
+              upload_destination: '%kernel.root_dir%/../web/uploads/images/background/offers'
+          background_chalet:
+              uri_prefix:         '%app.path.background_chalet%'
+              upload_destination: '%kernel.root_dir%/../web/uploads/images/background/chalets'
+          background_rooms:
+              uri_prefix:         '%app.path.background_rooms%'
+              upload_destination: '%kernel.root_dir%/../web/uploads/images/background/rooms'
+          background_about:
+              uri_prefix:         '%app.path.background_about%'
+              upload_destination: '%kernel.root_dir%/../web/uploads/images/background/about'
+          background_home:
+              uri_prefix:         '%app.path.background_home%'
+              upload_destination: '%kernel.root_dir%/../web/uploads/images/background/home'
+          spa_gallery:
+              uri_prefix:         '%app.path.spa_gallery%'
+              upload_destination: '%kernel.root_dir%/../web/uploads/images/spa-gallery'
+          spa_gallery_thumb:
+              uri_prefix:         '%app.path.spa_gallery_thumb%'
+              upload_destination: '%kernel.root_dir%/../web/uploads/images/spa-gallery/thumb'
+          chalet_gallery_thumb:
+              uri_prefix:         '%app.path.chalet_gallery_thumb%'
+              upload_destination: '%kernel.root_dir%/../web/uploads/images/chalet-gallery/thumb'
+          offer_main:
+              uri_prefix:         '%app.path.offer_main%'
+              upload_destination: '%kernel.root_dir%/../web/uploads/images/offer-main'
+          offer_item:
+              uri_prefix:         '%app.path.offer_item%'
+              upload_destination: '%kernel.root_dir%/../web/uploads/images/offer-item'
+          amenitie_part:
+              uri_prefix:         '%app.path.amenitie_part%'
+              upload_destination: '%kernel.root_dir%/../web/uploads/images/amenitiepart'
+          charlets:
+              uri_prefix:         '%app.path.charlets%'
+              upload_destination: '%kernel.root_dir%/../web/uploads/images/charlets'
+          adventures:
+              uri_prefix:         '%app.path.adventures%'
+              upload_destination: '%kernel.root_dir%/../web/uploads/images/adventures'
+          spa:
+              uri_prefix:         '%app.path.spa%'
+              upload_destination: '%kernel.root_dir%/../web/uploads/images/spa'
+          room_class:
+              uri_prefix:         '%app.path.room_class%'
+              upload_destination: '%kernel.root_dir%/../web/uploads/images/room-class'
+          room_class_gallery:
+              uri_prefix:         '%app.path.room_class_gallery%'
+              upload_destination: '%kernel.root_dir%/../web/uploads/images/room-class-gallery'
+          room_class_item:
+              uri_prefix:         '%app.path.room_class_item%'
+              upload_destination: '%kernel.root_dir%/../web/uploads/images/room-class-item'
+          activities:
+              uri_prefix:         '%app.path.activities%'
+              upload_destination: '%kernel.root_dir%/../web/uploads/images/activities'
+          about_us_item:
+              uri_prefix:         '%app.path.about_us_item%'
+              upload_destination: '%kernel.root_dir%/../web/uploads/images/about-us-item'
+          about_first:
+              uri_prefix:         '%app.path.about_first%'
+              upload_destination: '%kernel.root_dir%/../web/uploads/images/about-first'
+          about_third:
+              uri_prefix:         '%app.path.about_third%'
+              upload_destination: '%kernel.root_dir%/../web/uploads/imawges/about-third'
+          about_fourth:
+              uri_prefix:         '%app.path.about_fourth%'
+              upload_destination: '%kernel.root_dir%/../web/uploads/images/about-fourth'
+          chalet_gallery:
+              uri_prefix:         '%app.path.chalet_gallery%'
+              upload_destination:  '%kernel.root_dir%/../web/uploads/images/chalet-gallery'
+          chalet_item:
+              uri_prefix:         '%app.path.chalet_item%'
+              upload_destination: '%kernel.root_dir%/../web/uploads/images/chalet-item'
+
+framework:
+    templating:
+            engines: ['twig']
+    #esi: ~
+    translator: { fallbacks: ['%locale%'] }
+    secret: '%secret%'
+    router:
+        resource: '%kernel.project_dir%/app/config/routing.yml'
+        strict_requirements: ~
+    form: ~
+    csrf_protection: ~
+    validation: { enable_annotations: true }
+    #serializer: { enable_annotations: true }
+    default_locale: '%locale%'
+    trusted_hosts: ~
+    session:
+        # https://symfony.com/doc/current/reference/configuration/framework.html#handler-id
+        handler_id: session.handler.native_file
+        save_path: '%kernel.project_dir%/var/sessions/%kernel.environment%'
+    fragments: ~
+    http_method_override: true
+    assets: ~
+    php_errors:
+        log: true
+
+# Twig Configuration
+twig:
+    debug: '%kernel.debug%'
+    strict_variables: '%kernel.debug%'
+
+# Doctrine Configuration
+doctrine:
+    dbal:
+        driver: pdo_mysql
+        host: '%database_host%'
+        port: '%database_port%'
+        dbname: '%database_name%'
+        user: '%database_user%'
+        password: '%database_password%'
+        charset: UTF8
+        # if using pdo_sqlite as your database driver:
+        #   1. add the path in parameters.yml
+        #     e.g. database_path: '%kernel.project_dir%/var/data/data.sqlite'
+        #   2. Uncomment database_path in parameters.yml.dist
+        #   3. Uncomment next line:
+        #path: '%database_path%'
+
+    orm:
+        auto_generate_proxy_classes: '%kernel.debug%'
+        naming_strategy: doctrine.orm.naming_strategy.underscore
+        auto_mapping: true
+
+# Swiftmailer Configuration
+swiftmailer:
+    transport: '%mailer_transport%'
+    host: '%mailer_host%'
+    username: '%mailer_user%'
+    password: '%mailer_password%'
+    spool: { type: memory }
+
+sensio_framework_extra:
+   router:
+        annotations: false
+
+fos_user:
+    db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
+    firewall_name: main
+    user_class: BackendBundle\Entity\User
+    from_email:
+            address: "a@.a.a"
+            sender_name: "a@.a.a"
+
+
+stof_doctrine_extensions:
+    orm:
+        default:
+            sortable: true
+            sluggable: true
+            timestampable: true
+
+knp_paginator:
+    page_range: 5                      # default page range used in pagination control
+    default_options:
+        page_name: page                # page query parameter name
+        sort_field_name: sort          # sort field query parameter name
+        sort_direction_name: direction # sort direction query parameter name
+        distinct: true                 # ensure distinct results, useful when ORM queries are using GROUP BY statements
+    template:
+        pagination: 'KnpPaginatorBundle:Pagination:sliding.html.twig'     # sliding pagination controls template
+        sortable: 'KnpPaginatorBundle:Pagination:sortable_link.html.twig' # sort link template
+
+fm_elfinder:
+    instances:
+        default:
+            locale: "%locale%" # defaults to current request locale
+            editor: ckeditor # other choices are tinymce or simple
+            #showhidden: false # defaults to false
+            fullscreen: true # defaults true, applies to simple and ckeditor editors
+            include_assets: true # disable if you want to handle loading of the javascript and css assets yourself
+            connector:
+                debug: false # defaults to false
+                roots:       # at least one root must be defined
+                    uploads:
+                        driver: LocalFileSystem
+                        path: uploads
+                        upload_allow: ['image/png', 'image/jpg', 'image/jpeg']
+                        upload_deny: ['all']
+                        upload_max_size: 10M
+
+ivory_ck_editor:
+    default_config: default
+    configs:
+        default:
+            filebrowserBrowseRoute: elfinder
+            filebrowserBrowseRouteParameters: []

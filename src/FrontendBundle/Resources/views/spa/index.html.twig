@@ -1,0 +1,159 @@
+{% extends '@Frontend/base.html.twig' %}
+
+
+{% block bodyclass %} class="page" {% endblock %}
+
+{% block seo %}
+     {% if locale == 'de' %}
+         <meta name="description" content={% if seo.descriptionTrans %}{{ seo.descriptionTrans }}{% endif %}>
+         <meta name="keywords" content={% if seo.keywordsTrans %}{{ seo.keywordsTrans }}{% endif %}>
+         <title>{{ seo.titleTrans }}</title>
+     {% else %}
+         <meta name="description" content={% if seo.description %}{{ seo.description }}{% endif %}>
+         <meta name="keywords" content={% if seo.keywords %}{{ seo.keywords }}{% endif %}>
+         <title>{{ seo.title }}</title>
+     {% endif %}
+{% endblock %}
+
+{% block header %}
+    {{ render(controller('FrontendBundle:Default:headerLight')) }}
+{% endblock %}
+
+{% block special %}
+    <div class="hero hero--size--medium hero--with-overlay lazyload lazyload-container"
+         data-bgset="{{ asset('/uploads/images/background/spa/' ~ data.backgroundImage) | imagine_filter('bg_desktop_thumb') }} [(min-width: 992px)] | {{ asset('/uploads/images/background/spa/' ~ data.backgroundImage) | imagine_filter('bg_mobile_thumb') }}">
+        <div class="hero__inner">
+            <div class="hero__content container">
+                <div class="breadcrumbs">
+                    <ul class="breadcrumbs__list">
+                        <li class="breadcrumbs__item"><a class="breadcrumbs__link" href="{{ path('homepage') }}">Home</a>
+                            <svg class="svg-icon breadcrumbs__icon" aria-hidden="true">
+                                <use xlink:href="{{ asset('/bundles/frontend/img/icons/svg/sprite.symbol.svg') }}#chevron-right"></use>
+                            </svg>
+                        </li>
+                        <li class="breadcrumbs__item"><span class="breadcrumbs__text">{% if locale == 'de' %}{{ seo.h1Trans }}{% else %}{{ seo.h1 }}{% endif %}</span></li>
+                    </ul>
+                </div>
+                <h1 class="hero__title Mb(0)">{% if locale == 'de' %}{{ seo.h1Trans }}{% else %}{{ seo.h1 }}{% endif %}</h1></div>
+            <div class="hero__clouds"></div>
+            <img class="hero__people lazyload js-parallax B(-96px) W(300px)"
+                 data-srcset="{{ asset('/bundles/frontend/img/people-desktop-4_300.png') }} 300w,
+                              {{ asset('/bundles/frontend/img/people-desktop-4_600.png') }} 660w"
+                 data-src="{{ asset('/bundles/frontend/img/people-desktop-4_600.png') }}" data-sizes="auto" alt="" data-speed="18">
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+
+    <section class="section">
+        <div class="container section__inner">
+            <div class="row">
+                <div class="col-lg-9"><h2 class="h2 C(eden)">{% if locale == 'de' %}{{ data.titleTrans }}{% else %}{{ data.title }}{% endif %}</h2></div>
+            </div>
+            <div class="row">
+                <div class="col-lg-7">
+                    <div class="static-content C(eden)">
+                        {% if locale == 'de' %}{{ data.descriptionTrans|raw}}{% else %}{{ data.description|raw }}{% endif %}
+                    </div>
+                </div>
+                <div class="col-lg-5 Mt(2.5rem) Mt(0)--lg">
+                    <div class="d-flex Ai(c)"><a class="btn btn--theme--invert js-widget-init" href="#">Book now</a>
+                        <span class="mark Mstart(0.5rem)">
+                            {% if locale == 'de' %}3 gründe
+                                    <svg class="svg-icon mark__icon"><use
+                                        xlink:href="{{ asset('/bundles/frontend/img/icons/svg/sprite.symbol.svg') }}#arrow-left"></use></svg>
+                                <br>buchen<br>direkte
+                            {% else %}
+                                3 reasons
+                                <svg class="svg-icon mark__icon"><use
+                                            xlink:href="{{ asset('/bundles/frontend/img/icons/svg/sprite.symbol.svg') }}#arrow-left"></use></svg>
+                                <br>to book<br>direct
+                            {% endif %}
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section section--theme--blue section--img--left section--with-padding section--img-fixed section--img-fixed--img-left">
+        <div class="section__inner">
+            <div class="section__content">
+                <figure class="section__img-wrap lazyload-container lazyload-container--spacer-needed-rectangle">
+                    {% set file = app.request.schemeAndHttpHost ~ asset('/uploads/images/spa-page/' ~ data.image) %}
+                    <img class="section__img lazyload"
+                         data-srcset="{{ asset('/bundles/frontend/thumbnails/spa-page/' ~ 1 ~ '/' ~ thumb(file, 1, 'spa-page', 385)) }} 385w,
+                                      {{ asset('/bundles/frontend/thumbnails/spa-page/' ~ 1 ~ '/' ~ thumb(file, 1, 'spa-page', 521)) }} 521w,
+                                      {{ asset('/bundles/frontend/thumbnails/spa-page/' ~ 1 ~ '/' ~ thumb(file, 1, 'spa-page', 770)) }} 770w,
+                                      {{ asset('/bundles/frontend/thumbnails/spa-page/' ~ 1 ~ '/' ~ thumb(file, 1, 'spa-page', 1042)) }} 1042w"
+                         data-src="{{ asset('/uploads/images/spa-page/' ~ data.image) }}" data-sizes="auto" alt="">
+                </figure>
+                <div class="section__text">
+                    <div class="section__text-inner">
+                        <h2 class="h2">{% if locale == 'de' %}{{ data.firstBlcTitleTrans }}{% else %}{{ data.firstBlcTitle }}{% endif %}</h2>
+                        <div class="static-content">
+                            {% if locale == 'de' %}{{ data.firstBlcDescriptionTrans|raw }}{% else %}{{ data.firstBlcDescription|raw }}{% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="section">
+        <div class="section__inner">
+            <div class="carousel Mb(-10rem)">
+                <div class="container carousel__top">
+                    <button class="arrow carousel__arrow carousel__arrow--prev Mt(0.5rem)--lg" type="button">
+                        <svg class="svg-icon arrow__icon" aria-hidden="true">
+                            <use xlink:href="{{ asset('/bundles/frontend/img/icons/svg/sprite.symbol.svg') }}#arrow-left-round"></use>
+                        </svg>
+                    </button>
+                    <div class="carousel__thumbs">
+                        {% for thumb in data.gallery %}
+                            {#{% set file = app.request.schemeAndHttpHost ~ asset('/uploads/images/spa-gallery/thumb/' ~ thumb.imageThumb) %}#}
+                            <div class="carousel__thumb">
+                                <figure class="carousel__figure">
+                                    <img class="lazyload carousel__thumb-img"
+                                         data-srcset="{{ asset('/uploads/images/spa-gallery/' ~ thumb.image) |imagine_filter('thumb_104') }} 104w,
+                                                      {{ asset('/uploads/images/spa-gallery/' ~ thumb.image) |imagine_filter('thumb_208') }} 208w"
+                                         data-sizes="auto"
+                                         data-src="{{ asset('/uploads/images/spa-gallery/' ~ thumb.image) }}" alt="">
+                                </figure>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <button class="arrow carousel__arrow carousel__arrow--next Mt(0.5rem)--lg" type="button">
+                        <svg class="svg-icon arrow__icon" aria-hidden="true">
+                            <use xlink:href="{{ asset('/bundles/frontend/img/icons/svg/sprite.symbol.svg') }}#arrow-right-round"></use>
+                        </svg>
+                    </button>
+                </div>
+                <div class="carousel__slider carousel__slider--desktop-not-full-width">
+                    {% for thumb in data.gallery %}
+                        {% set file = app.request.schemeAndHttpHost ~ asset('/uploads/images/spa-gallery/' ~ thumb.image) %}
+                        <div class="carousel__item">
+                            <figure class="carousel__figure lazyload-container lazyload-container--transitioned">
+                                <img class="lazyload carousel__img carousel__img--size--big"
+                                        data-srcset="{{ asset('/bundles/frontend/thumbnails/spa-gallery/' ~ loop.index ~ '/' ~ thumb(file, loop.index, 'spa-gallery', 320)) }} 320w,
+                                                     {{ asset('/bundles/frontend/thumbnails/spa-gallery/' ~ loop.index ~ '/' ~ thumb(file, loop.index, 'spa-gallery', 640)) }} 640w,
+                                                     {{ asset('/bundles/frontend/thumbnails/spa-gallery/' ~ loop.index ~ '/' ~ thumb(file, loop.index, 'spa-gallery', 1366)) }} 1366w,
+                                                     {{ asset('/bundles/frontend/thumbnails/spa-gallery/' ~ loop.index ~ '/' ~ thumb(file, loop.index, 'spa-gallery', 1920)) }} 1920w"
+                                        data-sizes="auto" alt="">
+                            </figure>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="Bgc(shadow-green)">
+        <div class="container static-content Pt(13rem) Pb(8rem) C(eden)">
+            {% if locale == 'de' %}{{ data.secondBlcDescriptionTrans|raw }}{% else %}{{ data.secondBlcDescription|raw }}{% endif %}
+        </div>
+    </div>
+    {% include '@Frontend/parts/_map.html.twig' %}
+{% endblock %}
+
+{% block jscripts %}
+    <script type="text/javascript" src="{{ asset('/bundles/frontend/js/spa.js') }}"></script>
+{% endblock %}

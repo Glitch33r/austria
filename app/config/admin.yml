@@ -1,0 +1,428 @@
+easy_admin:
+#    edit:
+#        actions: ['-delete']
+#    list:
+#        actions: ['edit', 'search', '-delete', '-new']
+
+    site_name: 'Hotel'
+#    translation_domain: 'messages'
+    design:
+        brand_color: '#333333'
+#        assets:
+#            favicon:
+#                path: 'bundles/frontend/favicons/favicon-32x32.png'
+#                mime_type: 'image/png'
+        menu:
+            - label: 'HomePage'
+              children:
+                - { label: 'Home', entity: 'HomePage', default: true }
+                - Adventure
+            - AboutPage
+            - label: 'Rooms & Prices'
+              children:
+                  - RoomsPrices
+                  - { label: 'Room Type', entity: 'RoomClass' }
+            - Activities
+            - SpecialOffers
+            - ChaletPage
+            - SpaPage
+            - RestaurantPage
+            - Subscription
+            - { label: 'Contacts', entity: 'Contacts' }
+            - Seo
+            - { entity: 'ContactForm', label: 'Contact Form'}
+            - label: 'Special site Information'
+              icon: 'user-secret'
+              children:
+                - { label: 'Users', entity: 'User' }
+
+    entities:
+        User:
+            class: BackendBundle\Entity\User
+        Subscription:
+          class: BackendBundle\Entity\Subscription
+        ContactForm:
+            class: BackendBundle\Entity\ContactForm
+            list:
+              fields:
+                - id
+                - name
+                - email
+                - telephone
+                - body
+                - createdAt
+            form:
+              fields:
+                - name
+                - email
+                - telephone
+                - body
+                - createdAt
+        Contacts:
+            class: BackendBundle\Entity\Contacts
+            list:
+              fields:
+                - address
+                - email
+                - telephone
+                - tripadvisor
+                - facebook
+                - instagram
+            form:
+              fields:
+                - { type: 'tab', label: 'Main information', icon: 'puzzle-piece' }
+                - address
+                - email
+                - telephone
+                - tripadvisor
+                - facebook
+                - instagram
+                - { type: 'tab', label: 'Background Image', icon: 'image' }
+                - { property: 'background_imageFile', type: 'vich_image' }
+        Seo:
+            class: BackendBundle\Entity\Seo
+            list:
+              fields:
+                - id
+                - slug
+                - page
+                - h1
+                - title
+                - description
+                - keywords
+            form:
+              fields:
+                - { type: 'tab', label: 'Special information', icon: 'puzzle-piece' }
+                - { property: 'slug', type_options: { disabled: true }}
+                - page
+                - { type: 'tab', label: 'Default [EN]', icon: 'globe' }
+                - h1
+                - title
+                - description
+                - keywords
+                - { type: 'tab', label: 'Translation [DE]', icon: 'language' }
+                - { property: 'h1_trans', label: 'H1' }
+                - { property: 'title_trans', label: 'Title' }
+                - { property: 'description_trans', label: 'Description' }
+                - { property: 'keywords_trans', label: 'Keywords' }
+        Static:
+            class: BackendBundle\Entity\StaticContent
+            list:
+              fields:
+                - id
+                - linkName
+                - page
+                - title
+                - text
+            form:
+              fields:
+                - { type: 'tab', label: 'Settings', css_class: 'col-sm-6', icon: 'cog'}
+                - linkName
+                - page
+                - { type: 'tab', label: 'Data', icon: 'database' }
+                - { type: 'group', label: 'Default [EN]', css_class: 'col-sm-6' }
+                - title
+                - text
+                - { type: 'group', label: 'Translation [DE]', css_class: 'col-sm-6'}
+                - title_trans
+                - text_trans
+        HomePage:
+            class: BackendBundle\Entity\HomePage
+            list:
+              fields:
+                - id
+                - title
+                - description
+            form:
+              fields:
+                - { type: 'tab', label: 'Background Image', icon: 'image' }
+                - { property: 'background_imageFile', type: 'vich_image' }
+                - { type: 'tab', label: 'Default [EN]', icon: 'globe' }
+                - title
+                - { property: 'description', type: 'ckeditor' }
+                - { type: 'tab', label: 'Translation [DE]', icon: 'language' }
+                - { property: 'title_trans', label: 'Title' }
+                - { property: 'description_trans', type: 'ckeditor', label: 'Description' }
+                - { property: 'icon', type: 'collection', type_options: { entry_type: 'BackendBundle\Form\Type\AddNewIcon', by_reference: false } }
+                - { type: 'tab', label: 'Spa block', css_class: 'col-sm-6', icon: 'list-ul'}
+                - { property: 'spa_title', label: 'Title' }
+                - { property: 'spa_description', type: 'ckeditor', label: 'Description' }
+                - { type: 'divider' }
+                - { property: 'spa_title_trans', label: 'Title [DE]' }
+                - { property: 'spa_description_trans', label: 'Description [DE]' }
+                - { property: 'spa_imageFile', type: 'vich_image' }
+                - { type: 'tab', label: 'Amenities block', css_class: 'col-sm-6', icon: 'list-ul'}
+                - { property: 'ame_title', label: 'Title' }
+                - { property: 'ame_description', type: 'ckeditor', label: 'Description' }
+                - { type: 'divider' }
+                - { property: 'ame_title_trans', label: 'Title [DE]' }
+                - { property: 'ame_description_trans', label: 'Description [DE]' }
+                - { type: 'tab', label: 'Chalet block', css_class: 'col-sm-6', icon: 'list-ul'}
+                - { property: 'chalet_title', label: 'Title' }
+                - { property: 'chalet_description', type: 'ckeditor', label: 'Description' }
+                - { type: 'divider' }
+                - { property: 'chalet_title_trans', label: 'Title  [DE]' }
+                - { property: 'chalet_description_trans', type: 'ckeditor', label: 'Description  [DE]' }
+                - { property: 'chalet_imageFile', type: 'vich_image' }
+                - { type: 'tab', label: 'Video block', css_class: 'col-sm-6', icon: 'video'}
+                - { property: 'video_title', label: 'Title' }
+                - { property: 'video_description', type: 'ckeditor', label: 'Description' }
+                - { type: 'divider' }
+                - { property: 'video_title_trans', label: 'Title [DE]' }
+                - { property: 'video_description_trans', label: 'Description [DE]' }
+
+        Adventure:
+            class: BackendBundle\Entity\Adventure
+            list:
+              fields:
+                - id
+                - title
+                - title_trans
+            form:
+              fields:
+                - { type: 'tab', label: 'Default [EN]', icon: 'globe' }
+                - title
+                - { type: 'tab', label: 'Translation [DE]', icon: 'language' }
+                - { property: 'title_trans', label: 'Title' }
+                - { type: 'tab', label: 'Parts', css_class: 'col-sm-6', icon: 'cog'}
+                - { property: 'part', type: 'collection', type_options: { entry_type: 'BackendBundle\Form\Type\AddNewAdventure', by_reference: false } }
+
+        RoomsPrices:
+          class: BackendBundle\Entity\RoomsPrices
+          list:
+            fields:
+              - id
+              - title
+              - description
+              - { property: 'item', label: 'Classes' }
+          form:
+            fields:
+              - { type: 'tab', label: 'Background Image', icon: 'image' }
+              - { property: 'background_imageFile', type: 'vich_image' }
+              - { type: 'tab', label: 'Default [EN]', icon: 'globe' }
+              - title
+              - { property: 'description', type: 'ckeditor' }
+              - { type: 'tab', label: 'Translation [DE]', icon: 'language' }
+              - { property: 'title_trans', label: 'Title' }
+              - { property: 'description_trans', type: 'ckeditor', label: 'Description' }
+              - { type: 'tab', label: 'Additional', css_class: 'col-sm-6', icon: 'plus'}
+              - { property: 'item', type_options: {by_reference: false} }
+              - { type: 'tab', label: 'Special text', css_class: 'col-sm-6', icon: 'plus'}
+              - { property: 'special', label: 'Text(Under rooms classes) [EN]' }
+              - { property: 'special_trans', label: 'Text(Under rooms classes) [EN]' }
+        RoomClass:
+          class: BackendBundle\Entity\RoomClass
+          list:
+            fields:
+              - id
+              - slug
+              - title
+              - description
+              - price
+          form:
+            fields:
+              - { type: 'tab', label: 'Default [EN]', icon: 'globe' }
+              - title
+              - { property: 'description', type: 'ckeditor' }
+              - { type: 'tab', label: 'Translation [DE]', icon: 'language' }
+              - { property: 'title_trans', label: 'Title' }
+              - { property: 'description_trans', type: 'ckeditor', label: 'Description' }
+              - { type: 'tab', label: 'Additional', css_class: 'col-sm-6', icon: 'plus'}
+              - { property: 'slug', type_options: { disabled: true }}
+              - { property: 'imageFile', label: 'Preview image', type: 'vich_image' }
+              - price
+              - { type: 'tab', label: 'Features', css_class: 'col-sm-6', icon: 'plus'}
+              - { property: 'feature', type: 'collection', type_options: { entry_type: 'BackendBundle\Form\Type\AddNewFeature', by_reference: false } }
+              - { type: 'tab', label: 'Rooms', css_class: 'col-sm-6', icon: 'plus'}
+              - { property: 'item', type: 'collection', type_options: { entry_type: 'BackendBundle\Form\Type\AddNewRoomClassItem', by_reference: false } }
+              - { type: 'tab', label: 'Gallery', css_class: 'col-sm-6', icon: 'plus'}
+              - { property: 'gallery', type: 'collection', type_options: { entry_type: 'BackendBundle\Form\Type\AddNewImage', by_reference: false } }
+        Activities:
+          class: BackendBundle\Entity\Activities
+          list:
+            fields:
+            - id
+            - title
+            - description
+            - part
+          form:
+            fields:
+              - { type: 'tab', label: 'Background Image', icon: 'image' }
+              - { property: 'background_imageFile', type: 'vich_image' }
+              - { type: 'tab', label: 'Default [EN]', icon: 'globe' }
+              - title
+              - { property: 'description', type: 'ckeditor' }
+              - { type: 'tab', label: 'Translation [DE]', icon: 'language' }
+              - { property: 'title_trans', label: 'Title' }
+              - { property: 'description_trans', label: 'Description' }
+              - { type: 'tab', label: 'Activities items', css_class: 'col-sm-6', icon: 'cog'}
+              - { property: 'part', type: 'collection', type_options: { entry_type: 'BackendBundle\Form\Type\AddNewActivity', by_reference: false } }
+        AboutPage:
+          class: BackendBundle\Entity\AboutPage
+          list:
+            fields:
+              - id
+              - title
+              - description
+              - { property: 'title_trans', label: 'Title [DE]' }
+              - { property: 'description_trans', label: 'Description [DE]' }
+          form:
+            fields:
+              - { type: 'tab', label: 'Background Image', icon: 'image' }
+              - { property: 'background_imageFile', type: 'vich_image' }
+              - { type: 'tab', label: 'Default [EN]', icon: 'globe' }
+              - title
+              - { property: 'description', type: 'ckeditor' }
+              - { type: 'tab', label: 'Translation [DE]', icon: 'language' }
+              - { property: 'title_trans', label: 'Title' }
+              - { property: 'description_trans', type: 'ckeditor', label: 'Description' }
+              - { type: 'tab', label: 'First content block', css_class: 'col-sm-6', icon: 'plus'}
+              - { property: 'first_blc_title', label: 'Title [EN]' }
+              - { property: 'first_blc_description', type: 'ckeditor', label: 'Description [EN]' }
+              - { type: 'divider' }
+              - { property: 'first_blc_title_trans', label: 'Title [DE]' }
+              - { property: 'first_blc_description_trans', type: 'ckeditor', label: 'Description [DE]' }
+              - { property: 'imageFile_first', label: 'Image', type: 'vich_image' }
+              - { type: 'tab', label: 'Second content block', css_class: 'col-sm-6', icon: 'plus'}
+              - { property: 'feature', type: 'collection', type_options: { entry_type: 'BackendBundle\Form\Type\AddNewFeatureAboutUS', by_reference: false } }
+              - { property: 'item', type: 'collection', type_options: { entry_type: 'BackendBundle\Form\Type\AddNewAboutItem', by_reference: false } }
+              - { type: 'tab', label: 'Third content block', css_class: 'col-sm-6', icon: 'plus'}
+              - { property: 'third_blc_title', label: 'Title [EN]' }
+              - { property: 'third_blc_description', type: 'ckeditor', label: 'Description [EN]' }
+              - { type: 'divider' }
+              - { property: 'third_blc_title_trans', label: 'Title [DE]' }
+              - { property: 'third_blc_description_trans', type: 'ckeditor', label: 'Description [DE]' }
+              - { property: 'imageFile_third', label: 'Image', type: 'vich_image' }
+              - { type: 'tab', label: 'Fourth content block', css_class: 'col-sm-6', icon: 'plus'}
+              - { property: 'fourth_blc_title', label: 'Title [EN]' }
+              - { property: 'fourth_blc_description', type: 'ckeditor', label: 'Description [EN]' }
+              - { type: 'divider' }
+              - { property: 'fourth_blc_title_trans', label: 'Title [DE]' }
+              - { property: 'fourth_blc_description_trans', type: 'ckeditor', label: 'Description [DE]' }
+              - { property: 'imageFile_fourth', label: 'Image', type: 'vich_image'}
+        ChaletPage:
+          class: BackendBundle\Entity\ChaletPage
+          list:
+            fields:
+              - id
+              - title
+              - description
+              - { property: 'title_trans', label: 'Title [DE]' }
+              - { property: 'description_trans', label: 'Description [DE]' }
+          form:
+            fields:
+              - { type: 'tab', label: 'Background Image', icon: 'image' }
+              - { property: 'background_imageFile', type: 'vich_image' }
+              - { type: 'tab', label: 'Default [EN]', icon: 'globe' }
+              - title
+              - { property: 'description', type: 'ckeditor' }
+              - { type: 'tab', label: 'Translation [DE]', icon: 'language' }
+              - { property: 'title_trans', label: 'Title' }
+              - { property: 'description_trans', type: 'ckeditor', label: 'Description' }
+              - { type: 'tab', label: 'First content block', css_class: 'col-sm-6', icon: 'plus'}
+              - { property: 'first_blc_title', label: 'Title [EN]' }
+              - { property: 'first_blc_description', type: 'ckeditor', label: 'Description [EN]' }
+              - { type: 'divider' }
+              - { property: 'first_blc_title_trans', label: 'Title [DE]' }
+              - { property: 'first_blc_description_trans', type: 'ckeditor', label: 'Description [DE]' }
+              - { property: 'gallery', type: 'collection', type_options: { entry_type: 'BackendBundle\Form\Type\AddNewChaletImage', by_reference: false } }
+              - { type: 'tab', label: 'Chalet Items', css_class: 'col-sm-6', icon: 'plus'}
+              - { property: 'item', type: 'collection', type_options: { entry_type: 'BackendBundle\Form\Type\AddNewChaletItem', by_reference: false } }
+              - { type: 'tab', label: 'Additonal content block', css_class: 'col-sm-6', icon: 'plus'}
+#              - { property: 'second_blc_title', label: 'Title [EN]' }
+              - { property: 'second_blc_description', type: 'ckeditor', label: 'Description [EN]' }
+              - { type: 'divider' }
+#              - { property: 'third_blc_title_trans', label: 'Title [DE]' }
+              - { property: 'second_blc_description_trans', type: 'ckeditor', label: 'Description [DE]' }
+        SpecialOffers:
+          class: BackendBundle\Entity\SpecialOffers
+          list:
+            fields:
+              - id
+              - title
+              - description
+              - { property: 'title_trans', label: 'Title [DE]' }
+              - { property: 'description_trans', label: 'Description [DE]' }
+          form:
+            fields:
+              - { type: 'tab', label: 'Background Image', icon: 'image' }
+              - { property: 'background_imageFile', type: 'vich_image' }
+              - { type: 'tab', label: 'Default [EN]', icon: 'globe' }
+              - title
+              - { property: 'description', type: 'ckeditor' }
+              - { type: 'tab', label: 'Translation [DE]', icon: 'language' }
+              - { property: 'title_trans', label: 'Title' }
+              - { property: 'description_trans', type: 'ckeditor', label: 'Description' }
+              - { type: 'tab', label: 'First content block', css_class: 'col-sm-6', icon: 'plus'}
+              - { property: 'first_blc_title', label: 'Title [EN]' }
+              - { property: 'first_blc_description', type: 'ckeditor', label: 'Description [EN]' }
+              - { type: 'divider' }
+              - { property: 'first_blc_title_trans', label: 'Title [DE]' }
+              - { property: 'first_blc_description_trans', type: 'ckeditor', label: 'Description [DE]' }
+              - { property: 'imageFile', label: 'Image', type: 'vich_image'}
+              - { type: 'tab', label: 'Items', css_class: 'col-sm-6', icon: 'plus'}
+              - { property: 'item', type: 'collection', type_options: { entry_type: 'BackendBundle\Form\Type\AddNewOfferItem', by_reference: false } }
+        SpaPage:
+          class: BackendBundle\Entity\SpaPage
+          list:
+            fields:
+              - id
+              - title
+              - description
+              - { property: 'title_trans', label: 'Title [DE]' }
+              - { property: 'description_trans', label: 'Description [DE]' }
+          form:
+            fields:
+              - { type: 'tab', label: 'Background Image', icon: 'image' }
+              - { property: 'background_imageFile', type: 'vich_image' }
+              - { type: 'tab', label: 'Default [EN]', icon: 'globe' }
+              - title
+              - { property: 'description', type: 'ckeditor' }
+              - { type: 'tab', label: 'Translation [DE]', icon: 'language' }
+              - { property: 'title_trans', label: 'Title' }
+              - { property: 'description_trans', type: 'ckeditor', label: 'Description' }
+              - { type: 'tab', label: 'First content block', css_class: 'col-sm-6', icon: 'plus'}
+              - { property: 'first_blc_title', label: 'Title [EN]' }
+              - { property: 'first_blc_description', type: 'ckeditor', label: 'Description [EN]' }
+              - { type: 'divider' }
+              - { property: 'first_blc_title_trans', label: 'Title [DE]' }
+              - { property: 'first_blc_description_trans', type: 'ckeditor', label: 'Description [DE]' }
+              - { property: 'imageFile', label: 'Image', type: 'vich_image'}
+              - { type: 'tab', label: 'Photos', css_class: 'col-sm-6', icon: 'plus'}
+              - { property: 'gallery', type: 'collection', type_options: { entry_type: 'BackendBundle\Form\Type\AddNewSpaImage', by_reference: false } }
+              - { property: 'second_blc_description', type: 'ckeditor', label: 'Description [EN]' }
+              - { type: 'divider' }
+              #              - { property: 'third_blc_title_trans', label: 'Title [DE]' }
+              - { property: 'second_blc_description_trans', type: 'ckeditor', label: 'Description [DE]' }
+        RestaurantPage:
+          class: BackendBundle\Entity\RestaurantPage
+          list:
+            fields:
+              - id
+              - title
+              - description
+              - { property: 'title_trans', label: 'Title [DE]' }
+              - { property: 'description_trans', label: 'Description [DE]' }
+          form:
+            fields:
+              - { type: 'tab', label: 'Background Image', icon: 'image' }
+              - { property: 'background_imageFile', type: 'vich_image' }
+              - { type: 'tab', label: 'Default [EN]', icon: 'globe' }
+              - title
+              - { property: 'description', type: 'ckeditor' }
+              - { type: 'tab', label: 'Translation [DE]', icon: 'language' }
+              - { property: 'title_trans', label: 'Title' }
+              - { property: 'description_trans', type: 'ckeditor', label: 'Description' }
+              - { type: 'tab', label: 'First content block', css_class: 'col-sm-6', icon: 'plus'}
+              - { property: 'first_blc_title', label: 'Title [EN]' }
+              - { property: 'first_blc_description', type: 'ckeditor', label: 'Description [EN]' }
+              - { type: 'divider' }
+              - { property: 'first_blc_title_trans', label: 'Title [DE]' }
+              - { property: 'first_blc_description_trans', type: 'ckeditor', label: 'Description [DE]' }
+              - { property: 'imageFile', label: 'Image', type: 'vich_image'}
+              - { type: 'tab', label: 'Photos', css_class: 'col-sm-6', icon: 'plus'}
+              - { property: 'gallery', type: 'collection', type_options: { entry_type: 'BackendBundle\Form\Type\AddNewRestImage', by_reference: false } }
+              - { property: 'second_blc_description', type: 'ckeditor', label: 'Description [EN]' }
+              - { type: 'divider' }
+              #              - { property: 'third_blc_title_trans', label: 'Title [DE]' }
+              - { property: 'second_blc_description_trans', type: 'ckeditor', label: 'Description [DE]' }

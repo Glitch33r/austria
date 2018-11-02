@@ -1,0 +1,151 @@
+{% extends '@Frontend/base.html.twig' %}
+
+
+{% block bodyclass %} class="page" {% endblock %}
+
+{% block seo %}
+    {% if seo %}
+        {% if locale == 'de' %}
+            <meta name="description" content={% if seo.descriptionTrans %}{{ seo.descriptionTrans }}{% endif %}>
+            <meta name="keywords" content={% if seo.keywordsTrans %}{{ seo.keywordsTrans }}{% endif %}>
+            <title>{{ seo.titleTrans }}</title>
+        {% else %}
+            <meta name="description" content={% if seo.description %}{{ seo.description }}{% endif %}>
+            <meta name="keywords" content={% if seo.keywords %}{{ seo.keywords }}{% endif %}>
+            <title>{{ seo.title }}</title>
+        {% endif %}
+    {% endif %}
+{% endblock %}
+
+{% block header %}
+    {{ render(controller('FrontendBundle:Default:headerLight')) }}
+{% endblock %}
+
+{% block special %}
+<div class="hero hero--size--medium hero--with-overlay lazyload lazyload-container"
+     data-bgset="{{ asset('/bundles/frontend/img/bg-3-desktop.jpg') }} [(min-width: 992px)] | {{ asset('/bundles/frontend/img/bg-3-mobile.jpg') }}">
+    {% endblock %}
+
+    {% block content %}
+    <div class="hero__inner">
+        <div class="hero__content container">
+            <div class="D(f) Flw(w) Mb(2rem) Ai(c)">
+                {% if prev != null %}
+                    <a class="arrow Mend(3rem)--lg" href="{{ path('room-class', {'slug': prev}) }}"
+                       aria-label="Previous suite" title="Previous suite">
+                        <svg class="svg-icon arrow__icon" aria-hidden="true">
+                            <use xlink:href="{{ asset('/bundles/frontend/img/icons/svg/sprite.symbol.svg') }}#arrow-left-round"></use>
+                        </svg>
+                    </a>
+                {% endif %}
+
+                <h1 class="hero__title Mb(1rem) Mt(0) Or(-1) Or(0)--lg Mb(0)--lg">{% if locale == 'de' %}{{ item.titleTrans }}{% else %}{{ item.title }}{% endif %}</h1>
+
+                {% if next != null %}
+                    <a class="arrow Mstart(3rem)" href="{{ path('room-class', {'slug': next}) }}"
+                       aria-label="Next suite" title="Next suite">
+                        <svg class="svg-icon arrow__icon" aria-hidden="true">
+                            <use xlink:href="{{ asset('/bundles/frontend/img/icons/svg/sprite.symbol.svg') }}#arrow-right-round"></use>
+                        </svg>
+                    </a>
+                {% endif %}
+            </div>
+            <div class="thumbnails Mb(1.5rem)">
+                <ul class="thumbnails__list">
+                    {% for i in item.gallery %}
+                        <li class="thumbnails__item">
+                            <figure class="thumbnails__figure"><img
+                                        src="{{ asset('/uploads/images/room-class-gallery/' ~ i.image) }}" alt=""/>
+                            </figure>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <p class="h3 C(#fff) Mb(0)">Price €{{ item.price }}</p>
+        </div>
+    </div>
+</div>
+    <div class="section Bgc(secondary)">
+        <div class="container section__inner">
+            <div class="static-content C(primary) Mb(3rem)">
+                {% if locale == 'de' %}{{ item.descriptionTrans|raw }}{% else %}{{ item.description|raw }}{% endif %}
+            </div>
+            <div class="facilities Mb(3rem) facilities--theme--dark">
+                <ul class="facilities__list">
+                    {% for i in item.feature %}
+                        <li class="facilities__item">
+                            <svg class="svg-icon facilities__icon" aria-hidden="true">
+                                <use xlink:href="{{ asset('/bundles/frontend/img/icons/svg/sprite.symbol.svg') }}#{{ i.icon }}"></use>
+                            </svg>
+                            {% if locale == 'de' %}{{ i.titleTrans }}{% else %}{{ i.title }}{% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="D(f) Ai(c)"><a class="btn btn--theme--invert" href="#">Book now</a>
+                <span class="mark Mstart(0.5rem)">
+                    {% if locale == 'de' %}3 gründe
+                        <svg class="svg-icon mark__icon"><use
+                                    xlink:href="{{ asset('/bundles/frontend/img/icons/svg/sprite.symbol.svg') }}#arrow-left"></use></svg>
+                        <br>buchen<br>direkte
+                    {% else %}
+                        3 reasons
+                        <svg class="svg-icon mark__icon"><use
+                                    xlink:href="{{ asset('/bundles/frontend/img/icons/svg/sprite.symbol.svg') }}#arrow-left"></use></svg>
+                        <br>to book<br>direct
+                    {% endif %}
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="section">
+        <div class="container section__inner">
+            <div class="cards">
+                <div class="cards__inner">
+                    {% for i in item.item %}
+                        {% set file = app.request.schemeAndHttpHost ~ asset('/uploads/images/room-class-item/' ~ i.image) %}
+                        <div class="card cards__item">
+                            <div class="card__inner">
+                                <figure class="card__figure lazyload-container lazyload-container--transitioned lazyload-container--spacer-needed-square">
+                                    <img class="card__img lazyload" data-sizes="auto"
+                                         data-srcset="{{ asset('/bundles/frontend/thumbnails/room-class-item/' ~ loop.index ~ '/' ~ thumb(file, loop.index, 'room-class-item', 304)) }} 304w,
+                                                      {{ asset('/bundles/frontend/thumbnails/room-class-item/' ~ loop.index ~ '/' ~ thumb(file, loop.index, 'room-class-item', 608)) }} 608w"
+                                         data-src="{{ asset('/uploads/images/room-class-item/' ~ i.image) }}" alt=""/>
+                                </figure>
+                                <div class="card__info">
+                                    <h3 class="h2 C(eden)">{% if locale == 'de' %}{{ i.titleTrans }}{% else %}{{ i.title }}{% endif %}</h3>
+                                    <div class="row Ai(c) Mb(1.5rem)">
+                                        <div class="col-lg-5">
+                                            <p class="h3 C(eden) Mb(0)--lg">Price €{{ i.price }}</p>
+                                        </div>
+                                        <div class="col-lg-7">
+                                            <div class="D(f) Ai(c)">
+                                                <a class="btn btn--theme--invert" href="#">Book now</a>
+                                                <span class="mark Mstart(0.5rem)">
+                                                    {% if locale == 'de' %}3 gründe
+                                                        <svg class="svg-icon mark__icon"><use
+                                                                    xlink:href="{{ asset('/bundles/frontend/img/icons/svg/sprite.symbol.svg') }}#arrow-left"></use></svg>
+                                                        <br>buchen<br>direkte
+                                                    {% else %}
+                                                        3 reasons
+                                                        <svg class="svg-icon mark__icon"><use
+                                                                    xlink:href="{{ asset('/bundles/frontend/img/icons/svg/sprite.symbol.svg') }}#arrow-left"></use></svg>
+                                                        <br>to book<br>direct
+                                                    {% endif %}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="static-content Mb(2rem) C(eden)">
+                                        {% if locale == 'de' %}{{ i.descriptionTrans|raw }}{% else %}{{ i.description|raw }}{% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% include '@Frontend/parts/_map.html.twig' %}
+{% endblock %}
