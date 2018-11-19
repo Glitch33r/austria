@@ -156,6 +156,7 @@ class Activities
     public function removePart(\BackendBundle\Entity\ActivePart $part)
     {
         $this->part->removeElement($part);
+        $part->setActive(null);
     }
 
 

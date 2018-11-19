@@ -71,7 +71,7 @@ class AboutUsFeatures
     /**
      * Many Features have One Product.
      * @ORM\ManyToOne(targetEntity="BackendBundle\Entity\AboutPage", inversedBy="feature")
-     * @ORM\JoinColumn(name="about_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="about_id", referencedColumnName="id", onDelete="SET NULL")
      */
     private $i;
 

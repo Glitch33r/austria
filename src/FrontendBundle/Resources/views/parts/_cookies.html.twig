@@ -1,11 +1,12 @@
 <div class="cookie page__cookie">
     <div class="container cookie__inner">
         <div class="cookie__text C(eden)">
-            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a
-                galley of type and scrambled it to make a type specimen book.
-            </p>
+            {% if app.request.get('_locale') == 'de'%}
+                <p>Cookies erleichtern die Bereitstellung unserer Dienste. Mit der Nutzung unserer Dienste erklären Sie sich damit einverstanden, dass wir Cookies verwenden.</p>
+            {% else %}
+                <p>This website uses cookies to ensure you get the best experience on our website.</p>
+            {% endif %}
         </div>
-        <button class="btn btn--theme--default cookie__btn">Understand</button>
+        <button class="btn btn--theme--default cookie__btn"><span class="btn__inner">{{ 'I accept'|trans([], 'messages') }}</span></button>
     </div>
 </div>

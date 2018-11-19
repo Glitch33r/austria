@@ -75,6 +75,8 @@ class Adventure
     public function removePart(\BackendBundle\Entity\AdventurePart $part)
     {
         $this->part->removeElement($part);
+        $part->setAdv(null);
+
     }
 
 

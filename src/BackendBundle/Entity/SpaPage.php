@@ -1,10 +1,10 @@
 <?php
+
 namespace BackendBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
-use Gedmo\Mapping\Annotation as Gedmo;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
@@ -118,6 +118,191 @@ class SpaPage
      * @ORM\Column(type="text", nullable=true)
      */
     private $second_blc_description_trans;
+
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $price_blc_title;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $price_blc_description;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $price_blc_title_trans;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $price_blc_description_trans;
+
+    /**
+     * @return mixed
+     */
+    public function getPriceBlcTitle()
+    {
+        return $this->price_blc_title;
+    }
+
+    /**
+     * @param mixed $price_blc_title
+     */
+    public function setPriceBlcTitle($price_blc_title)
+    {
+        $this->price_blc_title = $price_blc_title;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPriceBlcDescription()
+    {
+        return $this->price_blc_description;
+    }
+
+    /**
+     * @param mixed $price_blc_description
+     */
+    public function setPriceBlcDescription($price_blc_description)
+    {
+        $this->price_blc_description = $price_blc_description;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPriceBlcTitleTrans()
+    {
+        return $this->price_blc_title_trans;
+    }
+
+    /**
+     * @param mixed $price_blc_title_trans
+     */
+    public function setPriceBlcTitleTrans($price_blc_title_trans)
+    {
+        $this->price_blc_title_trans = $price_blc_title_trans;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPriceBlcDescriptionTrans()
+    {
+        return $this->price_blc_description_trans;
+    }
+
+    /**
+     * @param mixed $price_blc_description_trans
+     */
+    public function setPriceBlcDescriptionTrans($price_blc_description_trans)
+    {
+        $this->price_blc_description_trans = $price_blc_description_trans;
+    }
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @var string
+     */
+    private $file_for_price;
+
+    /**
+     * @Vich\UploadableField(mapping="file_price", fileNameProperty="file_for_price")
+     * @var File
+     */
+    private $priceFile;
+
+    /**
+     * @return string
+     */
+    public function getFileForPrice()
+    {
+        return $this->file_for_price;
+    }
+
+    /**
+     * @param string $file_for_price
+     */
+    public function setFileForPrice($file_for_price)
+    {
+        $this->file_for_price = $file_for_price;
+    }
+
+    /**
+     * @return File
+     */
+    public function getPriceFile()
+    {
+        return $this->priceFile;
+    }
+
+    /**
+     * @param File $priceFile
+     */
+    public function setPriceFile(File $priceFile)
+    {
+        $this->priceFile = $priceFile;
+
+        if ($priceFile) {
+            // if 'updatedAt' is not defined in your entity, use another property
+            $this->updatedAt = new \DateTime('now');
+        }
+    }
+
+
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @var string
+     */
+    private $file_for_price_trans;
+
+    /**
+     * @Vich\UploadableField(mapping="file_price_trans", fileNameProperty="file_for_price_trans")
+     * @var File
+     */
+    private $priceFile_trans;
+
+    /**
+     * @return string
+     */
+    public function getFileForPriceTrans()
+    {
+        return $this->file_for_price_trans;
+    }
+
+    /**
+     * @param string $file_for_price_trans
+     */
+    public function setFileForPriceTrans($file_for_price_trans): void
+    {
+        $this->file_for_price_trans = $file_for_price_trans;
+    }
+
+    /**
+     * @return File
+     */
+    public function getPriceFileTrans()
+    {
+        return $this->priceFile_trans;
+    }
+
+    /**
+     * @param File $priceFile
+     */
+    public function setPriceFileTrans(File $priceFile)
+    {
+        $this->priceFile_trans = $priceFile;
+
+        if ($priceFile) {
+            // if 'updatedAt' is not defined in your entity, use another property
+            $this->updatedAt = new \DateTime('now');
+        }
+    }
 
     /**
      * @ORM\Column(type="string", nullable=true)

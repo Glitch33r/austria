@@ -1,44 +1,15 @@
 <div class="Py(2rem) Bgc(lunar-green)">
-    <div class="container" id="subscription">
-        <form class="subscription" method="post">
+    <div class="container">
+        <form  class="subscription js-ajax-form js-validate-form" action="{{ path('submit-subscription') }}" data-success-text="Congratulations! You have registered your email for our subscription!" method="post" novalidate>
             <div class="subscription__inner">
-                <p class="subscription__text">{% if app.request.session.get('_locale') == 'de' %}Newsletter abonnieren{% else %}Subscribe for newsletter{% endif %}</p>
+                <label class="subscription__text" for="subscription-field">{{ 'sub.to.news'|trans([], 'messages') }}</label>
                 <div class="subscription__inputs">
-                    <input class="subscription__input" type="email" name="email-subscription" placeholder="EMAIL">
-                    <button type="submit" class="subscription__btn btn btn--theme--light">{% if app.request.session.get('_locale') == 'de' %}Einreichen{% else %}Submit{% endif %}</button>
+                    <div class="subscription__input-wrap">
+                        <input class="subscription__input js-validate-field" name="email" id="subscription-field" type="email" placeholder="EMAIL" data-field-type="email" data-error="{{ 'error.email'|trans([], 'messages') }}"><span class="error form__error"></span>
+                    </div>
+                    <button class="btn subscription__btn btn--theme--light"><span class="btn__inner">{{ 'Submit'|trans([], 'messages') }}</span></button>
                 </div>
             </div>
         </form>
     </div>
 </div>
-
-<script
-        src="https://code.jquery.com/jquery-3.3.1.min.js"
-        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-        crossorigin="anonymous"></script>
-<script type="text/javascript">
-    $('.subscription').submit(function (e) {
-
-        console.log($(this).serialize());
-        e.preventDefault();
-        // var formData = new FormData(this);
-        var url = "{{ path('submit-subscription') }}";
-        var formSerialize = $(this).serialize();
-
-        $.ajax({
-            type: "POST",
-            url: url,
-            data: formSerialize, // serializes the form's elements.
-            success: function(data)
-            {
-                if (JSON.parse(data).status === true){
-                    $('#subscription').html('<div class="subscription__inner"><p class="subscription__text">{% if app.request.session.get('_locale') == 'de' %}Danke fürs Abonnieren!{% else %}Thank you for subscribing!{% endif %}</p></div>');
-                }
-                else{
-                    $('#subscription').html('<div class="subscription__inner"><p class="subscription__text">{% if app.request.session.get('_locale') == 'de' %}Ihre Daten sind falsch! Bitte versuche es erneut!{% else %}Your data are wrong! Please, try again!{% endif %}</p></div>');
-                }
-            }
-        });
-
-    });
-</script>

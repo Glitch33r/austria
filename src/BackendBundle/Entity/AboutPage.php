@@ -9,7 +9,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity()
- * @ORM\Table(name="фищге_page_table")
+ * @ORM\Table(name="about_page_table")
  * @Vich\Uploadable
  */
 class AboutPage
@@ -119,6 +119,7 @@ class AboutPage
     public function removeItem(\BackendBundle\Entity\AboutUsItem $r)
     {
         $this->item->removeElement($r);
+        $r->setAbout(NULL);
     }
 
 
@@ -144,6 +145,8 @@ class AboutPage
     public function removeFeature(\BackendBundle\Entity\AboutUsFeatures $r)
     {
         $this->feature->removeElement($r);
+        $r->setI(NULL);
+
     }
 
     /**
@@ -267,6 +270,11 @@ class AboutPage
     public function setImageFileFirst(File $imageFile_first)
     {
         $this->imageFile_first = $imageFile_first;
+
+        if ($imageFile_first) {
+            // if 'updatedAt' is not defined in your entity, use another property
+            $this->updatedAt = new \DateTime('now');
+        }
     }
 
 
@@ -332,6 +340,11 @@ class AboutPage
     public function setImageFileThird(File $imageFile_third)
     {
         $this->imageFile_third = $imageFile_third;
+
+        if ($imageFile_third) {
+            // if 'updatedAt' is not defined in your entity, use another property
+            $this->updatedAt = new \DateTime('now');
+        }
     }
 
 
@@ -396,6 +409,11 @@ class AboutPage
     public function setImageFileFourth(File $imageFile_fourth)
     {
         $this->imageFile_fourth = $imageFile_fourth;
+
+        if ($imageFile_fourth) {
+            // if 'updatedAt' is not defined in your entity, use another property
+            $this->updatedAt = new \DateTime('now');
+        }
     }
 
 

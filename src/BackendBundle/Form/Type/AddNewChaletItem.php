@@ -28,7 +28,10 @@ class AddNewChaletItem extends AbstractType
              'label' => 'Description [DE]',
             ]);
         $builder->add('price', TextType::class, [
-            'label' => 'Price',
+            'label' => 'Price [EN]',
+        ]);
+        $builder->add('price_trans', TextType::class, [
+            'label' => 'Price [DE]',
         ]);
         $builder->add('imageFile', VichImageType::class, [
             'required' => true,

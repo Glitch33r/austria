@@ -18,3 +18,9 @@ services:
         class: FrontendBundle\Twig\Extension\ThumbnailExtension
         public: false
         tags: ['twig.extension']
+
+    frontend.locale_listener:
+        class: FrontendBundle\EventListener\LocaleListener
+        arguments: ["%locale%"]
+        tags:
+        - { name: kernel.event_subscriber }

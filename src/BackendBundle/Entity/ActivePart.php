@@ -60,7 +60,7 @@ class ActivePart
     /**
      * Many Features have One Product.
      * @ORM\ManyToOne(targetEntity="BackendBundle\Entity\Activities", inversedBy="part", cascade={"persist"})
-     * @ORM\JoinColumn(name="main_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="main_id", referencedColumnName="id", onDelete="SET NULL")
      */
     private $active;
 

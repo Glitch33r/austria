@@ -11,9 +11,10 @@ imports:
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: en
+    app_locales: en|de
     app.path.activities: /uploads/images/activities
     app.path.amenitie_part: /uploads/images/amenitiepart
-    app.path.charlets: /uploads/images/charlets
+    app.path.chalet: /uploads/images/chalet
     app.path.adventures: /uploads/images/adventures
     app.path.spa: /uploads/images/spa
     app.path.room_class: /uploads/images/room-class
@@ -42,6 +43,9 @@ parameters:
     app.path.background_restaurant: /uploads/images/background/restaurant
     app.path.rest_gallery: /uploads/images/rest-gallery
     app.path.rest_page: /uploads/images/rest
+    app.path.file_price: /uploads/files/price
+    app.path.file_price_trans: /uploads/files/price/trans
+    app.path.slider_home: /uploads/images/slider-home
 
 
 liip_imagine:
@@ -60,11 +64,15 @@ liip_imagine:
       quality: 80
       filters:
         thumbnail: { size: [1920, 576] }
-#        background: { size: [1920, 576] }
+    bg_desktop_home_thumb:
+      quality: 80
+      filters:
+        thumbnail: { size: [1920, 1080] }
     bg_mobile_thumb:
       quality: 80
       filters:
         thumbnail: { size: [425, 576] }
+
     thumb_104:
       quality: 80
       filters:
@@ -73,6 +81,15 @@ liip_imagine:
       quality: 80
       filters:
         thumbnail: { size: [208, 208] }
+    thumb_304:
+      quality: 80
+      filters:
+        thumbnail: { size: [304, 304] }
+    thumb_608:
+      quality: 80
+      filters:
+        thumbnail: { size: [608, 608] }
+
     thumb_250:
       quality: 80
       filters:
@@ -81,13 +98,62 @@ liip_imagine:
       quality: 80
       filters:
         thumbnail: { size: [500, 500] }
-#        background: { size: [425, 576]}
+    thumb__385:
+      quality: 80
+      filters:
+        thumbnail: { size: [385, 385] }
+    thumb__770:
+      quality: 80
+      filters:
+        thumbnail: { size: [770, 770] }
+
+    thumb_1044:
+      quality: 80
+      filters:
+        thumbnail: { size: [1004, 695] }
+    thumb_770:
+      quality: 80
+      filters:
+        thumbnail: { size: [770, 520] }
+    thumb_522:
+      quality: 80
+      filters:
+        thumbnail: { size: [522, 351] }
+    thumb_385:
+      quality: 80
+      filters:
+        thumbnail: { size: [385, 259] }
+
+    thumb_1920:
+      quality: 75
+      filters:
+        thumbnail: { size: [1920, 736] }
+    thumb_1366:
+      quality: 75
+      filters:
+        thumbnail: { size: [1366, 736] }
+    thumb_640:
+      quality: 75
+      filters:
+        thumbnail: { size: [640, 960] }
+    thumb_320:
+      quality: 75
+      filters:
+        thumbnail: { size: [320, 480] }
+
 
 
 
 vich_uploader:
     db_driver: orm
     mappings:
+
+          file_price:
+              uri_prefix:         '%app.path.file_price%'
+              upload_destination: '%kernel.root_dir%/../web/uploads/files/price'
+          file_price_trans:
+              uri_prefix:         '%app.path.file_price_trans%'
+              upload_destination: '%kernel.root_dir%/../web/uploads/files/price/trans'
           spa_page:
               uri_prefix:         '%app.path.spa_page%'
               upload_destination: '%kernel.root_dir%/../web/uploads/images/spa-page'
@@ -142,9 +208,9 @@ vich_uploader:
           amenitie_part:
               uri_prefix:         '%app.path.amenitie_part%'
               upload_destination: '%kernel.root_dir%/../web/uploads/images/amenitiepart'
-          charlets:
-              uri_prefix:         '%app.path.charlets%'
-              upload_destination: '%kernel.root_dir%/../web/uploads/images/charlets'
+          chalet:
+              uri_prefix:         '%app.path.chalet%'
+              upload_destination: '%kernel.root_dir%/../web/uploads/images/chalet'
           adventures:
               uri_prefix:         '%app.path.adventures%'
               upload_destination: '%kernel.root_dir%/../web/uploads/images/adventures'
@@ -171,7 +237,7 @@ vich_uploader:
               upload_destination: '%kernel.root_dir%/../web/uploads/images/about-first'
           about_third:
               uri_prefix:         '%app.path.about_third%'
-              upload_destination: '%kernel.root_dir%/../web/uploads/imawges/about-third'
+              upload_destination: '%kernel.root_dir%/../web/uploads/images/about-third'
           about_fourth:
               uri_prefix:         '%app.path.about_fourth%'
               upload_destination: '%kernel.root_dir%/../web/uploads/images/about-fourth'
@@ -181,12 +247,19 @@ vich_uploader:
           chalet_item:
               uri_prefix:         '%app.path.chalet_item%'
               upload_destination: '%kernel.root_dir%/../web/uploads/images/chalet-item'
+          slider_home:
+            uri_prefix:         '%app.path.slider_home%'
+            upload_destination: '%kernel.root_dir%/../web/uploads/images/slider-home'
 
 framework:
     templating:
             engines: ['twig']
     #esi: ~
-    translator: { fallbacks: ['%locale%'] }
+    translator:
+        fallback: '%locale%'
+#        paths: ['%kernel.root_dir%/Resources/translations']
+#        paths:
+#            - '%kernel.project_dir%/src/FrontendBundle/Resources/translations'
     secret: '%secret%'
     router:
         resource: '%kernel.project_dir%/app/config/routing.yml'
@@ -198,6 +271,7 @@ framework:
     default_locale: '%locale%'
     trusted_hosts: ~
     session:
+#        { default_locale: '%locale%' }
         # https://symfony.com/doc/current/reference/configuration/framework.html#handler-id
         handler_id: session.handler.native_file
         save_path: '%kernel.project_dir%/var/sessions/%kernel.environment%'
@@ -211,6 +285,8 @@ framework:
 twig:
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
+    globals:
+        default_locale: '%locale%'
 
 # Doctrine Configuration
 doctrine:
@@ -256,6 +332,7 @@ fos_user:
 
 
 stof_doctrine_extensions:
+    default_locale: '%locale%'
     orm:
         default:
             sortable: true

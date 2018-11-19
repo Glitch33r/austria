@@ -1,6 +1,5 @@
 {% extends '@Frontend/base.html.twig' %}
 
-
 {% block bodyclass %} class="page" {% endblock %}
 
 {% block seo %}
@@ -20,13 +19,14 @@
 {% endblock %}
 
 {% block special %}
-    <div class="hero hero--size--medium hero--with-overlay lazyload lazyload-container"
-         data-bgset="{{ asset('/uploads/images/background/spa/' ~ data.backgroundImage) | imagine_filter('bg_desktop_thumb') }} [(min-width: 992px)] | {{ asset('/uploads/images/background/spa/' ~ data.backgroundImage) | imagine_filter('bg_mobile_thumb') }}">
+    <div class="hero hero--size--medium hero--with-overlay">
         <div class="hero__inner">
+            <div class="hero__bg lazyload lazyload-container"
+                 data-bgset="{{ asset('/uploads/images/background/spa/' ~ data.backgroundImage)|imagine_filter('bg_desktop_thumb') }} [(min-width: 992px)] | {{ asset('/uploads/images/background/spa/' ~ data.backgroundImage)|imagine_filter('bg_mobile_thumb') }}"></div>
             <div class="hero__content container">
                 <div class="breadcrumbs">
                     <ul class="breadcrumbs__list">
-                        <li class="breadcrumbs__item"><a class="breadcrumbs__link" href="{{ path('homepage') }}">Home</a>
+                        <li class="breadcrumbs__item"><a class="breadcrumbs__link" href="{{ path('homepage') }}">{{ 'Home'|trans([], 'messages') }}</a>
                             <svg class="svg-icon breadcrumbs__icon" aria-hidden="true">
                                 <use xlink:href="{{ asset('/bundles/frontend/img/icons/svg/sprite.symbol.svg') }}#chevron-right"></use>
                             </svg>
@@ -36,16 +36,11 @@
                 </div>
                 <h1 class="hero__title Mb(0)">{% if locale == 'de' %}{{ seo.h1Trans }}{% else %}{{ seo.h1 }}{% endif %}</h1></div>
             <div class="hero__clouds"></div>
-            <img class="hero__people lazyload js-parallax B(-96px) W(300px)"
-                 data-srcset="{{ asset('/bundles/frontend/img/people-desktop-4_300.png') }} 300w,
-                              {{ asset('/bundles/frontend/img/people-desktop-4_600.png') }} 660w"
-                 data-src="{{ asset('/bundles/frontend/img/people-desktop-4_600.png') }}" data-sizes="auto" alt="" data-speed="18">
         </div>
     </div>
 {% endblock %}
 
 {% block content %}
-
     <section class="section">
         <div class="container section__inner">
             <div class="row">
@@ -58,19 +53,21 @@
                     </div>
                 </div>
                 <div class="col-lg-5 Mt(2.5rem) Mt(0)--lg">
-                    <div class="d-flex Ai(c)"><a class="btn btn--theme--invert js-widget-init" href="#">Book now</a>
-                        <span class="mark Mstart(0.5rem)">
-                            {% if locale == 'de' %}3 gründe
-                                    <svg class="svg-icon mark__icon"><use
-                                        xlink:href="{{ asset('/bundles/frontend/img/icons/svg/sprite.symbol.svg') }}#arrow-left"></use></svg>
-                                <br>buchen<br>direkte
-                            {% else %}
-                                3 reasons
-                                <svg class="svg-icon mark__icon"><use
-                                            xlink:href="{{ asset('/bundles/frontend/img/icons/svg/sprite.symbol.svg') }}#arrow-left"></use></svg>
-                                <br>to book<br>direct
-                            {% endif %}
-                        </span>
+                    <div class="D(f) Ai(c)"><button class="btn btn--theme--invert js-widget-init" type="button"><span class="btn__inner">{{ 'Book now'|trans([], 'messages') }}</span></button>
+                        <button class="mark js-reasons-dialog-open Mstart(0.5rem)" data-url="{{ path('dialog') }}">{{ '3 reasons'|trans([], 'messages') }}
+                            <svg class="svg-icon mark__icon" aria-hidden="true">
+                                <use xlink:href="{{ asset('/bundles/frontend/img/icons/svg/sprite.symbol.svg') }}#arrow-left"></use>
+                            </svg>
+                            <br>{{ 'to book'|trans([], 'messages') }}<br>{{ 'direct'|trans([], 'messages') }}
+                        </button>
+                    </div>
+                </div>
+                <div class="col-lg-6 offset-lg-3">
+                    <div class="js-widget"
+                         data-src="https://res-online.ch/wbePlus/incubator.js.php?hotelID=2872&amp;username=WBEPlus&amp;password=zSUyPbYu&amp;type=step"
+                         style="display: none;">
+                        <div id="wbe_container"></div>
+                        <div class="loader W(8rem) H(8rem) Mx(a)"></div>
                     </div>
                 </div>
             </div>
@@ -80,12 +77,11 @@
         <div class="section__inner">
             <div class="section__content">
                 <figure class="section__img-wrap lazyload-container lazyload-container--spacer-needed-rectangle">
-                    {% set file = app.request.schemeAndHttpHost ~ asset('/uploads/images/spa-page/' ~ data.image) %}
                     <img class="section__img lazyload"
-                         data-srcset="{{ asset('/bundles/frontend/thumbnails/spa-page/' ~ 1 ~ '/' ~ thumb(file, 1, 'spa-page', 385)) }} 385w,
-                                      {{ asset('/bundles/frontend/thumbnails/spa-page/' ~ 1 ~ '/' ~ thumb(file, 1, 'spa-page', 521)) }} 521w,
-                                      {{ asset('/bundles/frontend/thumbnails/spa-page/' ~ 1 ~ '/' ~ thumb(file, 1, 'spa-page', 770)) }} 770w,
-                                      {{ asset('/bundles/frontend/thumbnails/spa-page/' ~ 1 ~ '/' ~ thumb(file, 1, 'spa-page', 1042)) }} 1042w"
+                         data-srcset="{{ asset('/uploads/images/spa-page/' ~ data.image)|imagine_filter('thumb_385')   }} 385w,
+                                      {{ asset('/uploads/images/spa-page/' ~ data.image)|imagine_filter('thumb_522')   }} 522w,
+                                      {{ asset('/uploads/images/spa-page/' ~ data.image)|imagine_filter('thumb_770')   }} 770w,
+                                      {{ asset('/uploads/images/spa-page/' ~ data.image)|imagine_filter('thumb_1044')  }} 1044w"
                          data-src="{{ asset('/uploads/images/spa-page/' ~ data.image) }}" data-sizes="auto" alt="">
                 </figure>
                 <div class="section__text">
@@ -108,9 +104,8 @@
                             <use xlink:href="{{ asset('/bundles/frontend/img/icons/svg/sprite.symbol.svg') }}#arrow-left-round"></use>
                         </svg>
                     </button>
-                    <div class="carousel__thumbs">
+                    <div class="carousel__thumbs flickity-enabled">
                         {% for thumb in data.gallery %}
-                            {#{% set file = app.request.schemeAndHttpHost ~ asset('/uploads/images/spa-gallery/thumb/' ~ thumb.imageThumb) %}#}
                             <div class="carousel__thumb">
                                 <figure class="carousel__figure">
                                     <img class="lazyload carousel__thumb-img"
@@ -128,16 +123,15 @@
                         </svg>
                     </button>
                 </div>
-                <div class="carousel__slider carousel__slider--desktop-not-full-width">
+                <div class="carousel__slider carousel__slider--desktop-not-full-width carousel__slider--height-needed flickity-enabled">
                     {% for thumb in data.gallery %}
-                        {% set file = app.request.schemeAndHttpHost ~ asset('/uploads/images/spa-gallery/' ~ thumb.image) %}
                         <div class="carousel__item">
                             <figure class="carousel__figure lazyload-container lazyload-container--transitioned">
                                 <img class="lazyload carousel__img carousel__img--size--big"
-                                        data-srcset="{{ asset('/bundles/frontend/thumbnails/spa-gallery/' ~ loop.index ~ '/' ~ thumb(file, loop.index, 'spa-gallery', 320)) }} 320w,
-                                                     {{ asset('/bundles/frontend/thumbnails/spa-gallery/' ~ loop.index ~ '/' ~ thumb(file, loop.index, 'spa-gallery', 640)) }} 640w,
-                                                     {{ asset('/bundles/frontend/thumbnails/spa-gallery/' ~ loop.index ~ '/' ~ thumb(file, loop.index, 'spa-gallery', 1366)) }} 1366w,
-                                                     {{ asset('/bundles/frontend/thumbnails/spa-gallery/' ~ loop.index ~ '/' ~ thumb(file, loop.index, 'spa-gallery', 1920)) }} 1920w"
+                                        data-srcset="{{ asset('/uploads/images/spa-gallery/' ~ thumb.image)|imagine_filter('thumb_320')  }} 320w,
+                                                     {{ asset('/uploads/images/spa-gallery/' ~ thumb.image)|imagine_filter('thumb_640')  }} 640w,
+                                                     {{ asset('/uploads/images/spa-gallery/' ~ thumb.image)|imagine_filter('thumb_1366') }} 1366w,
+                                                     {{ asset('/uploads/images/spa-gallery/' ~ thumb.image)|imagine_filter('thumb_1920') }} 1920w"
                                         data-sizes="auto" alt="">
                             </figure>
                         </div>
@@ -146,14 +140,32 @@
             </div>
         </div>
     </div>
-    <div class="Bgc(shadow-green)">
+    <div class="Bgc(secondary)">
         <div class="container static-content Pt(13rem) Pb(8rem) C(eden)">
             {% if locale == 'de' %}{{ data.secondBlcDescriptionTrans|raw }}{% else %}{{ data.secondBlcDescription|raw }}{% endif %}
         </div>
     </div>
+    <section class="section">
+        <div class="container section__inner">
+            <h2 class="h2 C(eden)">{% if locale == 'de' %}{{ data.priceBlcTitleTrans }}{% else %}{{ data.priceBlcTitle }}{% endif %}</h2>
+            <div class="row">
+                <div class="col-lg-7">
+                    <div class="static-content C(eden)">{% if locale == 'de' %}{{ data.priceBlcDescriptionTrans|raw }}{% else %}{{ data.priceBlcDescription|raw }}{% endif %}</div>
+                </div>
+                {% if data.fileForPrice != '' or data.fileForPriceTrans  != '' %}
+                <div class="col-lg-5 Mt(2.5rem) Mt(0)--lg"><a class="btn btn--theme--default" download="{% if locale == 'de' %}{{ data.fileForPriceTrans }}{% else %}{{ data.fileForPrice }}{% endif %}" href="{% if locale == 'de' %}
+{{ asset('/uploads/files/price/trans/' ~ data.fileForPriceTrans) }}{% else %}{{ asset('/uploads/files/price/' ~ data.fileForPrice) }}{% endif %}"><span class="btn__inner">{{ 'Download'|trans([], 'messages') }}</span></a></div>
+                {% endif %}
+            </div>
+        </div>
+    </section>
     {% include '@Frontend/parts/_map.html.twig' %}
 {% endblock %}
 
 {% block jscripts %}
+    <script type="text/javascript" src="{{ asset('/bundles/frontend/js/vendors~about-us~activities~chalets~common~contacts~index~restaurant~spa~special-offers~suites.bundle.js') }}"></script>
+    {#<script type="text/javascript" src="{{ asset('/bundles/frontend/js/common~contacts.js') }}"></script>#}
+    <script type="text/javascript" src="{{ asset('/bundles/frontend/js/common.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('/bundles/frontend/js/vendors~chalets~restaurant~spa~suites.bundle.js') }}"></script>
     <script type="text/javascript" src="{{ asset('/bundles/frontend/js/spa.js') }}"></script>
 {% endblock %}

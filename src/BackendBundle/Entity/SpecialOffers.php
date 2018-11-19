@@ -294,6 +294,8 @@ class SpecialOffers
     public function removeItem(\BackendBundle\Entity\SpecialOffersItem $r)
     {
         $this->item->removeElement($r);
+        $r->setOffer(null);
+
     }
 
 

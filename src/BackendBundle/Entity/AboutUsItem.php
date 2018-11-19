@@ -50,7 +50,7 @@ class AboutUsItem
     /**
      * Many Features have One Product.
      * @ORM\ManyToOne(targetEntity="BackendBundle\Entity\AboutPage", inversedBy="item")
-     * @ORM\JoinColumn(name="about_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="about_id", referencedColumnName="id", onDelete="SET NULL")
      */
     private $about;
 

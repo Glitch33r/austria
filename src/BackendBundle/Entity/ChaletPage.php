@@ -254,6 +254,8 @@ class ChaletPage
     public function removeGallery(\BackendBundle\Entity\GalleryChalet $r)
     {
         $this->gallery->removeElement($r);
+        $r->setChalet(null);
+
     }
 
     public function __construct()
@@ -301,6 +303,8 @@ class ChaletPage
     public function removeItem(\BackendBundle\Entity\ChaletItem $r)
     {
         $this->item->removeElement($r);
+        $r->setChalet(null);
+
     }
 
     /**

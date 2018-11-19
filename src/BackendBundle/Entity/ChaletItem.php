@@ -50,6 +50,28 @@ class ChaletItem
      */
     private $price;
 
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $price_trans;
+
+    /**
+     * @return mixed
+     */
+    public function getPriceTrans()
+    {
+        return $this->price_trans;
+    }
+
+    /**
+     * @param mixed $price_trans
+     */
+    public function setPriceTrans($price_trans)
+    {
+        $this->price_trans = $price_trans;
+    }
+
     /**
      * @Vich\UploadableField(mapping="chalet_item", fileNameProperty="image")
      * @var File

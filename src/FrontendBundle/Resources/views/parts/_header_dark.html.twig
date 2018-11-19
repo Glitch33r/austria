@@ -32,34 +32,39 @@
                 </ul>
             </div>
 
-            <div class="socials page-header__socials socials--theme--dark">
+            <div class="socials socials page-header__socials socials--theme--dark">
                 <ul class="socials__list">
-                    <li class="socials__item"><a class="socials__link" href="{{ contact.tripadvisor }}">
+                    <li class="socials__item"><a class="socials__link" href="{{ contact.tripadvisor }}" target="_blank">
                             <svg class="svg-icon socials__icon socials__icon--big" aria-hidden="true">
                                 <use xlink:href="{{ asset('/bundles/frontend/img/icons/svg/sprite.symbol.svg') }}#tripadvisor"></use>
                             </svg>
                         </a></li>
-                    <li class="socials__item"><a class="socials__link" href="{{ contact.facebook }}">
-                            <svg class="svg-icon socials__icon" aria-hidden="true">
+                    <li class="socials__item"><a class="socials__link" href="{{ contact.facebook }}" target="_blank">
+                            <svg class="svg-icon socials__icon socials__icon--big" aria-hidden="true">
                                 <use xlink:href="{{ asset('/bundles/frontend/img/icons/svg/sprite.symbol.svg') }}#facebook"></use>
                             </svg>
                         </a></li>
                     <li class="socials__item">
-                        <a class="socials__link" href="{{ contact.instagram }}">
-                            <svg class="svg-icon socials__icon" aria-hidden="true">
+                        <a class="socials__link" href="{{ contact.instagram }}" target="_blank">
+                            <svg class="svg-icon socials__icon socials__icon--big" aria-hidden="true">
                                 <use xlink:href="{{ asset('/bundles/frontend/img/icons/svg/sprite.symbol.svg') }}#instagram"></use>
                             </svg>
                         </a>
                     </li>
                 </ul>
             </div>
-            <a class="btn btn--theme--default btn--theme--default" href="#">Book now</a>
+            {% if (app.request.server.get('SCRIPT_URL') == path('contacts') or app.request.server.get('PHP_SELF') == path('contacts')) or app.request.server.get('SCRIPT_URL') == path('activities')
+                or app.request.server.get('PHP_SELF') == path('activities') %}
+                <a class="btn js-go-to-booking btn--theme--default" href="{{ path('homepage') }}#booking"><span class="btn__inner">{{ 'Book now'|trans([], 'messages') }}</span></a>
+            {% else %}
+                <button class="btn js-go-to-booking btn--theme--default" type="button"><span class="btn__inner">{{ 'Book now'|trans([], 'messages') }}</span></button>
+            {% endif %}
             <div class="languages page-header__languages languages--theme--dark">
                 <ul class="languages__list">
-                    <li class="languages__item"><a class="languages__link"
-                                                   href="{{ path('translate', {'locale': 'en'}) }}">ENG</a></li>
-                    <li class="languages__item"><a class="languages__link"
-                                                   href="{{ path('translate', {'locale': 'de'}) }}">DE</a></li>
+                    <li class="languages__item"><a class="languages__link {% if app.request.get('_locale') == 'en' %}languages__link--current{% endif %}"
+                                                   href="{{ path('translation', {locale: 'en'}) }}">ENG</a></li>
+                    <li class="languages__item"><a class="languages__link {% if app.request.get('_locale') == 'de' %}languages__link--current{% endif %}"
+                                                   href="{{ path('translation', {locale: 'de'}) }}">DE</a></li>
                 </ul>
             </div>
             <nav class="nav page-header__nav nav--theme--dark">
@@ -68,28 +73,28 @@
                     <li class="nav__item"><a
                                 class="nav__link  {% if app.request.server.get('SCRIPT_URL') == path('about-us')
                                     or app.request.server.get('PHP_SELF') == path('about-us') %}nav__link--current{% endif %}"
-                                href="{{ path('about-us') }}">About us</a></li>
+                                href="{{ path('about-us') }}">{{ 'ABOUT US'|trans([], 'messages') }}</a></li>
                     <li class="nav__item"><a
                                 class="nav__link  {% if app.request.server.get('SCRIPT_URL') == path('rooms-and-prices')
                                     or app.request.server.get('PHP_SELF') == path('rooms-and-prices') %}nav__link--current
 {% elseif app.request.server.get('PHP_SELF')|split('/')|last != '' and app.request.server.get('PHP_SELF') == path('room-class', {'slug': app.request.server.get('PHP_SELF')|split('/')|last} ) %}nav__link--current{% endif %}"
-                                href="{{ url('rooms-and-prices') }}">Rooms &amp; Prices</a></li>
+                                href="{{ url('rooms-and-prices') }}">{{ 'ROOMS & PRICES'|trans([], 'messages') }}</a></li>
                     <li class="nav__item"><a
                                 class="nav__link  {% if app.request.server.get('SCRIPT_URL') == path('special-offers')
                                     or app.request.server.get('PHP_SELF') == path('special-offers') %}nav__link--current{% endif %}"
-                                href="{{ path('special-offers') }}">Special Offers</a></li>
+                                href="{{ path('special-offers') }}">{{ 'SPECIAL OFFERS'|trans([], 'messages') }}</a></li>
                     <li class="nav__item"><a
                                 class="nav__link {% if app.request.server.get('SCRIPT_URL') == path('activities')
                                     or app.request.server.get('PHP_SELF') == path('activities') %}nav__link--current{% endif %}"
-                                href="{{ path('activities') }}">Activities</a></li>
+                                href="{{ path('activities') }}">{{ 'Activities'|trans([], 'messages') }}</a></li>
                     <li class="nav__item"><a
                                 class="nav__link  {% if app.request.server.get('SCRIPT_URL') == path('chalets')
                                     or app.request.server.get('PHP_SELF') == path('chalets') %}nav__link--current{% endif %}"
-                                href="{{ path('chalets') }}">Chalets</a></li>
+                                href="{{ path('chalets') }}">{{ 'Chalets'|trans([], 'messages') }}</a></li>
                     <li class="nav__item"><a
                                 class="nav__link  {% if app.request.server.get('SCRIPT_URL') == path('contacts')
                                     or app.request.server.get('PHP_SELF') == path('contacts') %}nav__link--current{% endif %}"
-                                href="{{ path('contacts') }}">Contacts</a></li>
+                                href="{{ path('contacts') }}">{{ 'CONTACTS'|trans([], 'messages') }}</a></li>
                 </ul>
             </nav>
         </div>

@@ -1,6 +1,5 @@
 {% extends '@Frontend/base.html.twig' %}
 
-
 {% block bodyclass %} class="page" {% endblock %}
 
 {% block seo %}
@@ -22,49 +21,48 @@
 {% endblock %}
 
 {% block special %}
-<div class="hero hero--size--medium hero--with-overlay lazyload lazyload-container"
-     data-bgset="{{ asset('/bundles/frontend/img/bg-3-desktop.jpg') }} [(min-width: 992px)] | {{ asset('/bundles/frontend/img/bg-3-mobile.jpg') }}">
-    {% endblock %}
-
-    {% block content %}
-    <div class="hero__inner">
-        <div class="hero__content container">
-            <div class="D(f) Flw(w) Mb(2rem) Ai(c)">
-                {% if prev != null %}
-                    <a class="arrow Mend(3rem)--lg" href="{{ path('room-class', {'slug': prev}) }}"
-                       aria-label="Previous suite" title="Previous suite">
+    <div class="hero hero--size--medium hero--with-overlay">
+        <div class="carousel hero__inner">
+            <div class="carousel__slider hero__carousel-slider">
+                {% for slide in item.gallery %}
+                    <div class="hero__carousel-slide lazyload lazyload-container js-parallax-background"
+                         data-bgset="{{ asset('/uploads/images/room-class-gallery/' ~ slide.image)|imagine_filter('bg_desktop_thumb') }} [(min-width: 992px)] | {{ asset('/uploads/images/room-class-gallery/' ~ slide.image)|imagine_filter('bg_mobile_thumb') }}"></div>
+                {% endfor %}
+            </div>
+            <div class="hero__content container">
+                <div class="D(f) Flw(w) Mb(2rem) Ai(c)">
+                    <button class="arrow carousel__arrow carousel__arrow--prev Mend(3rem)--lg" type="button">
                         <svg class="svg-icon arrow__icon" aria-hidden="true">
                             <use xlink:href="{{ asset('/bundles/frontend/img/icons/svg/sprite.symbol.svg') }}#arrow-left-round"></use>
                         </svg>
-                    </a>
-                {% endif %}
-
-                <h1 class="hero__title Mb(1rem) Mt(0) Or(-1) Or(0)--lg Mb(0)--lg">{% if locale == 'de' %}{{ item.titleTrans }}{% else %}{{ item.title }}{% endif %}</h1>
-
-                {% if next != null %}
-                    <a class="arrow Mstart(3rem)" href="{{ path('room-class', {'slug': next}) }}"
-                       aria-label="Next suite" title="Next suite">
+                    </button>
+                    <h1 class="hero__title Mb(1rem) Mt(0) Or(-1) Or(0)--lg Mb(0)--lg">{{ item.title }}</h1>
+                    <button class="arrow carousel__arrow carousel__arrow--next Mstart(3rem)" type="button">
                         <svg class="svg-icon arrow__icon" aria-hidden="true">
                             <use xlink:href="{{ asset('/bundles/frontend/img/icons/svg/sprite.symbol.svg') }}#arrow-right-round"></use>
                         </svg>
-                    </a>
-                {% endif %}
-            </div>
-            <div class="thumbnails Mb(1.5rem)">
-                <ul class="thumbnails__list">
-                    {% for i in item.gallery %}
-                        <li class="thumbnails__item">
-                            <figure class="thumbnails__figure"><img
-                                        src="{{ asset('/uploads/images/room-class-gallery/' ~ i.image) }}" alt=""/>
+                    </button>
+                </div>
+                <div class="carousel__thumbs Mb(1.5rem)">
+                    {% for slide in item.gallery %}
+                        <div class="carousel__thumb">
+                            <figure class="carousel__figure">
+                                <img class="lazyload carousel__thumb-img"
+                                     data-srcset="{{ asset('/uploads/images/room-class-gallery/' ~ slide.image)|imagine_filter('thumb_104') }} 104w,
+                                              {{ asset('/uploads/images/room-class-gallery/' ~ slide.image)|imagine_filter('thumb_208') }} 208w"
+                                     data-sizes="auto"
+                                     data-src="{{ asset('/uploads/images/room-class-gallery/' ~ slide.image) }}"
+                                     alt="">
                             </figure>
-                        </li>
+                        </div>
                     {% endfor %}
-                </ul>
-            </div>
-            <p class="h3 C(#fff) Mb(0)">Price €{{ item.price }}</p>
+                </div>
+                <p class="h3 C(#fff) Mb(0)">{{ 'Price'|trans([], 'messages') }} €{{ item.price }}</p></div>
         </div>
     </div>
-</div>
+{% endblock %}
+
+{% block content %}
     <div class="section Bgc(secondary)">
         <div class="container section__inner">
             <div class="static-content C(primary) Mb(3rem)">
@@ -82,19 +80,24 @@
                     {% endfor %}
                 </ul>
             </div>
-            <div class="D(f) Ai(c)"><a class="btn btn--theme--invert" href="#">Book now</a>
-                <span class="mark Mstart(0.5rem)">
-                    {% if locale == 'de' %}3 gründe
-                        <svg class="svg-icon mark__icon"><use
-                                    xlink:href="{{ asset('/bundles/frontend/img/icons/svg/sprite.symbol.svg') }}#arrow-left"></use></svg>
-                        <br>buchen<br>direkte
-                    {% else %}
-                        3 reasons
-                        <svg class="svg-icon mark__icon"><use
-                                    xlink:href="{{ asset('/bundles/frontend/img/icons/svg/sprite.symbol.svg') }}#arrow-left"></use></svg>
-                        <br>to book<br>direct
-                    {% endif %}
-                </span>
+            <div class="D(f) Ai(c)">
+                <button class="btn btn--theme--invert js-widget-init" type="button"><span class="btn__inner">{{ 'Book now'|trans([], 'messages') }}</span></button>
+                <button class="mark js-reasons-dialog-open Mstart(0.5rem)" data-url="{{ path('dialog') }}">{{ '3 reasons'|trans([], 'messages') }}
+                    <svg class="svg-icon mark__icon" aria-hidden="true">
+                        <use xlink:href="{{ asset('/bundles/frontend/img/icons/svg/sprite.symbol.svg') }}#arrow-left"></use>
+                    </svg>
+                    <br>{{ 'to book'|trans([], 'messages') }}<br>{{ 'direct'|trans([], 'messages') }}
+                </button>
+            </div>
+            <div class="row">
+                <div class="col-lg-6 offset-lg-3">
+                    <div class="js-widget"
+                         data-src="https://res-online.ch/wbePlus/incubator.js.php?hotelID=2872&amp;username=WBEPlus&amp;password=zSUyPbYu&amp;type=step"
+                         style="display: none;">
+                        <div id="wbe_container"></div>
+                        <div class="loader W(8rem) H(8rem) Mx(a)"></div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -103,36 +106,29 @@
             <div class="cards">
                 <div class="cards__inner">
                     {% for i in item.item %}
-                        {% set file = app.request.schemeAndHttpHost ~ asset('/uploads/images/room-class-item/' ~ i.image) %}
                         <div class="card cards__item">
                             <div class="card__inner">
                                 <figure class="card__figure lazyload-container lazyload-container--transitioned lazyload-container--spacer-needed-square">
                                     <img class="card__img lazyload" data-sizes="auto"
-                                         data-srcset="{{ asset('/bundles/frontend/thumbnails/room-class-item/' ~ loop.index ~ '/' ~ thumb(file, loop.index, 'room-class-item', 304)) }} 304w,
-                                                      {{ asset('/bundles/frontend/thumbnails/room-class-item/' ~ loop.index ~ '/' ~ thumb(file, loop.index, 'room-class-item', 608)) }} 608w"
+                                         data-srcset="{{ asset('/uploads/images/room-class-item/' ~ i.image)|imagine_filter('thumb_304') }} 304w,
+                                                      {{ asset('/uploads/images/room-class-item/' ~ i.image)|imagine_filter('thumb_608') }} 608w"
                                          data-src="{{ asset('/uploads/images/room-class-item/' ~ i.image) }}" alt=""/>
                                 </figure>
                                 <div class="card__info">
                                     <h3 class="h2 C(eden)">{% if locale == 'de' %}{{ i.titleTrans }}{% else %}{{ i.title }}{% endif %}</h3>
                                     <div class="row Ai(c) Mb(1.5rem)">
                                         <div class="col-lg-5">
-                                            <p class="h3 C(eden) Mb(0)--lg">Price €{{ i.price }}</p>
+                                            <p class="h3 C(eden) Mb(0)--lg">{% if locale == 'de' %}{{ i.priceTrans }}{% else %}{{ i.price }}{% endif %}</p>
                                         </div>
                                         <div class="col-lg-7">
                                             <div class="D(f) Ai(c)">
-                                                <a class="btn btn--theme--invert" href="#">Book now</a>
-                                                <span class="mark Mstart(0.5rem)">
-                                                    {% if locale == 'de' %}3 gründe
-                                                        <svg class="svg-icon mark__icon"><use
-                                                                    xlink:href="{{ asset('/bundles/frontend/img/icons/svg/sprite.symbol.svg') }}#arrow-left"></use></svg>
-                                                        <br>buchen<br>direkte
-                                                    {% else %}
-                                                        3 reasons
-                                                        <svg class="svg-icon mark__icon"><use
-                                                                    xlink:href="{{ asset('/bundles/frontend/img/icons/svg/sprite.symbol.svg') }}#arrow-left"></use></svg>
-                                                        <br>to book<br>direct
-                                                    {% endif %}
-                                                </span>
+                                                <button class="btn btn--theme--invert js-go-to-booking" type="button"><span class="btn__inner">{{ 'Book now'|trans([], 'messages') }}</span></button>
+                                                <button class="mark js-reasons-dialog-open Mstart(0.5rem)" data-url="{{ path('dialog') }}">{{ '3 reasons'|trans([], 'messages') }}
+                                                    <svg class="svg-icon mark__icon" aria-hidden="true">
+                                                        <use xlink:href="{{ asset('/bundles/frontend/img/icons/svg/sprite.symbol.svg') }}#arrow-left"></use>
+                                                    </svg>
+                                                    <br>{{ 'to book'|trans([], 'messages') }}<br>{{ 'direct'|trans([], 'messages') }}
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
@@ -147,5 +143,13 @@
             </div>
         </div>
     </div>
-{% include '@Frontend/parts/_map.html.twig' %}
+    {% include '@Frontend/parts/_map.html.twig' %}
+{% endblock %}
+
+{% block jscripts %}
+    <script type="text/javascript" src="{{ asset('/bundles/frontend/js/vendors~about-us~activities~chalets~common~contacts~index~restaurant~spa~special-offers~suites.bundle.js') }}"></script>
+    {#<script type="text/javascript" src="{{ asset('/bundles/frontend/js/common~contacts.js') }}"></script>#}
+    <script type="text/javascript" src="{{ asset('/bundles/frontend/js/common.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('/bundles/frontend/js/vendors~chalets~restaurant~spa~suites.bundle.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('/bundles/frontend/js/suites.js') }}"></script>
 {% endblock %}

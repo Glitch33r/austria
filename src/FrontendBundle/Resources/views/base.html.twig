@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">{% block seo %}{% endblock %}
     <link rel="stylesheet" href="{{ asset('/bundles/frontend/css/main.css') }}">{% block stylesheets %}{% endblock %}
+    <script>window.resourceBaseUrl = "/bundles/frontend/js/";</script>
     <script>function loadScript(src) {
             var scriptElement = document.createElement("script");
             scriptElement.async = false;
@@ -18,10 +19,20 @@
 </head>
 <body{% block bodyclass %}{% endblock %}>
 <div class="page__wrapper">{% block header %}{{ render(controller('FrontendBundle:Default:headerDark')) }}{% endblock %}
-    <main class="page__content">{% block special %}{% endblock %}{% block content %}{% endblock %}{% include'FrontendBundle:parts:_sub.html.twig' %}</main>{% block footer %}{{ render(controller('FrontendBundle:Default:footer')) }}{% endblock %}
-</div>{% block cookies %}{% include '@Frontend/parts/_cookies.html.twig' %}{% endblock %}
-<script type="text/javascript"
-        src="{{ asset('/bundles/frontend/js/common.js') }}"></script>
+    <main class="page__content">
+        {% block special %}{% endblock %}
+        <div class="page__content-inner">
+            {% block content %}{% endblock %}
+            {% include'FrontendBundle:parts:_sub.html.twig' %}
+        </div>
+    </main>
+    {% block footer %}
+        {{ render(controller('FrontendBundle:Default:footer')) }}
+    {% endblock %}
+</div>
+{% block cookies %}{% include '@Frontend/parts/_cookies.html.twig' %}{% endblock %}
+<button class="btn btn--theme--invert page__fixed-btn js-go-to-booking" type="button"><span class="btn__inner">{{ 'Book now'|trans([], 'messages') }}</span></button>
+
 {% block jscripts %}{% endblock %}
 
 {% block modal %}{% endblock %}

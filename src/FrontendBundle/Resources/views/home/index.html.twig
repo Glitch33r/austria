@@ -16,243 +16,188 @@
  {% endblock %}
 
 {% block special %}
-    <div class="hero hero--size--big lazyload lazyload-container"
-         data-bgset="{{ asset('uploads/images/background/home/' ~ home.backgroundImage) }} [(min-width: 992px)] | {{ asset('/bundles/frontend/img/hero-bg-mobile.jpg') }}">
+    <div class="hero hero--size--big">
         <div class="hero__inner">
-            <img class="hero__people lazyload B(-96px) W(332px)"
-                 data-srcset="{{ asset('/bundles/frontend/img/people-desktop_664.png') }} 664w"
-                 data-sizes="auto" alt="">
+            <div class="hero__bg lazyload lazyload-container"
+                 data-bgset="{{ asset('uploads/images/background/home/' ~ home.backgroundImage)|imagine_filter('bg_desktop_home_thumb') }} [(min-width: 992px)] |  {{ asset('uploads/images/background/home/' ~ home.backgroundImage)|imagine_filter('bg_mobile_thumb') }}"></div>
+            <img class="hero__people lazyload js-parallax B(-96px) W(332px)"
+                 data-srcset="{{ asset('/bundles/frontend/img/people-desktop_332.png') }} 332w, {{ asset('/bundles/frontend/img/people-desktop_664.png') }} 664w"
+                 data-sizes="auto"
+                 data-src="{{ asset('/bundles/frontend/img/people-desktop_664.png') }}" alt="" data-speed="36">
             <div class="hero__clouds"></div>
         </div>
     </div>
 {% endblock %}
 
 {% block content %}
-    <section class="section">
-        <div class="container section__inner">
-            <div class="row">
-                <div class="col-lg-2">
-                    <div class="features Mt(-4rem) D(n) D(b)--lg">
-                        <ul class="features__list">
-                            {% for i in home.icon %}
-                                <li class="features__item">
-                                    <figure class="features__figure"><img class="features__img"
-                                                                          src="{{ asset('/bundles/frontend/img/svg-icon-' ~ loop.index ~ '.svg') }}"
-                                                                          alt=""/>
-                                        <figcaption
-                                                class="features__caption">{% if locale == 'de' %}{{ i.titletrans }}{% else %}{{ i.title }}{% endif %}</figcaption>
-                                    </figure>
-                                </li>
-                            {% endfor %}
-                        </ul>
+        <section class="section" id="booking">
+            <div class="container section__inner">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <div class="features Mt(-4rem) D(n) D(b)--lg">
+                            <ul class="features__list">
+                                {% for i in home.icon %}
+                                    <li class="features__item">
+                                        <figure class="features__figure"><img class="features__img"
+                                                                              src="{{ asset('/bundles/frontend/img/svg-icon-' ~ loop.index ~ '.svg') }}"
+                                                                              alt=""/>
+                                            <figcaption
+                                                    class="features__caption">{% if locale == 'de' %}{{ i.titletrans }}{% else %}{{ i.title }}{% endif %}</figcaption>
+                                        </figure>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
                     </div>
-                </div>
-
-                <div class="col-lg-7 offset-lg-1">
-                    <h2 class="h2 C(eden)">{% if locale == 'de' %}{{ home.titleTrans }}{% else %}{{ home.title }}{% endif %}</h2>
-                    <div class="static-content C(eden)">
-                        {% if locale == 'de' %}{{ home.descriptionTrans|raw }}{% else %}{{ home.description|raw }}{% endif %}
-                    </div>
-                    <div class="D(f) Ai(c) Mt(2.5rem) Mb(2rem)">
-                        <button class="btn btn--theme--default js-widget-init" type="button">Book now</button>
-                        <span class="mark Mstart(0.5rem)">
-                                {% if locale == 'de' %}3 gründe
-                                    <svg class="svg-icon mark__icon"><use
-                                                xlink:href="{{ asset('/bundles/frontend/img/icons/svg/sprite.symbol.svg') }}#arrow-left"></use></svg>
-                                    <br>buchen<br>direkte
-                                {% else %}
-                                    3 reasons
-                                    <svg class="svg-icon mark__icon"><use
-                                                xlink:href="{{ asset('/bundles/frontend/img/icons/svg/sprite.symbol.svg') }}#arrow-left"></use></svg>
-                                    <br>to book<br>direct
-                                {% endif %}
-                                </span>
-                    </div>
-                    <div class="js-widget"
-                         data-src="https://res-online.ch/wbePlus/incubator.js.php?hotelID=2872&amp;username=WBEPlus&amp;password=zSUyPbYu&amp;type=step"
-                         style="display: none;">
-                        <div id="wbe_container"></div>
+                    <div class="col-lg-7 offset-lg-1">
+                        <h2 class="h2 C(eden)">{% if locale == 'de' %}{{ home.titleTrans }}{% else %}{{ home.title }}{% endif %}</h2>
+                        <div class="static-content C(eden)">
+                            {% if locale == 'de' %}{{ home.descriptionTrans|raw }}{% else %}{{ home.description|raw }}{% endif %}
+                        </div>
+                        <div class="D(f) Ai(c) Mt(2.5rem)">
+                            <button class="btn btn--theme--default js-widget-init" type="button"><span class="btn__inner">{{ 'Book now'|trans([], 'messages') }}</span></button>
+                            <button class="mark js-reasons-dialog-open Mstart(0.5rem)" data-url="{{ path('dialog') }}">{{ '3 reasons'|trans([], 'messages') }}
+                                <svg class="svg-icon mark__icon" aria-hidden="true">
+                                    <use xlink:href="{{ asset('/bundles/frontend/img/icons/svg/sprite.symbol.svg') }}#arrow-left"></use>
+                                </svg>
+                                <br>{{ 'to book'|trans([], 'messages') }}<br>{{ 'direct'|trans([], 'messages') }}
+                            </button>
+                        </div>
+                        <div class="js-widget"
+                             data-src="https://res-online.ch/wbePlus/incubator.js.php?hotelID=2872&amp;username=WBEPlus&amp;password=zSUyPbYu&amp;type=step"
+                             style="display: none;">
+                            <div id="wbe_container"></div>
+                            <div class="loader W(8rem) H(8rem) Mx(a)"></div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-    <section
-            class="section section--theme--dark section--img--left section--with-padding section--img-fixed section--img-fixed--img-left">
-        <div class="section__inner">
-            <div class="section__content">
-                {% set file = app.request.schemeAndHttpHost ~ asset('/uploads/images/spa/' ~ home.spaImage) %}
-                <figure class="section__img-wrap lazyload-container lazyload-container--spacer-needed-rectangle">
-                    <img
-                            class="section__img lazyload"
-                            data-srcset="{{ asset('/bundles/frontend/thumbnails/spa/' ~ 1 ~ '/' ~ thumb(file, 1, 'spa', 385)) }} 385w,
-                                         {{ asset('/bundles/frontend/thumbnails/spa/' ~ 1 ~ '/' ~ thumb(file, 1, 'spa', 521)) }} 521w,
-                                         {{ asset('/bundles/frontend/thumbnails/spa/' ~ 1 ~ '/' ~ thumb(file, 1, 'spa', 770)) }} 770w,
-                                         {{ asset('/bundles/frontend/thumbnails/spa/' ~ 1 ~ '/' ~ thumb(file, 1, 'spa', 1024)) }} 1042w"
-                            data-src="{{ asset('/uploads/images/spa/' ~ home.spaImage) }}" data-sizes="auto"
-                            alt="">
-                </figure>
-                <div class="section__text">
-                    <div class="section__text-inner">
-                        <h2 class="h2">{% if locale == 'de' %}{{ home.spaTitleTrans }}{% else %}{{ home.spaTitle }}{% endif %}</h2>
-                        <div class="static-content">
-                            {% if locale == 'de' %}{{ home.spaDescriptionTrans|raw }}{% else %}{{ home.spaDescription|raw }}{% endif %}
+        </section>
+        <section class="section section--theme--dark section--img--left section--with-padding section--img-fixed section--img-fixed--img-left">
+            <div class="section__inner">
+                <div class="section__content">
+                    <figure class="section__img-wrap lazyload-container lazyload-container--spacer-needed-rectangle">
+                        <img class="section__img lazyload"
+                                data-srcset="{{ asset('/uploads/images/spa/' ~ home.spaImage)|imagine_filter('thumb_385') }} 385w,
+                                             {{ asset('/uploads/images/spa/' ~ home.spaImage)|imagine_filter('thumb_522') }} 522w,
+                                             {{ asset('/uploads/images/spa/' ~ home.spaImage)|imagine_filter('thumb_770') }} 770w,
+                                             {{ asset('/uploads/images/spa/' ~ home.spaImage)|imagine_filter('thumb_1044') }} 1044w"
+                                data-src="{{ asset('/uploads/images/spa/' ~ home.spaImage) }}" data-sizes="auto"
+                                alt="">
+                    </figure>
+                    <div class="section__text">
+                        <div class="section__text-inner">
+                            <h2 class="h2">{% if locale == 'de' %}{{ home.spaTitleTrans }}{% else %}{{ home.spaTitle }}{% endif %}</h2>
+                            <div class="static-content">
+                                {% if locale == 'de' %}{{ home.spaDescriptionTrans|raw }}{% else %}{{ home.spaDescription|raw }}{% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="section">
+            <div class="container section__inner">
+                <div class="gallery">
+                    <div class="glide gallery__slider" data-per-view="4">
+                        <div class="glide__track" data-glide-el="track">
+                            <ul class="glide__slides gallery__items">
+                                {% for item in home.slide %}
+                                    <li class="gallery__item glide__slide Ta(c)">
+                                        <figure class="gallery__img-wrap lazyload-container lazyload-container--spacer-needed-square">
+                                            <a class="D(b)" href="{{ path('homepage') }}/{{ item.url }}">
+                                                <img class="gallery__img lazyload" data-sizes="auto"
+                                                     data-srcset="{{ asset('/uploads/images/slider-home/' ~ item.image)|imagine_filter('thumb_250') }} 250w,
+                                                                  {{ asset('/uploads/images/slider-home/' ~ item.image)|imagine_filter('thumb__385') }} 385w,
+                                                                  {{ asset('/uploads/images/slider-home/' ~ item.image)|imagine_filter('thumb_500') }} 500w,
+                                                                  {{ asset('/uploads/images/slider-home/' ~ item.image)|imagine_filter('thumb__770') }} 770w"
+                                                     data-src="{{ asset('/uploads/images/slider-home/' ~ item.image) }}"
+                                                     alt="">
+                                            </a>
+                                            <figcaption class="gallery__caption">
+                                                <a class="gallery__link" href="{{ path(item.url) }}">{% if locale == 'de' %}{{ item.titleTrans }}{% else %}{{ item.title }}{% endif %}</a>
+                                            </figcaption>
+                                        </figure>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <div class="glide__bullets" data-glide-el="controls[nav]">
+                            {% for item in home.slide %}
+                                <button class="glide__bullet" data-glide-dir="={{ loop.index - 1 }}"></button>
+                            {% endfor %}
+                            {#<button class="glide__bullet" data-glide-dir="=1"></button>#}
+                            {#<button class="glide__bullet" data-glide-dir="=2"></button>#}
+                            {#<button class="glide__bullet" data-glide-dir="=3"></button>#}
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
-    <div class="section">
-        <div class="container section__inner">
-            <div class="gallery">
-                <div class="glide gallery__slider" data-per-view="4">
-                    <div class="glide__track" data-glide-el="track">
-                        <ul class="glide__slides gallery__items">
-                            <li class="gallery__item glide__slide Ta(c)">
-                                <figure class="gallery__img-wrap lazyload-container lazyload-container--spacer-needed-square">
-                                    <img class="gallery__img lazyload" data-sizes="auto"
-                                         data-srcset="{{ asset('/bundles/frontend/img/temp/img-3_250.jpg') }} 250w, {{ asset('/bundles/frontend/img/temp/img-3_385.jpg') }} 385w, {{ asset('/bundles/frontend/img/temp/img-3_500.jpg') }} 500w, {{ asset('/bundles/frontend/img/temp/img-3_770.jpg') }} 770w"
-                                         data-src="{{ asset('/bundles/frontend/img/temp/img-3_770.jpg') }}" alt="">
-                                    <figcaption class="gallery__caption">
-                                        <a class="gallery__link" href="{{ path('rooms-and-prices') }}">Hotel</a>
-                                    </figcaption>
-                                </figure>
-                            <li class="gallery__item glide__slide Ta(c)">
-                                <figure class="gallery__img-wrap lazyload-container lazyload-container--spacer-needed-square">
-                                    <img class="gallery__img lazyload" data-sizes="auto"
-                                         data-srcset="{{ asset('/bundles/frontend/img/temp/img-2_250.jpg') }} 250w, {{ asset('/bundles/frontend/img/temp/img-2_385.jpg') }} 385w, {{ asset('/bundles/frontend/img/temp/img-2_500.jpg') }} 500w, {{ asset('/bundles/frontend/img/temp/img-2_770.jpg') }} 770w"
-                                         data-src="{{ asset('/bundles/frontend/img/temp/img-2_770.jpg') }}" alt="">
-                                    <figcaption class="gallery__caption">
-                                        <a class="gallery__link" href="{{ path('restaurant-and-bar') }}">Restaurant & bar</a></figcaption>
-                                </figure>
-                            </li>
-                            <li class="gallery__item glide__slide Ta(c)">
-                                <figure class="gallery__img-wrap lazyload-container lazyload-container--spacer-needed-square">
-                                    <img class="gallery__img lazyload" data-sizes="auto"
-                                         data-srcset="{{ asset('/bundles/frontend/img/Haus_Winter_Seekirchl2.jpg') }} 250w, {{ asset('/bundles/frontend/img/Haus_Winter_Seekirchl1.jpg') }} 385w, {{ asset('/bundles/frontend/img/Haus_Winter_Seekirchl.jpg') }} 770w"
-                                         data-src="{{ asset('/bundles/frontend/img/Haus_Winter_Seekirchl.jpg') }}" alt="">
-                                    <figcaption class="gallery__caption">
-                                        <a class="gallery__link" href="{{ path('chalets') }}">Chalets</a>
-                                    </figcaption>
-                                </figure>
-                            </li>
-                            <li class="gallery__item glide__slide Ta(c)">
-                                <figure class="gallery__img-wrap lazyload-container lazyload-container--spacer-needed-square">
-                                    <img class="gallery__img lazyload" data-sizes="auto"
-                                         data-srcset="{{ asset('/bundles/frontend/img/temp/img-4_250.jpg') }} 250w, {{ asset('/bundles/frontend/img/temp/img-4_385.jpg') }} 385w, {{ asset('/bundles/frontend/img/temp/img-4_500.jpg') }} 500w, {{ asset('/bundles/frontend/img/temp/img-4_770.jpg') }} 770w"
-                                         data-src="{{ asset('/bundles/frontend/img/temp/img-4_770.jpg') }}" alt="">
-                                    <figcaption class="gallery__caption">
-                                        <a class="gallery__link" href="{{ path('spa') }}">Spa</a>
-                                    </figcaption>
-                                </figure>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="glide__bullets" data-glide-el="controls[nav]">
-                        <button class="glide__bullet" data-glide-dir="=0"></button>
-                        <button class="glide__bullet" data-glide-dir="=1"></button>
-                        <button class="glide__bullet" data-glide-dir="=2"></button>
-                        <button class="glide__bullet" data-glide-dir="=3"></button>
+        <section class="section section--size--big lazyload lazyload-container Bgc(secondary) Bgr(nr)"
+                 data-bgset="{{ asset('/bundles/frontend/img/temp/bg-1-desktop.jpg') }} [(min-width: 992px)] | {{ asset('/bundles/frontend/img/temp/bg-1-mobile.jpg') }}">
+            <div class="container section__inner">
+                <div class="row">
+                    <div class="col-lg-6 offset-lg-5">
+                        <h2 class="h2 C(primary) Ta(end)">{% if locale == 'de' %}{{ home.ameTitleTrans }}{% else %}{{ home.ameTitle }}{% endif %}</h2>
+                        <div class="static-content C(primary) Ta(end)">
+                            {% if locale == 'de' %}{{ home.ameDescriptionTrans|raw }}{% else %}{{ home.ameDescription|raw }}{% endif %}
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-    <section class="section section--size--big lazyload lazyload-container Bgc(secondary) Bgr(nr)"
-             data-bgset="{{ asset('/bundles/frontend/img/bg-1-desktop.jpg') }} [(min-width: 992px)] | {{ asset('/bundles/frontend/img/bg-1-mobile.jpg') }}">
-        <div class="container section__inner">
-            <div class="row">
-                <div class="col-lg-8 offset-lg-3">
-                    <h2 class="h2 C(primary) Ta(end)">{% if locale == 'de' %}{{ home.ameTitleTrans }}{% else %}{{ home.ameTitle }}{% endif %}</h2>
-                    <div class="static-content C(primary) Ta(end)">
-                        {% if locale == 'de' %}{{ home.ameDescriptionTrans|raw }}{% else %}{{ home.ameDescription|raw }}{% endif %}
-                    </div>
-                </div>
-            </div>
-            <div class="gallery gallery--theme--dark Mt(14rem)">
-                <div class="glide gallery__slider" data-per-view="4">
-                    <div class="glide__track" data-glide-el="track">
-                        <ul class="glide__slides gallery__items">
+                <div class="gallery gallery--theme--dark Mt(6rem)">
+                    <div class="glide gallery__slider">
+                        <div class="glide__track glide__track--centering--center" data-glide-el="track">
+                            <ul class="glide__slides gallery__items">
+                                {% for i in amenities_items %}
+                                    <li class="gallery__item glide__slide">
+                                        <figure class="gallery__img-wrap lazyload-container lazyload-container--spacer-needed-square">
+                                            <a class="D(b)" href="{{ path('room-class', {'slug' : i.slug}) }}">
+                                                <img class="gallery__img lazyload" data-sizes="auto"
+                                                     data-srcset="{{ asset('/uploads/images/room-class/' ~ i.image)|imagine_filter('thumb_250') }} 250w,
+                                                                  {{ asset('/uploads/images/room-class/' ~ i.image)|imagine_filter('thumb__385') }} 385w,
+                                                                  {{ asset('/uploads/images/room-class/' ~ i.image)|imagine_filter('thumb_500') }} 500w,
+                                                                  {{ asset('/uploads/images/room-class/' ~ i.image)|imagine_filter('thumb__770') }} 770w"
+                                                     data-src="{{ asset('/uploads/images/room-class/' ~ i.image) }}"
+                                                     alt="">
+                                            </a>
+                                            <figcaption class="gallery__caption">
+                                                <h4 class="h2 gallery__title">{% if locale == 'de' %}{{ i.titleTrans }}{% else %}{{ i.title }}{% endif %}</h4>
+                                            </figcaption>
+                                        </figure>
+                                        <div class="static-content">
+                                            <p>{% if locale == 'de' %}{{ i.descriptionTrans|raw }}{% else %}{{ i.description |raw }}{% endif %}</p>
+                                        </div>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <div class="glide__bullets" data-glide-el="controls[nav]">
                             {% for i in amenities_items %}
-                                {% set file = app.request.schemeAndHttpHost ~ asset('/uploads/images/room-class/' ~ i.image) %}
-                                {#<img src="{{ asset('/bundles/thumbnails/' ~ 1 ~ '/' ~ file) }}">#}
-                                <li class="gallery__item glide__slide">
-                                    <figure class="gallery__img-wrap lazyload-container lazyload-container--spacer-needed-square">
-                                        <img class="gallery__img lazyload" data-sizes="auto"
-                                             data-srcset="{{ asset('/bundles/frontend/thumbnails/room-class/home/' ~ loop.index ~ '/' ~ thumb(file, loop.index, 'room-class/home', 250)) }} 250w,
-                                                          {{ asset('/bundles/frontend/thumbnails/room-class/home/' ~ loop.index ~ '/' ~ thumb(file, loop.index, 'room-class/home', 385)) }} 385w,
-                                                          {{ asset('/bundles/frontend/thumbnails/room-class/home/' ~ loop.index ~ '/' ~ thumb(file, loop.index, 'room-class/home', 500)) }} 500w,
-                                                          {{ asset('/bundles/frontend/thumbnails/room-class/home/' ~ loop.index ~ '/' ~ thumb(file, loop.index, 'room-class/home', 770)) }} 770w"
-                                             data-src="{{ asset('/uploads/images/room-class/' ~ i.image) }}"
-                                             alt="">
-                                        <figcaption class="gallery__caption">
-                                            <h4 class="h2 gallery__title">{% if locale == 'de' %}{{ i.titleTrans }}{% else %}{{ i.title }}{% endif %}</h4>
-                                        </figcaption>
-                                    </figure>
-                                    <div class="static-content">
-                                        <p>{% if locale == 'de' %}{{ i.descriptionTrans|raw }}{% else %}{{ i.description |raw }}{% endif %}</p>
-                                    </div>
-                                </li>
+                                <button class="glide__bullet" data-glide-dir="={{ loop.index-1 }}"></button>
                             {% endfor %}
-                        </ul>
-                    </div>
-                    <div class="glide__bullets" data-glide-el="controls[nav]">
-                        {% for i in amenities_items %}
-                            <button class="glide__bullet" data-glide-dir="={{ loop.index-1 }}"></button>
-                        {% endfor %}
-                        {#<button class="glide__bullet" data-glide-dir="=1"></button>#}
-                        {#<button class="glide__bullet" data-glide-dir="=2"></button>#}
-                        {#<button class="glide__bullet" data-glide-dir="=3"></button>#}
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <section class="section section--img--left section--with-padding">
-    <div class="section__inner">
-    <h2 class="h2 C(eden) Ta(c)--lg">{% if locale == 'de' %}{{ adv.titleTrans }}{% else %}{{ adv.title }}{% endif %}</h2>
-    {% for i in adv.part %}
-        {% set file = app.request.schemeAndHttpHost ~ asset('/uploads/images/adventures/' ~ i.image) %}
-        {% if loop.index in [1,3,5,7] %}
-            <div class="section__content">
-                <figure class="section__img-wrap lazyload-container lazyload-container--spacer-needed-rectangle">
-                    <img
-                            class="section__img lazyload"
-                            data-srcset="{{ asset('/bundles/frontend/thumbnails/adventures/' ~ loop.index ~ '/' ~ thumb(file, loop.index, 'adventures', 385)) }} 385w,
-                                                     {{ asset('/bundles/frontend/thumbnails/adventures/' ~ loop.index ~ '/' ~ thumb(file, loop.index, 'adventures', 522)) }} 522w,
-                                                     {{ asset('/bundles/frontend/thumbnails/adventures/' ~ loop.index ~ '/' ~ thumb(file, loop.index, 'adventures', 770)) }} 770w,
-                                                     {{ asset('/bundles/frontend/thumbnails/adventures/' ~ loop.index ~ '/' ~ thumb(file, loop.index, 'adventures', 1044)) }} 1044w"
-                            data-src="{{ asset('/uploads/images/adventures/' ~ i.image) }}" data-sizes="auto"
-                            alt="">
-                </figure>
-
-                <div class="section__text">
-                    <div class="section__text-inner">
-                        <h3 class="h3">{% if locale == 'de' %}{{ i.titleTrans }}{% else %}{{ i.title }}{% endif %}</h3>
-                        <div class="static-content">
-                            {% if locale == 'de' %}{{ i.descriptionTrans|raw }}{% else %}{{ i.description|raw }}{% endif %}
                         </div>
                     </div>
                 </div>
             </div>
-            </div>
-            </section>
-        {% else %}
-            <section class="section section--img--right section--with-padding">
-                <div class="section__inner">
+        </section>
+        <section class="section section--img--left section--with-padding">
+            <div class="section__inner">
+                <h2 class="h2 C(eden) Ta(c)--lg">{% if locale == 'de' %}{{ adv.titleTrans }}{% else %}{{ adv.title }}{% endif %}</h2>
+                {% for i in adv.part %}
+                    {% if loop.index in [1,3,5,7] %}
                     <div class="section__content">
                         <figure class="section__img-wrap lazyload-container lazyload-container--spacer-needed-rectangle">
                             <img
                                     class="section__img lazyload"
-                                    data-srcset="{{ asset('/bundles/frontend/thumbnails/adventures/' ~ loop.index ~ '/' ~ thumb(file, loop.index, 'adventures', 385)) }} 385w,
-                                                     {{ asset('/bundles/frontend/thumbnails/adventures/' ~ loop.index ~ '/' ~ thumb(file, loop.index, 'adventures', 522)) }} 522w,
-                                                     {{ asset('/bundles/frontend/thumbnails/adventures/' ~ loop.index ~ '/' ~ thumb(file, loop.index, 'adventures', 770)) }} 770w,
-                                                     {{ asset('/bundles/frontend/thumbnails/adventures/' ~ loop.index ~ '/' ~ thumb(file, loop.index, 'adventures', 1044)) }} 1044w"
+                                    data-srcset="{{ asset('/uploads/images/adventures/' ~ i.image)|imagine_filter('thumb_385') }} 385w,
+                                             {{ asset('/uploads/images/adventures/' ~ i.image)|imagine_filter('thumb_522') }} 522w,
+                                             {{ asset('/uploads/images/adventures/' ~ i.image)|imagine_filter('thumb_770') }} 770w,
+                                             {{ asset('/uploads/images/adventures/' ~ i.image)|imagine_filter('thumb_1044') }} 1044w"
                                     data-src="{{ asset('/uploads/images/adventures/' ~ i.image) }}" data-sizes="auto"
                                     alt="">
                         </figure>
-                        <div class="section__text">
+                        <div class="section__text C(primary)">
                             <div class="section__text-inner">
                                 <h3 class="h3">{% if locale == 'de' %}{{ i.titleTrans }}{% else %}{{ i.title }}{% endif %}</h3>
                                 <div class="static-content">
@@ -263,60 +208,88 @@
                     </div>
                 </div>
             </section>
-        {% endif %}
-    {% endfor %}
-    <section
-            class="section section--theme--blue section--img--left section--with-padding section--img-fixed section--img-fixed--img-left">
-        {% set file = app.request.schemeAndHttpHost ~ asset('/uploads/images/charlets/' ~ home.chaletImage) %}
-        <div class="section__inner">
-            <div class="section__content">
-                <figure class="section__img-wrap lazyload-container lazyload-container--spacer-needed-rectangle">
-                    <img
-                            class="section__img lazyload"
-                            data-srcset="{{ asset('/bundles/frontend/thumbnails/charlets/' ~ 1 ~ '/' ~ thumb(file, 1, 'charlets', 385)) }} 385w,
-                                         {{ asset('/bundles/frontend/thumbnails/charlets/' ~ 1 ~ '/' ~ thumb(file, 1, 'charlets', 522)) }} 522w,
-                                         {{ asset('/bundles/frontend/thumbnails/charlets/' ~ 1 ~ '/' ~ thumb(file, 1, 'charlets', 770)) }} 770w,
-                                         {{ asset('/bundles/frontend/thumbnails/charlets/' ~ 1 ~ '/' ~ thumb(file, 1, 'charlets', 1044)) }} 1044w"
-                            data-src="{{ asset('/uploads/images/charlets/' ~ home.chaletImage) }}" data-sizes="auto"
-                            alt="">
-                </figure>
-                <div class="section__text">
-                    <div class="section__text-inner">
-                        <h2 class="h2">{% if locale == 'de' %}{{ home.chaletTitleTrans }}{% else %}{{ home.chaletTitle }}{% endif %}</h2>
-                        <div class="static-content">
-                            {% if locale == 'de' %}{{ home.chaletDescriptionTrans|raw }}{% else %}{{ home.chaletDescription|raw }}{% endif %}
+                {% else %}
+                    <section class="section section--img--right section--with-padding">
+                        <div class="section__inner">
+                            <div class="section__content">
+                                <figure class="section__img-wrap lazyload-container lazyload-container--spacer-needed-rectangle">
+                                    <img
+                                            class="section__img lazyload"
+                                            data-srcset="{{ asset('/uploads/images/adventures/' ~ i.image)|imagine_filter('thumb_385') }} 385w,
+                                                         {{ asset('/uploads/images/adventures/' ~ i.image)|imagine_filter('thumb_522') }} 522w,
+                                                         {{ asset('/uploads/images/adventures/' ~ i.image)|imagine_filter('thumb_770') }} 770w,
+                                                         {{ asset('/uploads/images/adventures/' ~ i.image)|imagine_filter('thumb_1044') }} 1044w"
+                                            data-src="{{ asset('/uploads/images/adventures/' ~ i.image) }}" data-sizes="auto"
+                                            alt="">
+                                </figure>
+                                <div class="section__text C(primary)">
+                                    <div class="section__text-inner">
+                                        <h3 class="h3">{% if locale == 'de' %}{{ i.titleTrans }}{% else %}{{ i.title }}{% endif %}</h3>
+                                        <div class="static-content">
+                                            {% if locale == 'de' %}{{ i.descriptionTrans|raw }}{% else %}{{ i.description|raw }}{% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                {% endif %}
+            {% endfor %}
+        <section class="section section--theme--blue section--img--left section--with-padding section--img-fixed section--img-fixed--img-left">
+            <div class="section__inner">
+                <div class="section__content">
+                    <figure class="section__img-wrap lazyload-container lazyload-container--spacer-needed-rectangle">
+                        <img
+                                class="section__img lazyload"
+                                data-srcset="{{ asset('/uploads/images/chalet/' ~ home.chaletImage)|imagine_filter('thumb_385') }} 385w,
+                                             {{ asset('/uploads/images/chalet/' ~ home.chaletImage)|imagine_filter('thumb_522') }} 522w,
+                                             {{ asset('/uploads/images/chalet/' ~ home.chaletImage)|imagine_filter('thumb_770') }} 770w,
+                                             {{ asset('/uploads/images/chalet/' ~ home.chaletImage)|imagine_filter('thumb_1044') }} 1044w"
+                                data-src="{{ asset('/uploads/images/chalet/' ~ home.chaletImage) }}" data-sizes="auto"
+                                alt="">
+                    </figure>
+                    <div class="section__text">
+                        <div class="section__text-inner">
+                            <h2 class="h2">{% if locale == 'de' %}{{ home.chaletTitleTrans }}{% else %}{{ home.chaletTitle }}{% endif %}</h2>
+                            <div class="static-content">
+                                {% if locale == 'de' %}{{ home.chaletDescriptionTrans|raw }}{% else %}{{ home.chaletDescription|raw }}{% endif %}
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-    <section class="section section--size--big lazyload lazyload-container video C(#fff)"
-             data-bgset="{{ asset('/bundles/frontend/img/bg-2-mobile.jpg') }}">
-        <video class="video__element" preload="none" muted loop>
-            <source src="{{ asset('/bundles/frontend/video/video.mp4') }}" type="video/mp4">
-        </video>
-        <div class="container section__inner">
-            <div class="row">
-                <div class="col-lg-4 offset-lg-2">
-                    <h2 class="h2">{% if locale == 'de' %}{{ home.videoTitleTrans }}{% else %}{{ home.videoTitle }}{% endif %}</h2>
-                    <div class="static-content">
-                        <p>{% if locale == 'de' %}{{ home.videoDescriptionTrans|raw }}{% else %}{{ home.videoDescription|raw  }}{% endif %}</p>
-                        <button class="video__btn">
-                            <svg class="svg-icon video__btn-icon video__btn-icon--play" aria-hidden="true">
-                                <use xlink:href="{{ asset('/bundles/frontend/img/icons/svg/sprite.symbol.svg') }}#play"></use>
-                            </svg>
-                            Click to view
-                        </button>
+        </section>
+        <section class="section section--size--big lazyload lazyload-container video C(#fff)"
+                 data-bgset="{{ asset('/bundles/frontend/img/bg-2-mobile.jpg') }}">
+            <video class="video__element" preload="none" muted loop>
+                <source src="{{ asset('/bundles/frontend/video/video.mp4') }}" type="video/mp4">
+            </video>
+            <div class="container section__inner">
+                <div class="row">
+                    <div class="col-lg-4 offset-lg-2">
+                        <h2 class="h2">{% if locale == 'de' %}{{ home.videoTitleTrans }}{% else %}{{ home.videoTitle }}{% endif %}</h2>
+                        <div class="static-content">
+                            <p>{% if locale == 'de' %}{{ home.videoDescriptionTrans|raw }}{% else %}{{ home.videoDescription|raw }}{% endif %}</p>
+                            <button class="video__btn">
+                                <svg class="svg-icon video__btn-icon video__btn-icon--play" aria-hidden="true">
+                                    <use xlink:href="{{ asset('/bundles/frontend/img/icons/svg/sprite.symbol.svg') }}#play"></use>
+                                </svg>
+                                {{ 'Click to view'|trans([], 'messages') }}
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-    {% include '@Frontend/parts/_map.html.twig' %}
-    {#{% include '@Frontend/parts/_sub.html.twig' %}#}
+        </section>
+        {% include '@Frontend/parts/_map.html.twig' %}
 {% endblock %}
 
 {% block jscripts %}
+    <script type="text/javascript"
+            src="{{ asset('/bundles/frontend/js/vendors~about-us~activities~chalets~common~contacts~index~restaurant~spa~special-offers~suites.bundle.js') }}"></script>
+    {#<script type="text/javascript" src="{{ asset('/bundles/frontend/js/common~contacts.js') }}"></script>#}
+    <script type="text/javascript" src="{{ asset('/bundles/frontend/js/common.js') }}"></script>
+    <script type="text/javascript"
+            src="{{ asset('/bundles/frontend/js/vendors~about-us~activities~index~special-offers.bundle.js') }}"></script>
     <script type="text/javascript" src="{{ asset('/bundles/frontend/js/index.js') }}"></script>
 {% endblock %}

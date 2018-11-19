@@ -3,15 +3,27 @@
         <div class="map">
             <div class="map__inner">
                 <div class="map__holder">
-                    <div class="map__location">
+                    <a class="map__location" rel="nofollow" href="https://goo.gl/maps/53SRV" target="_blank">
                         <svg class="svg-icon map__icon" aria-hidden="true">
                             <use xlink:href="{{ asset('/bundles/frontend/img/icons/svg/sprite.symbol.svg') }}#location"></use>
                         </svg>
                         <div><b>St. Peter Hotel</b><br>Seefeld, Tirol</div>
+                    </a>
+                </div>
+                <div class="map__img">
+                    <a class="D(b)" rel="nofollow" href="https://goo.gl/maps/53SRV" target="_blank"><img src="{{ asset('/bundles/frontend/img/map.svg') }}" alt=""></a>
+                </div>
+                <div class="map__holder" style="display: flex;">
+                    <div class="js-init-on-scroll"
+                         data-src="https://api.trustyou.com/static/3rdparty/iframe-resizer/js/iframeResizer.min.js"
+                         data-onload="iFrameResize({});" style="margin-left:auto;width: 163px;">
+                        <div class="js-init-on-scroll-inner" style="display: none;">
+                            <iframe
+                                    data-src="https://api.trustyou.com/hotels/6e3c092f-04e2-4607-86f5-d8c9641ed5c7/seal.html?key=05ece9b0-4eff-440c-9874-8a99a3190c1e&amp;embedded=true&amp;size=xl&amp;scale=100"
+                                    allowtransparency="true" frameborder="0" width="100%"></iframe>
+                        </div>
                     </div>
                 </div>
-                <div class="map__img"><img src="{{ asset('/bundles/frontend/img/map.svg') }}" alt=""></div>
-                <div class="map__holder"></div>
             </div>
         </div>
     </div>

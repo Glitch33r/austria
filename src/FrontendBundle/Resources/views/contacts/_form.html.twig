@@ -1,67 +1,24 @@
-{{ form_start(form, {'attr': {'class': 'form'}}) }}
+{{ form_start(form, {'attr': {'class': 'form js-ajax-form js-validate-form', 'data-url': path('contact-dialog'), novalidate: 'novalidate'}}) }}
     {{ form_errors(form) }}
     <div class="row form__inner">
         <div class="col-lg-6">
-
             <div class="form__group">
-                {{ form_widget(form.name) }}
-                {#<input class="input input--line--single" type="text" placeholder="Name">#}
+                {{ form_widget(form.name) }}<span class="error form__error"></span>
             </div>
             <div class="form__group">
-                {{ form_widget(form.telephone) }}
-                {#<input class="input input--line--single" type="tel" placeholder="Telephone">#}
+                {{ form_widget(form.telephone) }}<span class="error form__error"></span>
             </div>
             <div class="form__group">
-                {{ form_widget(form.email) }}
-                {#<input class="input input--line--single" type="email" placeholder="Email">#}
+                {{ form_widget(form.email) }}<span class="error form__error"></span>
             </div>
         </div>
         <div class="col-lg-6 Mt(1rem) Mt(0)--lg">
             <div class="form__group">
                 {{ form_widget(form.body) }}
-                {#<textarea class="input input--line--multi" placeholder="Comments"></textarea>#}
             </div>
         </div>
         <div class="col-lg-6 offset-lg-6 Mt(1rem) D(f) Jc(fe)">
-            <button type="submit" id="submit" class="btn btn--theme--light">Submit</button>
+            <button class="btn btn--theme--light"><span class="btn__inner">{{ 'Submit'|trans([], 'messages') }}</span></button>
         </div>
     </div>
 {{ form_end(form) }}
-
-<script
-        src="https://code.jquery.com/jquery-3.3.1.min.js"
-        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-        crossorigin="anonymous"></script>
-<script type="text/javascript">
-    $('.form').submit(function (e) {
-
-        // console.log($(this).serialize());
-        e.preventDefault();
-        // var formData = new FormData(this);
-        var url = "{{ path('submit-contact') }}";
-        var formSerialize = $(this).serialize();
-
-        $.ajax({
-            type: "POST",
-            url: url,
-            data: formSerialize, // serializes the form's elements.
-            success: function(data)
-            {
-                // console.log(JSON.parse(data).status);
-                document.getElementsByClassName('dialog-backdrop')[0].style.display = 'block';
-
-                if (JSON.parse(data).status === true){
-                    $('#dialog-title').text('{% if app.request.session.get('_locale') == 'de' %}Danke für deinen Brief!{% else %}Thank you for your letter!{% endif %}');
-                    $('#dialog-description').text('{% if app.request.session.get('_locale') == 'de' %}Wir melden uns bald bei Ihnen!{% else %}We will contact you soon!{% endif %}');
-
-                    // alert(data); // show response from the php script.
-                }
-                else {
-                    $('#dialog-title').html('{% if app.request.session.get('_locale') == 'de' %}Ihre Daten sind falsch! Bitte versuche es erneut!{% else %}Your data are wrong! Please, try again!{% endif %}');
-                    // alert(data); // show response from the php script.
-                }
-            }
-        });
-
-    });
-</script>

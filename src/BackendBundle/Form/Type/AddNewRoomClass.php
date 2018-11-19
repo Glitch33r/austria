@@ -29,11 +29,15 @@ class AddNewRoomClass extends AbstractType
              'label' => 'Description [DE]',
             ]);
         $builder->add('price', TextType::class, [
-            'label' => 'Price',
+            'label' => 'Price [EN]',
+//            'help' => 'Icon of € will be added automatically.'
+        ]);
+        $builder->add('price_trans', TextType::class, [
+            'label' => 'Price [DE]',
 //            'help' => 'Icon of € will be added automatically.'
         ]);
         $builder->add('imageFile', VichImageType::class, [
-            'required' => екгу,
+            'required' => true,
             'allow_delete' => true,
         ]);
     }

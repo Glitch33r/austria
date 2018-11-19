@@ -180,6 +180,8 @@ class RestaurantPage
     public function removeGallery(\BackendBundle\Entity\RestaurantGallery $r)
     {
         $this->gallery->removeElement($r);
+        $r->setRest(null);
+
     }
 
     /**

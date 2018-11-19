@@ -1,6 +1,5 @@
 {% extends '@Frontend/base.html.twig' %}
 
-
 {% block bodyclass %} class="page" {% endblock %}
 
 {% block seo %}
@@ -20,13 +19,14 @@
 {% endblock %}
 
 {% block special %}
-    <div class="hero hero--size--medium hero--with-overlay lazyload lazyload-container"
-         data-bgset="{{ asset('/uploads/images/background/offers/' ~ data.backgroundImage) | imagine_filter('bg_desktop_thumb') }} [(min-width: 992px)] | {{ asset('/uploads/images/background/offers/' ~ data.backgroundImage) | imagine_filter('bg_mobile_thumb') }}">
+    <div class="hero hero--size--medium hero--with-overlay">
         <div class="hero__inner">
+            <div class="hero__bg lazyload lazyload-container"
+                 data-bgset="{{ asset('/uploads/images/background/offers/' ~ data.backgroundImage)|imagine_filter('bg_desktop_thumb') }} [(min-width: 992px)] | {{ asset('/uploads/images/background/offers/' ~ data.backgroundImage)|imagine_filter('bg_mobile_thumb') }}"></div>
             <div class="hero__content container">
                 <div class="breadcrumbs">
                     <ul class="breadcrumbs__list">
-                        <li class="breadcrumbs__item"><a class="breadcrumbs__link" href="{{ path('homepage') }}">Home</a>
+                        <li class="breadcrumbs__item"><a class="breadcrumbs__link"  href="{{ path('homepage') }}">{{ 'Home'|trans([], 'messages') }}</a>
                             <svg class="svg-icon breadcrumbs__icon" aria-hidden="true">
                                 <use xlink:href="{{ asset('/bundles/frontend/img/icons/svg/sprite.symbol.svg') }}#chevron-right"></use>
                             </svg>
@@ -34,8 +34,7 @@
                         <li class="breadcrumbs__item"><span class="breadcrumbs__text">{% if locale == 'de' %}{{ seo.h1Trans }}{% else %}{{ seo.h1 }}{% endif %}</span></li>
                     </ul>
                 </div>
-                <h1 class="hero__title">{% if locale == 'de' %}{{ seo.h1Trans }}{% else %}{{ seo.h1 }}{% endif %}</h1>
-            </div>
+                <h1 class="hero__title">{% if locale == 'de' %}{{ seo.h1Trans }}{% else %}{{ seo.h1 }}{% endif %}</h1></div>
             <div class="hero__clouds"></div>
         </div>
     </div>
@@ -56,18 +55,22 @@
                     </div>
                 </div>
                 <div class="col-lg-5 Mt(2.5rem) Mt(0)--lg">
-                    <div class="d-flex Ai(c)">
-                        <a class="btn btn--theme--invert" href="#">Book now</a>
-                        <span class="mark Mstart(0.5rem)">
-                            {% if locale == 'de' %}3 gründe
-                                <svg class="svg-icon mark__icon"><use xlink:href="{{ asset('/bundles/frontend/img/icons/svg/sprite.symbol.svg') }}#arrow-left"></use></svg>
-                                <br>buchen<br>direkte
-                            {% else %}
-                                3 reasons
-                                <svg class="svg-icon mark__icon"><use xlink:href="{{ asset('/bundles/frontend/img/icons/svg/sprite.symbol.svg') }}#arrow-left"></use></svg>
-                                <br>to book<br>direct
-                            {% endif %}
-                        </span>
+                    <div class="D(f) Ai(c)">
+                        <button class="btn btn--theme--invert js-widget-init" type="button"><span class="btn__inner">{{ 'Book now'|trans([], 'messages') }}</span></button>
+                        <button class="mark js-reasons-dialog-open Mstart(0.5rem)" data-url="{{ path('dialog') }}">{{ '3 reasons'|trans([], 'messages') }}
+                            <svg class="svg-icon mark__icon" aria-hidden="true">
+                                <use xlink:href="{{ asset('/bundles/frontend/img/icons/svg/sprite.symbol.svg') }}#arrow-left"></use>
+                            </svg>
+                            <br>{{ 'to book'|trans([], 'messages') }}<br>{{ 'direct'|trans([], 'messages') }}
+                        </button>
+                    </div>
+                </div>
+                <div class="col-lg-6 offset-lg-3">
+                    <div class="js-widget"
+                         data-src="https://res-online.ch/wbePlus/incubator.js.php?hotelID=2872&amp;username=WBEPlus&amp;password=zSUyPbYu&amp;type=step"
+                         style="display: none;">
+                        <div id="wbe_container"></div>
+                        <div class="loader W(8rem) H(8rem) Mx(a)"></div>
                     </div>
                 </div>
             </div>
@@ -76,13 +79,12 @@
     <section class="section section--theme--semi-dark section--img--left section--with-padding section--img-fixed section--img-fixed--img-left">
         <div class="section__inner">
             <div class="section__content">
-                {% set file = app.request.schemeAndHttpHost ~ asset('/uploads/images/offer-main/' ~ data.image) %}
                 <figure class="section__img-wrap lazyload-container lazyload-container--spacer-needed-rectangle">
                     <img class="section__img lazyload"
-                         data-srcset="{{ asset('/bundles/frontend/thumbnails/offer-main/' ~ 1 ~ '/' ~ thumb(file, 1, 'offer-main', 385)) }} 385w,
-                                      {{ asset('/bundles/frontend/thumbnails/offer-main/' ~ 1 ~ '/' ~ thumb(file, 1, 'offer-main', 522)) }} 522w,
-                                      {{ asset('/bundles/frontend/thumbnails/offer-main/' ~ 1 ~ '/' ~ thumb(file, 1, 'offer-main', 770)) }} 770w,
-                                      {{ asset('/bundles/frontend/thumbnails/offer-main/' ~ 1 ~ '/' ~ thumb(file, 1, 'offer-main', 1044)) }} 1044w"
+                         data-srcset="{{ asset('/uploads/images/offer-main/' ~ data.image)|imagine_filter('thumb_385')  }} 385w,
+                                      {{ asset('/uploads/images/offer-main/' ~ data.image)|imagine_filter('thumb_522')  }} 522w,
+                                      {{ asset('/uploads/images/offer-main/' ~ data.image)|imagine_filter('thumb_770')  }} 770w,
+                                      {{ asset('/uploads/images/offer-main/' ~ data.image)|imagine_filter('thumb_1044') }} 1044w"
                          data-src="{{ asset('/uploads/images/offer-main/' ~ data.image) }}" data-sizes="auto" alt="">
                 </figure>
                 <div class="section__text">
@@ -105,8 +107,6 @@
                     <div class="glide__track" data-glide-el="track">
                         <ul class="glide__slides gallery__items">
                             {% for item in data.item %}
-
-                                {#{% set file = app.request.schemeAndHttpHost ~ asset('/uploads/images/offer-item/' ~ item.image) %}#}
                                 <li class="gallery__item glide__slide H(a)--lg D(f)--lg Fld(c)--lg">
                                     <figure class="gallery__img-wrap lazyload-container lazyload-container--spacer-needed-square">
                                         <img class="gallery__img lazyload" data-sizes="auto"
@@ -120,8 +120,8 @@
                                     <div class="static-content Mb(2rem)">
                                         {% if locale == 'de' %}{{ item.descriptionTrans|raw }}{% else %}{{ item.description|raw }}{% endif %}
                                     </div>
-                                    <span class="h3 D(b) Mb(1.5rem) Mt(a)--lg">Price €{{ item.price }}</span>
-                                    <a class="btn btn--theme--invert" href="#"><span class="btn__inner">Book now</span></a>
+                                    <span class="h3 D(b) Mb(1.5rem) Mt(a)--lg">{{ 'Price'|trans([], 'messages') }} €{{ item.price }}</span>
+                                    <a class="btn btn--theme--invert" href="#"><span class="btn__inner">{{ 'Book now'|trans([], 'messages') }}</span></a>
                                 </li>
                             {% endfor %}
                         </ul>
@@ -139,5 +139,9 @@
 {% endblock %}
 
 {% block jscripts %}
+    <script type="text/javascript" src="{{ asset('/bundles/frontend/js/vendors~about-us~activities~chalets~common~contacts~index~restaurant~spa~special-offers~suites.bundle.js') }}"></script>
+    {#<script type="text/javascript" src="{{ asset('/bundles/frontend/js/common~contacts.js') }}"></script>#}
+    <script type="text/javascript" src="{{ asset('/bundles/frontend/js/common.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('/bundles/frontend/js/vendors~about-us~activities~index~special-offers.bundle.js') }}"></script>
     <script type="text/javascript" src="{{ asset('/bundles/frontend/js/special-offers.js') }}"></script>
 {% endblock %}

@@ -144,6 +144,8 @@ easy_admin:
                 - { property: 'title_trans', label: 'Title' }
                 - { property: 'description_trans', type: 'ckeditor', label: 'Description' }
                 - { property: 'icon', type: 'collection', type_options: { entry_type: 'BackendBundle\Form\Type\AddNewIcon', by_reference: false } }
+                - { type: 'tab', label: 'Slide block', css_class: 'col-sm-6', icon: 'list-ul'}
+                - { property: 'slide', type: 'collection', type_options: { entry_type: 'BackendBundle\Form\Type\AddNewSlide', by_reference: false } }
                 - { type: 'tab', label: 'Spa block', css_class: 'col-sm-6', icon: 'list-ul'}
                 - { property: 'spa_title', label: 'Title' }
                 - { property: 'spa_description', type: 'ckeditor', label: 'Description' }
@@ -219,6 +221,7 @@ easy_admin:
               - title
               - description
               - price
+              - { property: 'price_trans', label: 'Price [DE]' }
           form:
             fields:
               - { type: 'tab', label: 'Default [EN]', icon: 'globe' }
@@ -231,6 +234,7 @@ easy_admin:
               - { property: 'slug', type_options: { disabled: true }}
               - { property: 'imageFile', label: 'Preview image', type: 'vich_image' }
               - price
+              - { property: 'price_trans', label: 'Price [DE]' }
               - { type: 'tab', label: 'Features', css_class: 'col-sm-6', icon: 'plus'}
               - { property: 'feature', type: 'collection', type_options: { entry_type: 'BackendBundle\Form\Type\AddNewFeature', by_reference: false } }
               - { type: 'tab', label: 'Rooms', css_class: 'col-sm-6', icon: 'plus'}
@@ -394,6 +398,16 @@ easy_admin:
               - { type: 'divider' }
               #              - { property: 'third_blc_title_trans', label: 'Title [DE]' }
               - { property: 'second_blc_description_trans', type: 'ckeditor', label: 'Description [DE]' }
+              - { type: 'tab', label: 'Price', css_class: 'col-sm-6', icon: 'plus'}
+              - { property: 'price_blc_title', label: 'Title [EN]' }
+              - { property: 'price_blc_description', type: 'ckeditor', label: 'Description [EN]' }
+              - { type: 'divider' }
+              - { property: 'price_blc_title_trans', label: 'Title [DE]' }
+              - { property: 'price_blc_description_trans', type: 'ckeditor', label: 'Description [DE]' }
+              - { type: 'divider' }
+              - { property: 'priceFile', label: 'File [EN]', type: 'vich_file' }
+              - { property: 'priceFile_trans', label: 'File [DE]', type: 'vich_file' }
+
         RestaurantPage:
           class: BackendBundle\Entity\RestaurantPage
           list:

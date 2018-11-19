@@ -56,6 +56,27 @@ class RoomClass
     /**
      * @ORM\Column(type="string", nullable=true)
      */
+    private $price_trans;
+
+    /**
+     * @return mixed
+     */
+    public function getPriceTrans()
+    {
+        return $this->price_trans;
+    }
+
+    /**
+     * @param mixed $price_trans
+     */
+    public function setPriceTrans($price_trans)
+    {
+        $this->price_trans = $price_trans;
+    }
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
     private $image;
 
     /**
@@ -179,6 +200,8 @@ class RoomClass
     public function removeItem(\BackendBundle\Entity\RoomClassItem $r)
     {
         $this->item->removeElement($r);
+        $r->setClass(null);
+
     }
 
 
@@ -204,6 +227,8 @@ class RoomClass
     public function removeFeature(\BackendBundle\Entity\FeaturesClassItem $r)
     {
         $this->feature->removeElement($r);
+        $r->setI(null);
+
     }
 
 
@@ -228,6 +253,8 @@ class RoomClass
     public function removeGallery(\BackendBundle\Entity\GalleryClassItem $r)
     {
         $this->gallery->removeElement($r);
+        $r->setClass(null);
+
     }
 
 

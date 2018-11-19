@@ -1,10 +1,10 @@
 <?php
+
 namespace BackendBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
-use Gedmo\Mapping\Annotation as Gedmo;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
@@ -46,6 +46,12 @@ class HomePage
      * @ORM\OneToMany(targetEntity="BackendBundle\Entity\HomeIcons", mappedBy="homep", cascade={"persist", "remove"}, orphanRemoval=true)
      */
     private $icon;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     * @ORM\OneToMany(targetEntity="BackendBundle\Entity\HomeSlider", mappedBy="home", cascade={"persist", "remove"}, orphanRemoval=true)
+     */
+    private $slide;
 
 
     /**
@@ -127,7 +133,7 @@ class HomePage
     private $chalet_image;
 
     /**
-     * @Vich\UploadableField(mapping="charlets", fileNameProperty="chalet_image")
+     * @Vich\UploadableField(mapping="chalet", fileNameProperty="chalet_image")
      * @var File
      */
     private $chalet_imageFile;
@@ -180,7 +186,6 @@ class HomePage
             $this->updatedAt = new \DateTime('now');
         }
     }
-
 
 
     /**
@@ -361,6 +366,11 @@ class HomePage
     public function setChaletImageFile(File $chalet_imageFile)
     {
         $this->chalet_imageFile = $chalet_imageFile;
+
+        if ($chalet_imageFile) {
+            // if 'updatedAt' is not defined in your entity, use another property
+            $this->updatedAt = new \DateTime('now');
+        }
     }
 
     /**
@@ -517,11 +527,33 @@ class HomePage
     }
 
     /**
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSlide()
+    {
+        return $this->slide;
+    }
+
+    /**
+     * @param \Doctrine\Common\Collections\Collection $slide
+     */
+    public function setSlide(\Doctrine\Common\Collections\Collection $slide)
+    {
+        $this->slide = $slide;
+    }
+
+    /**
      * @param File $spa_imageFile
      */
     public function setSpaImageFile(File $spa_imageFile)
     {
         $this->spa_imageFile = $spa_imageFile;
+
+
+        if ($spa_imageFile) {
+            // if 'updatedAt' is not defined in your entity, use another property
+            $this->updatedAt = new \DateTime('now');
+        }
     }
 
     /**
@@ -549,7 +581,7 @@ class HomePage
     /**
      * @param \Doctrine\Common\Collections\Collection $icon
      */
-    public function setIcon( $icon)
+    public function setIcon($icon)
     {
         $this->icon = $icon;
     }
@@ -575,12 +607,40 @@ class HomePage
     public function removeIcon(\BackendBundle\Entity\HomeIcons $part)
     {
         $this->icon->removeElement($part);
+        $part->setHomep(null);
+
+    }
+
+    /**
+     * @param \BackendBundle\Entity\HomeSlider $part
+     *
+     * @return HomePage
+     */
+    public function addSlide(\BackendBundle\Entity\HomeSlider $part)
+    {
+        $part->setHome($this);
+
+        $this->slide->add($part);
+
+        return $this;
+    }
+
+    /**
+     * @param \BackendBundle\Entity\HomeSlider $part
+     *
+     */
+    public function removeSlide(\BackendBundle\Entity\HomeSlider $part)
+    {
+        $this->slide->removeElement($part);
+        $part->setHome(null);
+
     }
 
     public function __construct()
     {
         $this->updatedAt = new \DateTime('now');
         $this->icon = new ArrayCollection();
+        $this->slide = new ArrayCollection();
     }
 
     /**
