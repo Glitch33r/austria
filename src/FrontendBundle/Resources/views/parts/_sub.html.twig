@@ -1,6 +1,6 @@
 <div class="Py(2rem) Bgc(lunar-green)">
     <div class="container">
-        <form  class="subscription js-ajax-form js-validate-form" action="{{ path('submit-subscription') }}" data-success-text="Congratulations! You have registered your email for our subscription!" method="post" novalidate>
+        <form  class="subscription js-ajax-form js-validate-form" action="{{ path('submit-subscription') }}" data-success-text="{{ 'success.subscription'|trans([], 'messages') }}" method="post" novalidate>
             <div class="subscription__inner">
                 <label class="subscription__text" for="subscription-field">{{ 'sub.to.news'|trans([], 'messages') }}</label>
                 <div class="subscription__inputs">

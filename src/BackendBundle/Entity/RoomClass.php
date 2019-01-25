@@ -80,6 +80,16 @@ class RoomClass
     private $image;
 
     /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $image_alt;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $image_alt_trans;
+
+    /**
      * @Vich\UploadableField(mapping="room_class", fileNameProperty="image")
      * @var File
      */
@@ -105,9 +115,16 @@ class RoomClass
     private $item;
 
 
+//    /**
+//     * @var \Doctrine\Common\Collections\Collection
+//     * @ORM\OneToMany(targetEntity="BackendBundle\Entity\RoomFeature", mappedBy="room")
+//     */
+//    private $feature;
+
     /**
-     * @var \Doctrine\Common\Collections\Collection
-     * @ORM\OneToMany(targetEntity="BackendBundle\Entity\FeaturesClassItem", mappedBy="i", cascade={"persist"})
+     * Many Users have Many Groups.
+     * @ORM\ManyToMany(targetEntity="BackendBundle\Entity\RoomFeature", inversedBy="room")
+     * @ORM\JoinTable(name="fetures_room")
      */
     private $feature;
 
@@ -117,6 +134,38 @@ class RoomClass
      * @ORM\OneToMany(targetEntity="BackendBundle\Entity\GalleryClassItem", mappedBy="class", cascade={"persist"}, orphanRemoval=true)
      */
     private $gallery;
+
+    /**
+     * @return mixed
+     */
+    public function getImageAlt()
+    {
+        return $this->image_alt;
+    }
+
+    /**
+     * @param mixed $image_alt
+     */
+    public function setImageAlt($image_alt)
+    {
+        $this->image_alt = $image_alt;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getImageAltTrans()
+    {
+        return $this->image_alt_trans;
+    }
+
+    /**
+     * @param mixed $image_alt_trans
+     */
+    public function setImageAltTrans($image_alt_trans)
+    {
+        $this->image_alt_trans = $image_alt_trans;
+    }
 
 
     /**
@@ -205,14 +254,9 @@ class RoomClass
     }
 
 
-    /**
-     * @param \BackendBundle\Entity\FeaturesClassItem $r
-     *
-     * @return RoomClass
-     */
-    public function addFeature(\BackendBundle\Entity\FeaturesClassItem $r)
+    public function addFeature(\BackendBundle\Entity\RoomFeature $r)
     {
-        $r->setI($this);
+        $r->setRoom($this);
 
         $this->feature->add($r);
 
@@ -221,13 +265,13 @@ class RoomClass
 
 
     /**
-     * @param \BackendBundle\Entity\FeaturesClassItem $r
+     * @param \BackendBundle\Entity\RoomFeature $r
      *
      */
-    public function removeFeature(\BackendBundle\Entity\FeaturesClassItem $r)
+    public function removeFeature(\BackendBundle\Entity\RoomFeature $r)
     {
         $this->feature->removeElement($r);
-        $r->setI(null);
+        $r->setRoom(null);
 
     }
 

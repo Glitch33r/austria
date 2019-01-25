@@ -85,6 +85,16 @@ class HomePage
      */
     private $spa_imageFile;
 
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $spa_image_alt;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $spa_image_alt_trans;
+
 
     /**
      * @ORM\Column(type="string", nullable=true)
@@ -138,6 +148,16 @@ class HomePage
      */
     private $chalet_imageFile;
 
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $chalet_image_alt;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $chalet_image_alt_trans;
+
 
     /**
      * @ORM\Column(type="string", nullable=true)
@@ -149,6 +169,16 @@ class HomePage
      * @var File
      */
     private $background_imageFile;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $background_image_alt;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $background_image_alt_trans;
 
     /**
      * @return mixed
@@ -714,5 +744,101 @@ class HomePage
     public function setDescription($description)
     {
         $this->description = $description;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSpaImageAlt()
+    {
+        return $this->spa_image_alt;
+    }
+
+    /**
+     * @param mixed $spa_image_alt
+     */
+    public function setSpaImageAlt($spa_image_alt)
+    {
+        $this->spa_image_alt = $spa_image_alt;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSpaImageAltTrans()
+    {
+        return $this->spa_image_alt_trans;
+    }
+
+    /**
+     * @param mixed $spa_image_alt_trans
+     */
+    public function setSpaImageAltTrans($spa_image_alt_trans)
+    {
+        $this->spa_image_alt_trans = $spa_image_alt_trans;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getChaletImageAlt()
+    {
+        return $this->chalet_image_alt;
+    }
+
+    /**
+     * @param mixed $chalet_image_alt
+     */
+    public function setChaletImageAlt($chalet_image_alt)
+    {
+        $this->chalet_image_alt = $chalet_image_alt;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getChaletImageAltTrans()
+    {
+        return $this->chalet_image_alt_trans;
+    }
+
+    /**
+     * @param mixed $chalet_image_alt_trans
+     */
+    public function setChaletImageAltTrans($chalet_image_alt_trans)
+    {
+        $this->chalet_image_alt_trans = $chalet_image_alt_trans;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getBackgroundImageAlt()
+    {
+        return $this->background_image_alt;
+    }
+
+    /**
+     * @param mixed $background_image_alt
+     */
+    public function setBackgroundImageAlt($background_image_alt)
+    {
+        $this->background_image_alt = $background_image_alt;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getBackgroundImageAltTrans()
+    {
+        return $this->background_image_alt_trans;
+    }
+
+    /**
+     * @param mixed $background_image_alt_trans
+     */
+    public function setBackgroundImageAltTrans($background_image_alt_trans)
+    {
+        $this->background_image_alt_trans = $background_image_alt_trans;
     }
 }

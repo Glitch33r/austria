@@ -1,26 +1,33 @@
 {% extends '@Frontend/base.html.twig' %}
-
 {% block bodyclass %} class="page" {% endblock %}
-
 {% block seo %}
     {% if seo %}
         {% if locale == 'de' %}
             <meta name="description" content={% if seo.descriptionTrans %}{{ seo.descriptionTrans }}{% endif %}>
             <meta name="keywords" content={% if seo.keywordsTrans %}{{ seo.keywordsTrans }}{% endif %}>
             <title>{{ seo.titleTrans }}</title>
+            <meta property="og:title" content="{{ seo.titleTrans }}" />
         {% else %}
             <meta name="description" content={% if seo.description %}{{ seo.description }}{% endif %}>
             <meta name="keywords" content={% if seo.keywords %}{{ seo.keywords }}{% endif %}>
             <title>{{ seo.title }}</title>
+            <meta property="og:title" content="{{ seo.title }}" />
         {% endif %}
-    {% endif %}
-{% endblock %}
 
+    {% endif %}
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.mountains.at{{ path('room-class', {'slug': item.slug }) }}" />
+    {% for slide in item.gallery %}
+        <meta property="og:image" content="{{ asset('/uploads/images/room-class-gallery/' ~ slide.image)|imagine_filter('bg_desktop_thumb') }}" />
+    {% endfor %}
+    <meta property="og:description"
+          content="{% if locale == 'de' %}{{ item.descriptionTrans|striptags|raw }}{% else %}{{ item.description|striptags|raw  }}{% endif %}" />
+{% endblock %}
 {% block header %}
     {{ render(controller('FrontendBundle:Default:headerLight')) }}
 {% endblock %}
-
 {% block special %}
+    {#{{ dump(app.request.server.get('SCRIPT_URL'), app.request.server.get('PHP_SELF'), app.request.attributes.get('slug')) }}#}
     <div class="hero hero--size--medium hero--with-overlay">
         <div class="carousel hero__inner">
             <div class="carousel__slider hero__carousel-slider">
@@ -52,12 +59,12 @@
                                               {{ asset('/uploads/images/room-class-gallery/' ~ slide.image)|imagine_filter('thumb_208') }} 208w"
                                      data-sizes="auto"
                                      data-src="{{ asset('/uploads/images/room-class-gallery/' ~ slide.image) }}"
-                                     alt="">
+                                     alt="{% if locale == 'de' %}{{ slide.imageAltTrans }}{% else %}{{ slide.imageAlt }}{% endif %}">
                             </figure>
                         </div>
                     {% endfor %}
                 </div>
-                <p class="h3 C(#fff) Mb(0)">{{ 'Price'|trans([], 'messages') }} €{{ item.price }}</p></div>
+                <p class="h3 C(#fff) Mb(0)">{% if locale == 'de' %}{{ item.priceTrans }}{% else %}{{ item.price }}{% endif %}</p></div>
         </div>
     </div>
 {% endblock %}
@@ -73,9 +80,9 @@
                     {% for i in item.feature %}
                         <li class="facilities__item">
                             <svg class="svg-icon facilities__icon" aria-hidden="true">
-                                <use xlink:href="{{ asset('/bundles/frontend/img/icons/svg/sprite.symbol.svg') }}#{{ i.icon }}"></use>
+                                <use xlink:href="{{ asset('/bundles/frontend/img/icons/svg/sprite.symbol.svg') ~ i.imageHash }}"></use>
                             </svg>
-                            {% if locale == 'de' %}{{ i.titleTrans }}{% else %}{{ i.title }}{% endif %}
+                            {% if locale == 'de' %}{{ i.nameTrans }}{% else %}{{ i.name }}{% endif %}
                         </li>
                     {% endfor %}
                 </ul>
@@ -112,7 +119,7 @@
                                     <img class="card__img lazyload" data-sizes="auto"
                                          data-srcset="{{ asset('/uploads/images/room-class-item/' ~ i.image)|imagine_filter('thumb_304') }} 304w,
                                                       {{ asset('/uploads/images/room-class-item/' ~ i.image)|imagine_filter('thumb_608') }} 608w"
-                                         data-src="{{ asset('/uploads/images/room-class-item/' ~ i.image) }}" alt=""/>
+                                         data-src="{{ asset('/uploads/images/room-class-item/' ~ i.image) }}" alt="{% if locale == 'de' %}{{ i.imageAltTrans }}{% else %}{{ i.imageAlt }}{% endif %}"/>
                                 </figure>
                                 <div class="card__info">
                                     <h3 class="h2 C(eden)">{% if locale == 'de' %}{{ i.titleTrans }}{% else %}{{ i.title }}{% endif %}</h3>
@@ -145,10 +152,8 @@
     </div>
     {% include '@Frontend/parts/_map.html.twig' %}
 {% endblock %}
-
 {% block jscripts %}
     <script type="text/javascript" src="{{ asset('/bundles/frontend/js/vendors~about-us~activities~chalets~common~contacts~index~restaurant~spa~special-offers~suites.bundle.js') }}"></script>
-    {#<script type="text/javascript" src="{{ asset('/bundles/frontend/js/common~contacts.js') }}"></script>#}
     <script type="text/javascript" src="{{ asset('/bundles/frontend/js/common.js') }}"></script>
     <script type="text/javascript" src="{{ asset('/bundles/frontend/js/vendors~chalets~restaurant~spa~suites.bundle.js') }}"></script>
     <script type="text/javascript" src="{{ asset('/bundles/frontend/js/suites.js') }}"></script>

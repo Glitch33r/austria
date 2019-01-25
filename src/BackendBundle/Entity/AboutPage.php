@@ -45,6 +45,48 @@ class AboutPage
     private $background_imageFile;
 
     /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $background_image_alt;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $background_image_alt_trans;
+
+    /**
+     * @return mixed
+     */
+    public function getBackgroundImageAlt()
+    {
+        return $this->background_image_alt;
+    }
+
+    /**
+     * @param mixed $background_image_alt
+     */
+    public function setBackgroundImageAlt($background_image_alt)
+    {
+        $this->background_image_alt = $background_image_alt;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getBackgroundImageAltTrans()
+    {
+        return $this->background_image_alt_trans;
+    }
+
+    /**
+     * @param mixed $background_image_alt_trans
+     */
+    public function setBackgroundImageAltTrans($background_image_alt_trans)
+    {
+        $this->background_image_alt_trans = $background_image_alt_trans;
+    }
+
+    /**
      * @return mixed
      */
     public function getBackgroundImage()
@@ -213,6 +255,16 @@ class AboutPage
     private $image_first;
 
     /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $image_first_alt;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $image_first_alt_trans;
+
+    /**
      * @Vich\UploadableField(mapping="about_first", fileNameProperty="image_first")
      * @var File
      */
@@ -305,6 +357,16 @@ class AboutPage
     private $image_third;
 
     /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $image_third_alt;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $image_third_alt_trans;
+
+    /**
      * @Vich\UploadableField(mapping="about_third", fileNameProperty="image_third")
      * @var File
      */
@@ -374,6 +436,16 @@ class AboutPage
     private $image_fourth;
 
     /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $image_fourth_alt;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $image_fourth_alt_trans;
+
+    /**
      * @Vich\UploadableField(mapping="about_fourth", fileNameProperty="image_fourth")
      * @var File
      */
@@ -422,6 +494,102 @@ class AboutPage
         $this->updatedAt = new \DateTime('now');
         $this->feature = new ArrayCollection();
         $this->item = new ArrayCollection();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getImageFirstAlt()
+    {
+        return $this->image_first_alt;
+    }
+
+    /**
+     * @param mixed $image_first_alt
+     */
+    public function setImageFirstAlt($image_first_alt)
+    {
+        $this->image_first_alt = $image_first_alt;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getImageFirstAltTrans()
+    {
+        return $this->image_first_alt_trans;
+    }
+
+    /**
+     * @param mixed $image_first_alt_trans
+     */
+    public function setImageFirstAltTrans($image_first_alt_trans)
+    {
+        $this->image_first_alt_trans = $image_first_alt_trans;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getImageThirdAlt()
+    {
+        return $this->image_third_alt;
+    }
+
+    /**
+     * @param mixed $image_third_alt
+     */
+    public function setImageThirdAlt($image_third_alt)
+    {
+        $this->image_third_alt = $image_third_alt;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getImageThirdAltTrans()
+    {
+        return $this->image_third_alt_trans;
+    }
+
+    /**
+     * @param mixed $image_third_alt_trans
+     */
+    public function setImageThirdAltTrans($image_third_alt_trans)
+    {
+        $this->image_third_alt_trans = $image_third_alt_trans;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getImageFourthAlt()
+    {
+        return $this->image_fourth_alt;
+    }
+
+    /**
+     * @param mixed $image_fourth_alt
+     */
+    public function setImageFourthAlt($image_fourth_alt)
+    {
+        $this->image_fourth_alt = $image_fourth_alt;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getImageFourthAltTrans()
+    {
+        return $this->image_fourth_alt_trans;
+    }
+
+    /**
+     * @param mixed $image_fourth_alt_trans
+     */
+    public function setImageFourthAltTrans($image_fourth_alt_trans)
+    {
+        $this->image_fourth_alt_trans = $image_fourth_alt_trans;
     }
 
     /**

@@ -1,5 +1,18 @@
-# www.robotstxt.org/
-# www.google.com/support/webmasters/bin/answer.py?hl=en&answer=156449
-
 User-agent: *
-Disallow:
+
+Crawl-delay: 100
+
+Disallow: /*.xml$
+Disallow: /backend*
+Disallow: /admin*
+Disallow: /search
+Disallow: /login$
+Disallow: /logout
+Disallow: /register
+Disallow: /elfinder/*
+Disallow: /efconnect/*
+Disallow: /_profiler/*
+Disallow: /_wdt/*
+
+Host: https://www.mountains.at
+Sitemap: https://www.mountains.at/sitemap.xml

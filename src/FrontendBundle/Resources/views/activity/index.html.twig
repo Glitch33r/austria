@@ -1,23 +1,26 @@
 {% extends '@Frontend/base.html.twig' %}
-
 {% block bodyclass %} class="page" {% endblock %}
-
 {% block seo %}
      {% if locale == 'de' %}
          <meta name="description" content={{ seo.descriptionTrans }}>
          <meta name="keywords" content={{ seo.keywordsTrans }}>
          <title>{{ seo.titleTrans }}</title>
+         <meta property="og:title" content="{{ seo.titleTrans }}" />
      {% else %}
          <meta name="description" content={{ seo.description }}>
          <meta name="keywords" content={{ seo.keywords }}>
          <title>{{ seo.title }}</title>
+         <meta property="og:title" content="{{ seo.title }}" />
      {% endif %}
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.mountains.at{{ path('activities') }}" />
+    <meta property="og:image" content="{{ asset('/uploads/images/background/activities/' ~ activities[0].backgroundImage) | imagine_filter('bg_desktop_thumb') }}" />
+    <meta property="og:description"
+          content="{% if locale == 'de' %}{{ activities[0].descriptionTrans|striptags|raw }}{% else %}{{ activities[0].description|striptags|raw  }}{% endif %}" />
 {% endblock %}
-
 {% block header %}
     {{ render(controller('FrontendBundle:Default:headerLight')) }}
 {% endblock %}
-
 {% block special %}
     <div class="hero hero--size--medium hero--with-overlay">
         <div class="hero__inner">
@@ -26,7 +29,7 @@
             <div class="hero__content container">
                 <div class="breadcrumbs">
                     <ul class="breadcrumbs__list">
-                        <li class="breadcrumbs__item"><a class="breadcrumbs__link" href="{{ path('homepage') }}">{{  'Home'|trans([], 'messages') }}</a>
+                        <li class="breadcrumbs__item"><a class="breadcrumbs__link" hreflang="{% if locale == 'de' %}de{% else %}en{% endif %}" href="{{ path('homepage') }}">{{  'Home'|trans([], 'messages') }}</a>
                             <svg class="svg-icon breadcrumbs__icon" aria-hidden="true">
                                 <use xlink:href="{{ asset('/bundles/frontend/img/icons/svg/sprite.symbol.svg') }}#chevron-right"></use>
                             </svg>
@@ -38,14 +41,13 @@
                 <img class="hero__people lazyload js-parallax B(-208px) W(355px)"
                     data-srcset="{{ asset('/bundles/frontend/img/people-desktop-3_355.png') }} 355w,
                                  {{ asset('/bundles/frontend/img/people-desktop-3_710.png') }} 710w"
-                    data-src="{{ asset('/bundles/frontend/img/people-desktop-3_710.png') }}" data-sizes="auto" alt="" data-speed="36">
+                    data-src="{{ asset('/bundles/frontend/img/people-desktop-3_710.png') }}" data-sizes="auto" alt="{% if locale == 'de' %}{{ activities[0].backgroundImageAltTrans }}{% else %}{{ activities[0].backgroundImageAlt }}{% endif %}" data-speed="36">
             <div class="hero__clouds"></div>
         </div>
     </div>
 {% endblock %}
-
 {% block content %}
-        {% for activity in activities %}
+        {% for activity in activities|reverse %}
             <section class="section">
                 <div class="container section__inner">
                     <div class="row">
@@ -69,9 +71,9 @@
                                                     <img class="gallery__img lazyload" data-sizes="auto"
                                                          data-srcset="{{ asset('/uploads/images/activities/' ~ item.image) |imagine_filter('thumb_250') }} 250w,
                                                                       {{ asset('/uploads/images/activities/' ~ item.image) |imagine_filter('thumb_500') }} 500w"
-                                                         data-src="{{ asset('/uploads/images/activities/' ~ item.image) }}" alt="">
+                                                         data-src="{{ asset('/uploads/images/activities/' ~ item.image) }}" alt="{% if locale == 'de' %}{{ item.imageAltTrans }}{% else %}{{ item.imageAlt }}{% endif %}">
                                                     <figcaption class="gallery__caption">
-                                                        <h4 class="h3 gallery__title">{% if locale == 'de' %}{{ item.titleTrans }}{% else %}{{ item.title }}{% endif %}</h4>
+                                                        <h4 class="gallery__title">{% if locale == 'de' %}{{ item.titleTrans }}{% else %}{{ item.title }}{% endif %}</h4>
                                                     </figcaption>
                                                 </figure>
                                                 <div class="static-content">
@@ -106,10 +108,8 @@
         {% endfor %}
     {% include '@Frontend/parts/_map.html.twig' %}
 {% endblock %}
-
 {% block jscripts %}
     <script type="text/javascript" src="{{ asset('/bundles/frontend/js/vendors~about-us~activities~chalets~common~contacts~index~restaurant~spa~special-offers~suites.bundle.js') }}"></script>
-    {#<script type="text/javascript" src="{{ asset('/bundles/frontend/js/common~contacts.js') }}"></script>#}
     <script type="text/javascript" src="{{ asset('/bundles/frontend/js/common.js') }}"></script>
     <script type="text/javascript" src="{{ asset('/bundles/frontend/js/vendors~about-us~activities~index~special-offers.bundle.js') }}"></script>
     <script type="text/javascript" src="{{ asset('/bundles/frontend/js/activities.js') }}"></script>

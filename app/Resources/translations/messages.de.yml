@@ -12,8 +12,8 @@ sub.to.news:  NEWSLETTER ABONNIEREN
 Submit: ABSENDEN
 Price: Preis
 3 reasons:  3 Gründe
-to book:  für eine
-direct: direktbuchung
+to book:  direkt
+direct: zu buchen
 MORE INFO:  WEITERE INFORMATIONEN
 I accept:  Ich akzeptiere
 Home: STARTSEITE
@@ -22,13 +22,19 @@ Comments: Bemerkungen
 Telephone: Telefon
 Name: Name
 Email: Email
-Download:
-modal_reasons.first:
-modal_reasons.second:
-modal_reasons.third:
-error.name:
-error.phone:
-error.email:
-succes.subscription:
-Click to view:
-Say hello:
+Download: Download
+modal_reasons.first: Sie bekommen die besten Zimmer.
+modal_reasons.second: Wir können Ihnen mehr kleine Aufmerksamkeiten zukommen lassen, da wir keine 15 bis 20% Kommission an eine Buchungsplattform zahlen müssen.
+modal_reasons.third: Sie erhalten garantiert den besten Preis. Falls unser Preis zwischen dem Buchungstag und Ihrer Ankunft günstiger wird, passen wir den Preis automatisch an.
+error.name: Bitte geben Sie einen gültigen Namen an
+error.phone: Bitte geben Sie eine gültige Telefonnummer an
+error.email: Bitte geben Sie eine gültige Email-Adresse an
+success.subscription: Glückwunsch! Sie haben sich mit Ihrer Email-Adresse registriert!
+success.contact.title: Glückwunsch!
+success.contact.text: Ihre Nachricht wurde erfolgreich gesendet.
+Click to view: Klicke zum Zeigen
+Say hello: Sag hallo
+Legal Notice: Impressum und rechtliche Hinweise
+cookies: Cookies erleichtern die Bereitstellung unserer Dienste. Mit der Nutzung unserer Dienste erklären Sie sich damit einverstanden, dass wir Cookies verwenden.
+error.title: Seite nicht auffindbar.
+error.sub_title: Die von Ihnen angeforderte Seite konnte nicht gefunden werden.

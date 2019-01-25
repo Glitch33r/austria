@@ -1,10 +1,40 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{% if locale == 'de' %}de{% else %}en{% endif %}">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">{% block seo %}{% endblock %}
-    <link rel="stylesheet" href="{{ asset('/bundles/frontend/css/main.css') }}">{% block stylesheets %}{% endblock %}
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <!-- Google Tag Manager -->
+    <script>
+        (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+                new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-MG7V5Q8');
+    </script>
+    <!-- End Google Tag Manager -->
+    {% block seo %}{% endblock %}
+    <link rel="stylesheet" href="{{ asset('/bundles/frontend/css/main.css') }}">
+    {% block stylesheets %}{% endblock %}
+    <meta name="msapplication-config" content="{{ asset('/bundles/frontend/favicons/browserconfig.xml') }}">
+    <link rel="apple-touch-icon" sizes="57x57" href="{{ asset('/bundles/frontend/favicons/apple-icon-57x57.png') }}">
+    <link rel="apple-touch-icon" sizes="60x60" href="{{ asset('/bundles/frontend/favicons/apple-icon-60x60.png') }}">
+    <link rel="apple-touch-icon" sizes="72x72" href="{{ asset('/bundles/frontend/favicons/apple-icon-72x72.png') }}">
+    <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('/bundles/frontend/favicons/apple-icon-76x76.png') }}">
+    <link rel="apple-touch-icon" sizes="114x114" href="{{ asset('/bundles/frontend/favicons/apple-icon-114x114.png') }}">
+    <link rel="apple-touch-icon" sizes="120x120" href="{{ asset('/bundles/frontend/favicons/apple-icon-120x120.png') }}">
+    <link rel="apple-touch-icon" sizes="144x144" href="{{ asset('/bundles/frontend/favicons/apple-icon-144x144.png') }}">
+    <link rel="apple-touch-icon" sizes="152x152" href="{{ asset('/bundles/frontend/favicons/apple-icon-152x152.png') }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('/bundles/frontend/favicons/apple-icon-180x180.png') }}">
+    <link rel="icon" type="image/png" sizes="192x192"  href="{{ asset('/bundles/frontend/favicons/android-icon-192x192.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('/bundles/frontend/favicons/favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="96x96" href="{{ asset('/bundles/frontend/favicons/favicon-96x96.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('/bundles/frontend/favicons/favicon-16x16.png') }}">
+    <link rel="manifest" href="{{ asset('/bundles/frontend/favicons/manifest.json') }}">
+    {#<meta name="msapplication-TileColor" content="#ffffff">#}
+    <meta name="msapplication-TileImage" content="{{ asset('/bundles/frontend/favicons/ms-icon-144x144.png') }}">
+    {#<meta name="theme-color" content="#ffffff">#}
+    {#<meta name ="apple-mobile-web-app-title" content="{% if seo.titleTrans or seo.title %}{% if locale == 'de' %}{{ seo.titleTrans }}{% else %}{{ seo.title }}{% endif %}{% endif %}">#}
     <script>window.resourceBaseUrl = "/bundles/frontend/js/";</script>
     <script>function loadScript(src) {
             var scriptElement = document.createElement("script");
@@ -12,12 +42,17 @@
             scriptElement.src = src;
             document.head.appendChild(scriptElement);
         }
-
         if (!Element.prototype.closest) loadScript("{{ asset('/bundles/frontend/js/polyfills.js') }}");
         if (!window.HTMLPictureElement || document.msElementsFromPoint) loadScript("{{ asset('/bundles/frontend/js/responsive-images-polyfill.js') }}");
         if ("objectFit" in document.documentElement.style === false) loadScript("{{ asset('/bundles/frontend/js/object-fit-polyfill.js') }}"); </script>
 </head>
 <body{% block bodyclass %}{% endblock %}>
+<!-- Google Tag Manager (noscript) -->
+<noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MG7V5Q8"
+                  height="0" width="0" style="display:none;visibility:hidden"></iframe>
+</noscript>
+<!-- End Google Tag Manager (noscript) -->
 <div class="page__wrapper">{% block header %}{{ render(controller('FrontendBundle:Default:headerDark')) }}{% endblock %}
     <main class="page__content">
         {% block special %}{% endblock %}
@@ -32,9 +67,7 @@
 </div>
 {% block cookies %}{% include '@Frontend/parts/_cookies.html.twig' %}{% endblock %}
 <button class="btn btn--theme--invert page__fixed-btn js-go-to-booking" type="button"><span class="btn__inner">{{ 'Book now'|trans([], 'messages') }}</span></button>
-
 {% block jscripts %}{% endblock %}
-
 {% block modal %}{% endblock %}
 </body>
 </html>

@@ -32,6 +32,12 @@ class AddNewAdventure extends AbstractType
             'required' => true,
             'allow_delete' => true,
         ]);
+        $builder->add('imageAlt', TextType::class, [
+            'label' => 'Alt [EN]',
+        ]);
+        $builder->add('imageAltTrans', TextType::class, [
+            'label' => 'Alt [De]',
+        ]);
     }
 
     /**

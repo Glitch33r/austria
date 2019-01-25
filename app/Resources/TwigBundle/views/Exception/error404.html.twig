@@ -1,0 +1,29 @@
+{% extends 'FrontendBundle::base.html.twig' %}
+
+{% block bodyclass %} class="page" {% endblock %}
+{% block header %}{{ render(controller('FrontendBundle:Default:headerLight')) }}{% endblock %}
+{% block seo %}
+    <meta name="description" content="{{ 'error.title'|trans([], 'messages') }} {{ 'error.sub_title'|trans([], 'messages') }}">
+    <meta name="keywords" content="{{ 'error.title'|trans([], 'messages') }} {{ 'error.sub_title'|trans([], 'messages') }}">
+    <title>{{ 'error.title'|trans([], 'messages') }} {{ 'error.sub_title'|trans([], 'messages') }}</title>
+{% endblock %}
+{% block special %}
+    <div class="hero hero--size--medium hero--with-overlay">
+        <div class="hero__inner">
+            <div class="hero__bg lazyload lazyload-container"
+                 data-bgset="{{ asset('/bundles/frontend/img/temp/bg-10-desktop.jpg') }} [(min-width: 992px)] | {{ asset('/bundles/frontend/img/temp/bg-10-mobile.jpg') }}"></div>
+            <div class="hero__content container">
+                <h1 class="hero__title Mb(0)">{{ 'error.title'|trans([], 'messages') }} <br/> {{ 'error.sub_title'|trans([], 'messages') }}</h1>
+            </div>
+            <div class="hero__clouds"></div>
+        </div>
+    </div>
+{% endblock %}
+{% block content %}
+    {% include '@Frontend/parts/_map.html.twig' %}
+{% endblock %}
+{% block jscripts %}
+    <script type="text/javascript"
+            src="{{ asset('/bundles/frontend/js/vendors~about-us~activities~chalets~common~contacts~index~restaurant~spa~special-offers~suites.bundle.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('/bundles/frontend/js/common.js') }}"></script>
+{% endblock %}

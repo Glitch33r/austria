@@ -1,20 +1,18 @@
 <footer class="page-footer page__footer">
     <div class="container page-footer__inner">
-        <div class="static-content C(#fff)"><p>{{ contact.address }}</p></div>
+        <div><a class="page-footer__link" rel="nofollow" target="_blank" href="https://goo.gl/maps/53SRV">{{ contact.address }}</a></div>
         <ul class="page-footer__list">
             <li class="page-footer__item"><a class="page-footer__link" href="tel:{{ contact.telephone }}">{{ contact.telephone }}</a></li>
             <li class="page-footer__item"><a class="page-footer__link" href="mailto:{{ contact.email }}">{{ contact.email }}</a></li>
         </ul>
         <ul class="page-footer__list">
-            <li class="page-footer__item"><a class="page-footer__link" href="#">Newsletteranmeldung verwalten</a></li>
-            <li class="page-footer__item"><a class="page-footer__link" href="#">Impressum & rechtliche Hinweise</a></li>
-            <li class="page-footer__item"><a class="page-footer__link" href="#">merlin.marketing</a></li>
+            <li class="page-footer__item"><a class="page-footer__link" hreflang="{% if locale == 'de' %}de{% else %}en{% endif %}" href="{{ path('legal-notice') }}">{{ 'Legal Notice'|trans([], 'messages') }}</a></li>
         </ul>
     </div>
     <div class="container">
         <div class="js-init-on-scroll"
              data-src="https://api.trustyou.com/static/3rdparty/iframe-resizer/js/iframeResizer.min.js"
-             data-onload="iFrameResize({});" style="position: relative;">
+             style="position: relative;">
             <div class="js-init-on-scroll-inner" style="display: none;">
                 <iframe
                         data-src="https://api.trustyou.com/hotels/6e3c092f-04e2-4607-86f5-d8c9641ed5c7/social.html?key=05ece9b0-4eff-440c-9874-8a99a3190c1e&amp;iframe_resizer=true"

@@ -51,6 +51,14 @@ class GalleryChalet
      */
     private $imageFile;
 
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $image_alt;
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $image_alt_trans;
 
     /**
      * @ORM\Column(type="string", nullable=true)
@@ -62,6 +70,81 @@ class GalleryChalet
      * @var File
      */
     private $imageFile_thumb;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $image_thumb_alt;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $image_thumb_alt_trans;
+
+    /**
+     * @return mixed
+     */
+    public function getImageAlt()
+    {
+        return $this->image_alt;
+    }
+
+    /**
+     * @param mixed $image_alt
+     */
+    public function setImageAlt($image_alt)
+    {
+        $this->image_alt = $image_alt;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getImageAltTrans()
+    {
+        return $this->image_alt_trans;
+    }
+
+    /**
+     * @param mixed $image_alt_trans
+     */
+    public function setImageAltTrans($image_alt_trans)
+    {
+        $this->image_alt_trans = $image_alt_trans;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getImageThumbAlt()
+    {
+        return $this->image_thumb_alt;
+    }
+
+    /**
+     * @param mixed $image_thumb_alt
+     */
+    public function setImageThumbAlt($image_thumb_alt)
+    {
+        $this->image_thumb_alt = $image_thumb_alt;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getImageThumbAltTrans()
+    {
+        return $this->image_thumb_alt_trans;
+    }
+
+    /**
+     * @param mixed $image_thumb_alt_trans
+     */
+    public function setImageThumbAltTrans($image_thumb_alt_trans)
+    {
+        $this->image_thumb_alt_trans = $image_thumb_alt_trans;
+    }
+
 
     /**
      * @return mixed

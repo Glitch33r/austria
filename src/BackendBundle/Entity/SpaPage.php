@@ -32,6 +32,49 @@ class SpaPage
      */
     private $background_imageFile;
 
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $background_image_alt;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $background_image_alt_trans;
+
+    /**
+     * @return mixed
+     */
+    public function getBackgroundImageAlt()
+    {
+        return $this->background_image_alt;
+    }
+
+    /**
+     * @param mixed $background_image_alt
+     */
+    public function setBackgroundImageAlt($background_image_alt)
+    {
+        $this->background_image_alt = $background_image_alt;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getBackgroundImageAltTrans()
+    {
+        return $this->background_image_alt_trans;
+    }
+
+    /**
+     * @param mixed $background_image_alt_trans
+     */
+    public function setBackgroundImageAltTrans($background_image_alt_trans)
+    {
+        $this->background_image_alt_trans = $background_image_alt_trans;
+    }
+
     /**
      * @return mixed
      */
@@ -304,7 +347,7 @@ class SpaPage
         }
     }
 
-    /**
+     /**
      * @ORM\Column(type="string", nullable=true)
      */
     private $image;
@@ -326,6 +369,50 @@ class SpaPage
      * @ORM\OneToMany(targetEntity="BackendBundle\Entity\SpaGallery", mappedBy="spa", cascade={"persist"})
      */
     private $gallery;
+
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $image_alt;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $image_alt_trans;
+
+    /**
+     * @return mixed
+     */
+    public function getImageAlt()
+    {
+        return $this->image_alt;
+    }
+
+    /**
+     * @param mixed $image_alt
+     */
+    public function setImageAlt($image_alt)
+    {
+        $this->image_alt = $image_alt;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getImageAltTrans()
+    {
+        return $this->image_alt_trans;
+    }
+
+    /**
+     * @param mixed $image_alt_trans
+     */
+    public function setImageAltTrans($image_alt_trans)
+    {
+        $this->image_alt_trans = $image_alt_trans;
+    }
+
 
     /**
      * @return \Doctrine\Common\Collections\Collection

@@ -10,8 +10,9 @@ imports:
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
-    locale: en
-    app_locales: en|de
+    locale: de
+
+    app_locales: de|en
     app.path.activities: /uploads/images/activities
     app.path.amenitie_part: /uploads/images/amenitiepart
     app.path.chalet: /uploads/images/chalet
@@ -46,6 +47,7 @@ parameters:
     app.path.file_price: /uploads/files/price
     app.path.file_price_trans: /uploads/files/price/trans
     app.path.slider_home: /uploads/images/slider-home
+    app.path.background_legal: /uploads/images/background/legal
 
 
 liip_imagine:
@@ -143,6 +145,56 @@ liip_imagine:
 
 
 
+    thumb_16:
+      quality: 80
+      filters:
+        thumbnail: { size: [16, 16] }
+    thumb_32:
+      quality: 80
+      filters:
+        thumbnail: { size: [32, 32] }
+    thumb_57:
+      quality: 80
+      filters:
+        thumbnail: { size: [57, 57] }
+    thumb_64:
+      quality: 80
+      filters:
+        thumbnail: { size: [64, 64] }
+    thumb_60:
+      quality: 80
+      filters:
+        thumbnail: { size: [60, 60] }
+    thumb_72:
+      quality: 80
+      filters:
+        thumbnail: { size: [72,72] }
+    thumb_76:
+      quality: 80
+      filters:
+        thumbnail: { size: [76,76] }
+    thumb_92:
+      quality: 80
+      filters:
+        thumbnail: { size: [92, 92] }
+    thumb_114:
+      quality: 80
+      filters:
+        thumbnail: { size: [114, 114] }
+    thumb_144:
+      quality: 80
+      filters:
+        thumbnail: { size: [144, 144] }
+    thumb_152:
+      quality: 80
+      filters:
+        thumbnail: { size: [152, 152] }
+    thumb_120:
+      quality: 80
+      filters:
+        thumbnail: { size: [120, 120] }
+
+
 
 vich_uploader:
     db_driver: orm
@@ -151,6 +203,9 @@ vich_uploader:
           file_price:
               uri_prefix:         '%app.path.file_price%'
               upload_destination: '%kernel.root_dir%/../web/uploads/files/price'
+          background_legal:
+              uri_prefix:         '%app.path.background_legal%'
+              upload_destination: '%kernel.root_dir%/../web/uploads/images/background/legal'
           file_price_trans:
               uri_prefix:         '%app.path.file_price_trans%'
               upload_destination: '%kernel.root_dir%/../web/uploads/files/price/trans'
@@ -251,6 +306,11 @@ vich_uploader:
             uri_prefix:         '%app.path.slider_home%'
             upload_destination: '%kernel.root_dir%/../web/uploads/images/slider-home'
 
+
+#be_simple_i18n_routing:
+#  annotations: true
+#
+
 framework:
     templating:
             engines: ['twig']
@@ -268,7 +328,7 @@ framework:
     csrf_protection: ~
     validation: { enable_annotations: true }
     #serializer: { enable_annotations: true }
-    default_locale: '%locale%'
+    default_locale: 'de'
     trusted_hosts: ~
     session:
 #        { default_locale: '%locale%' }

@@ -34,6 +34,49 @@ class Contacts
      */
     private $background_imageFile;
 
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $background_image_alt;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $background_image_alt_trans;
+
+    /**
+     * @return mixed
+     */
+    public function getBackgroundImageAlt()
+    {
+        return $this->background_image_alt;
+    }
+
+    /**
+     * @param mixed $background_image_alt
+     */
+    public function setBackgroundImageAlt($background_image_alt)
+    {
+        $this->background_image_alt = $background_image_alt;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getBackgroundImageAltTrans()
+    {
+        return $this->background_image_alt_trans;
+    }
+
+    /**
+     * @param mixed $background_image_alt_trans
+     */
+    public function setBackgroundImageAltTrans($background_image_alt_trans)
+    {
+        $this->background_image_alt_trans = $background_image_alt_trans;
+    }
+
     /**
      * @return mixed
      */

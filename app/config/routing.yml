@@ -5,6 +5,9 @@
 frontend:
     resource: "@FrontendBundle/Controller/"
     type:     annotation
+#    prefix:   /{_locale}
+#    defaults:
+#        _locale: 'de'
 
 #backend:
 #    resource: "@BackendBundle/Controller/"

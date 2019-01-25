@@ -23,7 +23,6 @@ class ContactFormType extends AbstractType
                 'attr'   =>  [
                     'class'   => 'input input--line--single js-validate-field',
                     'data-field-type' => 'name',
-                    'data-error' => 'error.name',
                     'name' => 'name',
                     'placeholder' => 'Email'
                 ]
@@ -35,7 +34,6 @@ class ContactFormType extends AbstractType
                 'attr'   =>  [
                     'class'   => 'input input--line--single js-validate-field',
                     'data-field-type' => 'email',
-                    'data-error' => 'error.email',
                     'name' => 'email',
                     'placeholder' => 'Email'
                 ]
@@ -48,7 +46,6 @@ class ContactFormType extends AbstractType
                     'class'   => 'input input--line--single js-validate-field',
                     'placeholder' => 'Telephone',
                     'data-field-type'=> 'phone',
-                    'data-error' => 'error.phone',
                     'name' => 'phone'
                 ]
             ])

@@ -53,6 +53,18 @@ class HomeSlider
      */
     private $url;
 
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $image_alt;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $image_alt_trans;
+
+
     /**
      * @return mixed
      */
@@ -182,4 +194,35 @@ class HomeSlider
         $this->title = $title;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getImageAlt()
+    {
+        return $this->image_alt;
+    }
+
+    /**
+     * @param mixed $image_alt
+     */
+    public function setImageAlt($image_alt)
+    {
+        $this->image_alt = $image_alt;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getImageAltTrans()
+    {
+        return $this->image_alt_trans;
+    }
+
+    /**
+     * @param mixed $image_alt_trans
+     */
+    public function setImageAltTrans($image_alt_trans)
+    {
+        $this->image_alt_trans = $image_alt_trans;
+    }
 }

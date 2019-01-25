@@ -1,24 +1,26 @@
 {% extends '@Frontend/base.html.twig' %}
-
-
 {% block bodyclass %} class="page" {% endblock %}
-
 {% block seo %}
     {% if locale == 'de' %}
         <meta name="description" content={% if seo.descriptionTrans %}{{ seo.descriptionTrans }}{% endif %}>
         <meta name="keywords" content={% if seo.keywordsTrans %}{{ seo.keywordsTrans }}{% endif %}>
         <title>{{ seo.titleTrans }}</title>
+        <meta property="og:title" content="{{ seo.titleTrans }}" />
     {% else %}
         <meta name="description" content={% if seo.description %}{{ seo.description }}{% endif %}>
         <meta name="keywords" content={% if seo.keywords %}{{ seo.keywords }}{% endif %}>
         <title>{{ seo.title }}</title>
+        <meta property="og:title" content="{{ seo.title }}" />
     {% endif %}
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.mountains.at{{ path('chalets') }}" />
+    <meta property="og:image" content="{{ asset('/uploads/images/background/chalets/' ~ chalet.backgroundImage)|imagine_filter('bg_desktop_thumb') }}" />
+    <meta property="og:description"
+          content="{% if locale == 'de' %}{{ chalet.descriptionTrans|striptags|raw }}{% else %}{{ chalet.description|striptags|raw  }}{% endif %}" />
 {% endblock %}
-
 {% block header %}
     {{ render(controller('FrontendBundle:Default:headerLight')) }}
 {% endblock %}
-
 {% block special %}
     <div class="hero hero--size--medium hero--with-overlay">
         <div class="hero__inner">
@@ -44,7 +46,6 @@
         </div>
     </div>
 {% endblock %}
-
 {% block content %}
         <section class="section">
             <div class="container section__inner">
@@ -69,13 +70,11 @@
                             </button>
                         </div>
                     </div>
-                    <div class="col-lg-6 offset-lg-3">
-                        <div class="js-widget"
-                             data-src="https://res-online.ch/wbePlus/incubator.js.php?hotelID=2872&amp;username=WBEPlus&amp;password=zSUyPbYu&amp;type=step"
-                             style="display: none;">
-                            <div id="wbe_container"></div>
-                            <div class="loader W(8rem) H(8rem) Mx(a)"></div>
-                        </div>
+                    <div class="js-widget"
+                         data-src="https://res-online.ch/wbePlus/incubator.js.php?hotelID=2872&amp;username=WBEPlus&amp;password=zSUyPbYu&amp;type=step{% if locale == 'de' %}&amp;lang=de{% else %}&amp;lang=en{% endif %}"
+                         style="display: none;">
+                        <div class="wbe-quickstarter-container" data-redirect="{{ path('rooms-and-prices') }}#open-widget"></div>
+                        <div class="loader W(8rem) H(8rem) Mx(a)"></div>
                     </div>
                 </div>
             </div>
@@ -94,7 +93,7 @@
                                                           {{ asset('/uploads/images/chalet-gallery/' ~ item.image)|imagine_filter('thumb_1366') }} 1366w,
                                                           {{ asset('/uploads/images/chalet-gallery/' ~ item.image)|imagine_filter('thumb_1920') }} 1920w"
                                              data-src="{{ asset('/uploads/images/chalet-gallery/' ~ item.image) }}"
-                                             data-sizes="auto" alt="">
+                                             data-sizes="auto" alt="{% if locale == 'de' %}{{ item.imageAltTrans }}{% else %}{{ item.imageAlt }}{% endif %}">
                                     </figure>
                                 </div>
                             {% endfor %}
@@ -114,7 +113,7 @@
                                                               {{ asset('/uploads/images/chalet-gallery/' ~ item.image)|imagine_filter('thumb_208') }} 208w"
                                                  data-sizes="auto"
                                                  data-src="{{ asset('/uploads/images/chalet-gallery/' ~ item.image) }}"
-                                                 alt="">
+                                                 alt="{% if locale == 'de' %}{{ item.imageAltTrans }}{% else %}{{ item.imageAlt }}{% endif %}">
                                         </figure>
                                     </div>
                                 {% endfor %}
@@ -146,7 +145,7 @@
                                         <img class="card__img lazyload" data-sizes="auto"
                                              data-srcset="{{ asset('/uploads/images/chalet-item/' ~ i.image)|imagine_filter('thumb_304') }} 304w,
                                                           {{ asset('/uploads/images/chalet-item/' ~ i.image)|imagine_filter('thumb_608') }} 608w"
-                                             data-src="{{ asset('/uploads/images/chalet-item/' ~ i.image) }}" alt=""/>
+                                             data-src="{{ asset('/uploads/images/chalet-item/' ~ i.image) }}" alt="{% if locale == 'de' %}{{ i.imageAltTrans }}{% else %}{{ i.imageAlt }}{% endif %}"/>
                                     </figure>
                                     <div class="card__info">
                                         <h3 class="h2 C(eden)">{% if locale == 'de' %}{{ i.titleTrans }}{% else %}{{ i.title }}{% endif %}</h3>
@@ -184,10 +183,8 @@
         </div>
     {% include '@Frontend/parts/_map.html.twig' %}
 {% endblock %}
-
 {% block jscripts %}
     <script type="text/javascript" src="{{ asset('/bundles/frontend/js/vendors~about-us~activities~chalets~common~contacts~index~restaurant~spa~special-offers~suites.bundle.js') }}"></script>
-    {#<script type="text/javascript" src="{{ asset('/bundles/frontend/js/common~contacts.js') }}"></script>#}
     <script type="text/javascript" src="{{ asset('/bundles/frontend/js/common.js') }}"></script>
     <script type="text/javascript" src="{{ asset('/bundles/frontend/js/vendors~chalets~restaurant~spa~suites.bundle.js') }}"></script>
     <script type="text/javascript" src="{{ asset('/bundles/frontend/js/chalets.js') }}"></script>

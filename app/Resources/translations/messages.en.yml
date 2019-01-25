@@ -13,7 +13,7 @@ Submit: Submit
 Price: Price
 3 reasons: 3 reasons
 to book: to book
-direct: direct
+direct: directly
 MORE INFO: MORE INFO
 I accept: I accept
 Home: Home
@@ -25,12 +25,16 @@ Telephone: Telephone
 Name: Name
 Email: Email
 Download: Download
-modal_reasons.first: You are allocated the best rooms.
+modal_reasons.first: You’ll get the best rooms.
 modal_reasons.second: We have more flexibility to provide you with little things since we are not paying a 15% - 20% commission to a 3rd party.
-modal_reasons.third: Your rate is guaranteed to be the lowest rate at all times. If we lower the rate between the time you reserve and the time you arrive, we will adjust your rate automatically.
+modal_reasons.third: Your rate is guaranteed to be the lowest rate at all times. If we lower the rate between the time of your reservation and the time of your stay, your rate will be adjusted automatically.
 error.name: Please, enter valid name
 error.phone: Please, enter valid phone
 error.email: Please, enter valid email
 success.subscription: Congratulations! You have registered your email for our subscription!
 success.contact.title: Congratulations!
 success.contact.text: Your message has been successfully sent.
+Legal Notice: Imprint and Legal notice
+cookeies: This website uses cookies to ensure you get the best experience on our website.
+error.title: Page not found.
+error.sub_title: The page you requested is currently unavailable.

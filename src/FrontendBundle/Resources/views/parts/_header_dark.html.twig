@@ -7,8 +7,10 @@
                 </svg>
             </button>
         </div>
-        <a class="page-header__logo-wrap" href="{{ path('homepage') }}">
-            <img class="page-header__logo" src="{{ asset('/bundles/frontend/img/logo.svg') }}">
+        <a class="page-header__logo-wrap" hreflang="{% if locale == 'de' %}de{% else %}en{% endif %}"
+           href="{{ path('homepage') }}">
+            <img class="page-header__logo" src="{{ asset('/bundles/frontend/img/logo.svg') }}"
+                 alt="St. Peter Hotel & Chalets">
         </a>
         <div class="page-header__holder"></div>
         <div class="page-header__menu">
@@ -31,7 +33,6 @@
                     </li>
                 </ul>
             </div>
-
             <div class="socials socials page-header__socials socials--theme--dark">
                 <ul class="socials__list">
                     <li class="socials__item"><a class="socials__link" href="{{ contact.tripadvisor }}" target="_blank">
@@ -55,51 +56,188 @@
             </div>
             {% if (app.request.server.get('SCRIPT_URL') == path('contacts') or app.request.server.get('PHP_SELF') == path('contacts')) or app.request.server.get('SCRIPT_URL') == path('activities')
                 or app.request.server.get('PHP_SELF') == path('activities') %}
-                <a class="btn js-go-to-booking btn--theme--default" href="{{ path('homepage') }}#booking"><span class="btn__inner">{{ 'Book now'|trans([], 'messages') }}</span></a>
+                <a class="btn js-go-to-booking btn--theme--default"
+                   hreflang="{% if locale == 'de' %}de{% else %}en{% endif %}"
+                   href="{{ path('homepage') }}#booking"><span
+                            class="btn__inner">{{ 'Book now'|trans([], 'messages') }}</span></a>
             {% else %}
-                <button class="btn js-go-to-booking btn--theme--default" type="button"><span class="btn__inner">{{ 'Book now'|trans([], 'messages') }}</span></button>
+                <button class="btn js-go-to-booking btn--theme--default" type="button"><span
+                            class="btn__inner">{{ 'Book now'|trans([], 'messages') }}</span></button>
             {% endif %}
             <div class="languages page-header__languages languages--theme--dark">
                 <ul class="languages__list">
-                    <li class="languages__item"><a class="languages__link {% if app.request.get('_locale') == 'en' %}languages__link--current{% endif %}"
-                                                   href="{{ path('translation', {locale: 'en'}) }}">ENG</a></li>
-                    <li class="languages__item"><a class="languages__link {% if app.request.get('_locale') == 'de' %}languages__link--current{% endif %}"
-                                                   href="{{ path('translation', {locale: 'de'}) }}">DE</a></li>
+                    {#{% if (app.request.server.get('SCRIPT_URL') == path('homepage') or app.request.server.get('PHP_SELF') == path('homepage')) %}#}
+                        {#<li class="languages__item"><a#}
+                                    {#class="languages__link {% if app.request.get('_locale') == 'en' %}languages__link--current{% endif %}"#}
+                                    {#hreflang="{% if locale == 'de' %}de{% else %}en{% endif %}"#}
+                                    {#href="{{ path('homepage.en' ) }}">ENG</a></li>#}
+                        {#<li class="languages__item"><a#}
+                                    {#class="languages__link {% if app.request.get('_locale') == 'de' %}languages__link--current{% endif %}"#}
+                                    {#hreflang="{% if locale == 'de' %}de{% else %}en{% endif %}"#}
+                                    {#href="{{ path('homepage.de' ) }}">DE</a></li>#}
+                    {#{% endif %}#}
+                    {#{% if (app.request.server.get('SCRIPT_URL') == path('contacts') or app.request.server.get('PHP_SELF') == path('contacts')) %}#}
+                        {#<li class="languages__item"><a#}
+                                    {#class="languages__link {% if app.request.get('_locale') == 'en' %}languages__link--current{% endif %}"#}
+                                    {#hreflang="{% if locale == 'de' %}de{% else %}en{% endif %}"#}
+                                    {#href="{{ path('contacts.en' ) }}">ENG</a></li>#}
+                        {#<li class="languages__item"><a#}
+                                    {#class="languages__link {% if app.request.get('_locale') == 'de' %}languages__link--current{% endif %}"#}
+                                    {#hreflang="{% if locale == 'de' %}de{% else %}en{% endif %}"#}
+                                    {#href="{{ path('contacts.de' ) }}">DE</a></li>#}
+                    {#{% endif %}#}
+                    {#{% if (app.request.server.get('SCRIPT_URL') == path('activities') or app.request.server.get('PHP_SELF') == path('activities')) %}#}
+                        {#<li class="languages__item"><a#}
+                                    {#class="languages__link {% if app.request.get('_locale') == 'en' %}languages__link--current{% endif %}"#}
+                                    {#hreflang="{% if locale == 'de' %}de{% else %}en{% endif %}"#}
+                                    {#href="{{ path('activities.en' ) }}">ENG</a></li>#}
+                        {#<li class="languages__item"><a#}
+                                    {#class="languages__link {% if app.request.get('_locale') == 'de' %}languages__link--current{% endif %}"#}
+                                    {#hreflang="{% if locale == 'de' %}de{% else %}en{% endif %}"#}
+                                    {#href="{{ path('activities.de' ) }}">DE</a></li>#}
+                    {#{% endif %}#}
+
+                    {#{% if (app.request.server.get('SCRIPT_URL') == path('about-us') or app.request.server.get('PHP_SELF') == path('about-us')) %}#}
+                        {#<li class="languages__item"><a#}
+                                    {#class="languages__link {% if app.request.get('_locale') == 'en' %}languages__link--current{% endif %}"#}
+                                    {#hreflang="{% if locale == 'de' %}de{% else %}en{% endif %}"#}
+                                    {#href="{{ path('about-us.en' ) }}">ENG</a></li>#}
+                        {#<li class="languages__item"><a#}
+                                    {#class="languages__link {% if app.request.get('_locale') == 'de' %}languages__link--current{% endif %}"#}
+                                    {#hreflang="{% if locale == 'de' %}de{% else %}en{% endif %}"#}
+                                    {#href="{{ path('about-us.de' ) }}">DE</a></li>#}
+                    {#{% endif %}#}
+
+                    {#{% if (app.request.server.get('SCRIPT_URL') == path('rooms-and-prices') or app.request.server.get('PHP_SELF') == path('rooms-and-prices')) %}#}
+                        {#<li class="languages__item"><a#}
+                                    {#class="languages__link {% if app.request.get('_locale') == 'en' %}languages__link--current{% endif %}"#}
+                                    {#hreflang="{% if locale == 'de' %}de{% else %}en{% endif %}"#}
+                                    {#href="{{ path('rooms-and-prices.en' ) }}">ENG</a></li>#}
+                        {#<li class="languages__item"><a#}
+                                    {#class="languages__link {% if app.request.get('_locale') == 'de' %}languages__link--current{% endif %}"#}
+                                    {#hreflang="{% if locale == 'de' %}de{% else %}en{% endif %}"#}
+                                    {#href="{{ path('rooms-and-prices.de' ) }}">DE</a></li>#}
+                    {#{% endif %}#}
+                    {#{% if (app.request.server.get('SCRIPT_URL') == path('special-offers') or app.request.server.get('PHP_SELF') == path('special-offers')) %}#}
+                        {#<li class="languages__item"><a#}
+                                    {#class="languages__link {% if app.request.get('_locale') == 'en' %}languages__link--current{% endif %}"#}
+                                    {#hreflang="{% if locale == 'de' %}de{% else %}en{% endif %}"#}
+                                    {#href="{{ path('special-offers.en' ) }}">ENG</a></li>#}
+                        {#<li class="languages__item"><a#}
+                                    {#class="languages__link {% if app.request.get('_locale') == 'de' %}languages__link--current{% endif %}"#}
+                                    {#hreflang="{% if locale == 'de' %}de{% else %}en{% endif %}"#}
+                                    {#href="{{ path('special-offers.de' ) }}">DE</a></li>#}
+                    {#{% endif %}#}
+                    {#{% if (app.request.server.get('SCRIPT_URL') == path('activities') or app.request.server.get('PHP_SELF') == path('activities')) %}#}
+                        {#<li class="languages__item"><a#}
+                                    {#class="languages__link {% if app.request.get('_locale') == 'en' %}languages__link--current{% endif %}"#}
+                                    {#hreflang="{% if locale == 'de' %}de{% else %}en{% endif %}"#}
+                                    {#href="{{ path('activities.en' ) }}">ENG</a></li>#}
+                        {#<li class="languages__item"><a#}
+                                    {#class="languages__link {% if app.request.get('_locale') == 'de' %}languages__link--current{% endif %}"#}
+                                    {#hreflang="{% if locale == 'de' %}de{% else %}en{% endif %}"#}
+                                    {#href="{{ path('activities.de' ) }}">DE</a></li>#}
+                    {#{% endif %}#}
+                    {#{% if (app.request.server.get('SCRIPT_URL') == path('chalets') or app.request.server.get('PHP_SELF') == path('chalets')) %}#}
+                        {#<li class="languages__item"><a#}
+                                    {#class="languages__link {% if app.request.get('_locale') == 'en' %}languages__link--current{% endif %}"#}
+                                    {#hreflang="{% if locale == 'de' %}de{% else %}en{% endif %}"#}
+                                    {#href="{{ path('chalets.en' ) }}">ENG</a></li>#}
+                        {#<li class="languages__item"><a#}
+                                    {#class="languages__link {% if app.request.get('_locale') == 'de' %}languages__link--current{% endif %}"#}
+                                    {#hreflang="{% if locale == 'de' %}de{% else %}en{% endif %}"#}
+                                    {#href="{{ path('chalets.de' ) }}">DE</a></li>#}
+                    {#{% endif %}#}
+                    {#{% if (app.request.server.get('SCRIPT_URL') == path('chalets') or app.request.server.get('PHP_SELF') == path('chalets')) %}#}
+                        {#<li class="languages__item"><a#}
+                                    {#class="languages__link {% if app.request.get('_locale') == 'en' %}languages__link--current{% endif %}"#}
+                                    {#hreflang="{% if locale == 'de' %}de{% else %}en{% endif %}"#}
+                                    {#href="{{ path('chalets.en' ) }}">ENG</a></li>#}
+                        {#<li class="languages__item"><a#}
+                                    {#class="languages__link {% if app.request.get('_locale') == 'de' %}languages__link--current{% endif %}"#}
+                                    {#hreflang="{% if locale == 'de' %}de{% else %}en{% endif %}"#}
+                                    {#href="{{ path('chalets.de' ) }}">DE</a></li>#}
+                    {#{% endif %}#}
+                    {#{% if (app.request.server.get('SCRIPT_URL') == path('restaurant-and-bar') or app.request.server.get('PHP_SELF') == path('restaurant-and-bar')) %}#}
+                        {#<li class="languages__item"><a#}
+                                    {#class="languages__link {% if app.request.get('_locale') == 'en' %}languages__link--current{% endif %}"#}
+                                    {#hreflang="{% if locale == 'de' %}de{% else %}en{% endif %}"#}
+                                    {#href="{{ path('restaurant-and-bar.en' ) }}">ENG</a></li>#}
+                        {#<li class="languages__item"><a#}
+                                    {#class="languages__link {% if app.request.get('_locale') == 'de' %}languages__link--current{% endif %}"#}
+                                    {#hreflang="{% if locale == 'de' %}de{% else %}en{% endif %}"#}
+                                    {#href="{{ path('restaurant-and-bar.de' ) }}">DE</a></li>#}
+                    {#{% endif %}#}
+                    {#{% if (app.request.server.get('SCRIPT_URL') == path('spa') or app.request.server.get('PHP_SELF') == path('spa')) %}#}
+                        {#<li class="languages__item"><a#}
+                                    {#class="languages__link {% if app.request.get('_locale') == 'en' %}languages__link--current{% endif %}"#}
+                                    {#hreflang="{% if locale == 'de' %}de{% else %}en{% endif %}"#}
+                                    {#href="{{ path('spa.en' ) }}">ENG</a></li>#}
+                        {#<li class="languages__item"><a#}
+                                    {#class="languages__link {% if app.request.get('_locale') == 'de' %}languages__link--current{% endif %}"#}
+                                    {#hreflang="{% if locale == 'de' %}de{% else %}en{% endif %}"#}
+                                    {#href="{{ path('spa.de' ) }}">DE</a></li>#}
+                    {#{% endif %}#}
+                    {#{% set item_slug =  app.request.server.get('PHP_SELF')|split('/') %}#}
+                    {#{% if (app.request.server.get('SCRIPT_URL') == path('room-class', {'slug': item_slug|last }) or app.request.server.get('PHP_SELF') == path('room-class', {'slug': item_slug|last })) %}#}
+                        {#<li class="languages__item"><a#}
+                                    {#class="languages__link {% if app.request.get('_locale') == 'en' %}languages__link--current{% endif %}"#}
+                                    {#hreflang="{% if locale == 'de' %}de{% else %}en{% endif %}"#}
+                                    {#href="{{ path('room-class.en', {'slug': item_slug|last } ) }}">ENG</a></li>#}
+                        {#<li class="languages__item"><a#}
+                                    {#class="languages__link {% if app.request.get('_locale') == 'de' %}languages__link--current{% endif %}"#}
+                                    {#hreflang="{% if locale == 'de' %}de{% else %}en{% endif %}"#}
+                                    {#href="{{ path('room-class.de', {'slug': item_slug|last } ) }}">DE</a></li>#}
+                    {#{% endif %}#}
+                    <li class="languages__item"><a
+                                class="languages__link {% if app.request.get('_locale') == 'en' %}languages__link--current{% endif %}"
+                                hreflang="{% if locale == 'de' %}de{% else %}en{% endif %}"
+                                href="{{ path('translation', {'_locale': 'en' } ) }}">ENG</a></li>
+                    <li class="languages__item"><a
+                                class="languages__link {% if app.request.get('_locale') == 'de' %}languages__link--current{% endif %}"
+                                hreflang="{% if locale == 'de' %}de{% else %}en{% endif %}"
+                                href="{{ path('translation', {'_locale': 'de' } ) }}">DE</a></li>
                 </ul>
             </div>
             <nav class="nav page-header__nav nav--theme--dark">
                 <ul class="nav__list">
-
                     <li class="nav__item"><a
                                 class="nav__link  {% if app.request.server.get('SCRIPT_URL') == path('about-us')
                                     or app.request.server.get('PHP_SELF') == path('about-us') %}nav__link--current{% endif %}"
+                                hreflang="{% if locale == 'de' %}de{% else %}en{% endif %}"
                                 href="{{ path('about-us') }}">{{ 'ABOUT US'|trans([], 'messages') }}</a></li>
                     <li class="nav__item"><a
                                 class="nav__link  {% if app.request.server.get('SCRIPT_URL') == path('rooms-and-prices')
                                     or app.request.server.get('PHP_SELF') == path('rooms-and-prices') %}nav__link--current
 {% elseif app.request.server.get('PHP_SELF')|split('/')|last != '' and app.request.server.get('PHP_SELF') == path('room-class', {'slug': app.request.server.get('PHP_SELF')|split('/')|last} ) %}nav__link--current{% endif %}"
-                                href="{{ url('rooms-and-prices') }}">{{ 'ROOMS & PRICES'|trans([], 'messages') }}</a></li>
+                                hreflang="{% if locale == 'de' %}de{% else %}en{% endif %}"
+                                href="{{ url('rooms-and-prices') }}">{{ 'ROOMS & PRICES'|trans([], 'messages') }}</a>
+                    </li>
                     <li class="nav__item"><a
                                 class="nav__link  {% if app.request.server.get('SCRIPT_URL') == path('special-offers')
                                     or app.request.server.get('PHP_SELF') == path('special-offers') %}nav__link--current{% endif %}"
-                                href="{{ path('special-offers') }}">{{ 'SPECIAL OFFERS'|trans([], 'messages') }}</a></li>
+                                hreflang="{% if locale == 'de' %}de{% else %}en{% endif %}"
+                                href="{{ path('special-offers') }}">{{ 'SPECIAL OFFERS'|trans([], 'messages') }}</a>
+                    </li>
                     <li class="nav__item"><a
                                 class="nav__link {% if app.request.server.get('SCRIPT_URL') == path('activities')
                                     or app.request.server.get('PHP_SELF') == path('activities') %}nav__link--current{% endif %}"
+                                hreflang="{% if locale == 'de' %}de{% else %}en{% endif %}"
                                 href="{{ path('activities') }}">{{ 'Activities'|trans([], 'messages') }}</a></li>
                     <li class="nav__item"><a
                                 class="nav__link  {% if app.request.server.get('SCRIPT_URL') == path('chalets')
                                     or app.request.server.get('PHP_SELF') == path('chalets') %}nav__link--current{% endif %}"
+                                hreflang="{% if locale == 'de' %}de{% else %}en{% endif %}"
                                 href="{{ path('chalets') }}">{{ 'Chalets'|trans([], 'messages') }}</a></li>
                     <li class="nav__item"><a
                                 class="nav__link  {% if app.request.server.get('SCRIPT_URL') == path('contacts')
                                     or app.request.server.get('PHP_SELF') == path('contacts') %}nav__link--current{% endif %}"
+                                hreflang="{% if locale == 'de' %}de{% else %}en{% endif %}"
                                 href="{{ path('contacts') }}">{{ 'CONTACTS'|trans([], 'messages') }}</a></li>
                 </ul>
             </nav>
         </div>
     </div>
-
     <div class="container d-lg-none Pos(r)">
         <div class="contacts contacts--size--small contacts--horizontal page-header__contacts contacts--theme--dark">
             <ul class="contacts__list Jc(c)">

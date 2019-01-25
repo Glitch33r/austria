@@ -21,6 +21,8 @@ class AppKernel extends Kernel
             new FM\ElfinderBundle\FMElfinderBundle(),
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
 
+            new BeSimple\I18nRoutingBundle\BeSimpleI18nRoutingBundle(),
+
             #user-bundle
             new FOS\UserBundle\FOSUserBundle(),
             #admin

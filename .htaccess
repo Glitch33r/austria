@@ -1,0 +1,51 @@
+Options +FollowSymLinks
+
+RewriteEngine On
+
+RewriteRule /index.php?lang=ru https://www.mountains.at [L,R=301]
+RewriteRule /wepdf/Seminarfolder_Web.pdf?m=1338994833 https://www.mountains.at [L,R=301]
+RewriteRule /wellness-spa/wellnessurlaub-seefeld.php?lang=it https://www.mountains.at [L,R=301]
+RewriteRule /seefeld-in-tirol/seefeld-information-tirol.php?lang=ru https://www.mountains.at [L,R=301]
+RewriteRule /seefeld-hotel/impressum.php?lang=de https://www.mountains.at [L,R=301]
+RewriteRule /seefeld-in-tirol/webcam-wetter.php?lang=de https://www.mountains.at [L,R=301]
+RewriteRule /seefeld-hotel/impressum.php https://www.mountains.at/legal-notice [L,R=301]
+RewriteRule /seefeld-hotel/hotelzimmer-seefeld.php?lang=de https://www.mountains.at [L,R=301]
+RewriteRule /seefeld-in-tirol/seefeld-information-tirol.php?lang=de https://www.mountains.at [L,R=301]
+RewriteRule /index.php?lang=en https://www.mountains.at [L,R=301]
+RewriteRule /seefeld-hotel/hotelpreise-seefeld.php?lang=de https://www.mountains.at [L,R=301]
+RewriteRule /seefeld-hotel/packages-seefeld.php?lang=de https://www.mountains.at [L,R=301]
+RewriteRule /chalets-seefeld/mountains-chalets.php?lang=it https://www.mountains.at [L,R=301]
+RewriteRule /chalets-seefeld/mountains-chalets.php?lang=en https://www.mountains.at [L,R=301]
+RewriteRule /chalets-seefeld/mountains-chalets.php?lang=de https://www.mountains.at [L,R=301]
+RewriteRule /seefeld-in-tirol/seefeld-information-tirol.php?lang=it https://www.mountains.at [L,R=301]
+RewriteRule /wellness-spa/wellnessurlaub-seefeld.php?lang=de https://www.mountains.at [L,R=301]
+RewriteRule /chalets-seefeld/mountains-chalets.php?lang=ru https://www.mountains.at [L,R=301]
+RewriteRule /index.php?lang=it https://www.mountains.at [L,R=301]
+RewriteRule /seefeld-hotel/hotelpreise-seefeld.php https://www.mountains.at [L,R=301]
+RewriteRule /index.php?lang=de https://www.mountains.at [L,R=301]
+RewriteRule /gallery/gallery22.jpg https://www.mountains.at [L,R=301]
+
+
+
+RewriteCond %{REQUEST_URI} ^(.*)//(.*)$
+RewriteRule . %1/%2 [R=301,L]
+RewriteCond %{REQUEST_URI} ^(.*)--(.*)$
+RewriteRule . %1-%2 [R=301,L]
+
+RewriteCond %{HTTP_HOST} ^mountains.at
+RewriteRule ^(.*)$ http://www.mountains.at/$1 [R=301,L]
+
+
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/xml application/xml application/xhtml+xml text/javascript text/css application/x-javascript
+    BrowserMatch ^Mozilla/4 gzip-only-text/html
+    BrowserMatch ^Mozilla/4.0[678] no-gzip
+    BrowserMatch bMSIE !no-gzip !gzip-only-text/html
+
+    <ifmodule mod_gzip.c>
+        mod_gzip_on Yes
+        mod_gzip_item_include file \.js$
+        mod_gzip_item_include file \.css$
+    </ifmodule>
+
+</IfModule>
